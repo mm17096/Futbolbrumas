@@ -1,0 +1,55 @@
+.modal-header{
+    background-color: #2A3F54;
+}
+.modal-title{
+    color: white;
+}
+.close{
+    color: white;
+}
+.btn-cancelar, .cancelar{
+    background-color:#E8F6F3 !important;
+    color: black;
+}
+.btn-guardar{
+    color: white;
+    background-color: #2A3F54 !important;
+}
+.btn-guardar:hover{
+    color: white;
+}
+.btn-baja{
+    background-color:#F1948A !important;
+}
+.btn-alta{
+    background-color:#ABEBC6 !important;
+}
+.btn-editar{
+    background-color:#F5CBA7  !important;
+}
+
+.btn-gol{
+    background-color:#ABEBC6  !important;
+    color: black;
+}
+
+.btn-falta{
+    background-color:#ABEBC6  !important;
+    color: black;
+}
+
+.btn-cambio{
+    background-color:#ABEBC6  !important;
+    color: black;
+}
+
+.combo{
+    padding-top: 15px;
+    padding-bottom: 18px;
+ }
+
+.fa-estadio{
+  margin: 0 auto;
+  text-align:absolute;
+
+}
