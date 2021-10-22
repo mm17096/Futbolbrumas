@@ -96,20 +96,39 @@ class DaoEquipo{
 
     function registroEquipo(Equipo $e){
 
-            if(!($e instanceof Equipo)){
-                $this->Error="Error de instanciado,\n el objeto no es de tipo Clase Equipo";
-                return 0;
+            $result= $this->Conexion_ID->query("INSERT INTO `equipo` VALUES ('".$e->getNombre()."', '".$e->getCamisa()."', '".$e->getRepresentante()."', '".$e->getEstado()."')");
+        
+            if ($result) {
+               return 1;
             }
-            $result= $this->Conexion_ID->query("insert into equipo values('".$e->getId()."','".$e->getNombre()."','".$e->getIdEstadio()."','".$e->getEstado()."','".$e->getPuntos()."')");
-            if(!$result){
-                $this->Errno=mysqli_conecct_errno();
-                $this->Errror=mysqli_conecct_error();
-                return 0;
-            }else {
-                return 1;
-            }
+            return 0;
 
     }
+
+    
+    function registroEquipoImagen($imagen, $id){
+
+        $result= $this->Conexion_ID->query("UPDATE `equipo` SET `camisa`= '".$imagen."' WHERE idequipo = '$id')");
+       
+        $id = $this->Conexion_ID->insert_id;
+        if ($id != 0) {
+           return $id;
+        }
+        return 0;
+
+}
+
+function Idmax(){
+
+    $result= $this->Conexion_ID->query("SELECT MAX(idequipo) FROM `equipo`");
+ 
+    if ($result) {
+       return $result;
+    }
+    return 0;
+
+}
+
     function actualizarEquipo(Equipo $e){
 
         if(!($e instanceof Equipo)){

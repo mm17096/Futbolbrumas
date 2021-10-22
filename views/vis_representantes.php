@@ -81,9 +81,10 @@
 
                                 <!-- MENSAJE DE ACCIONES -->
                                 <?php
-                                $action = (isset($_REQUEST["action"])) ? $_REQUEST["action"] : "";
+                                //$action = (isset($_REQUEST["action"])) ? $_REQUEST["action"] : "";
 
-                                if ($action != "" && $action == "true" || isset( $_SESSION['action_success'])) {
+                                if (isset( $_SESSION['action_success']) && $_SESSION['action_success'] == 'completo') {
+                                    
                                     $_SESSION['action_success'] = null;
                                     unset($_SESSION['action_success']);
                                     $messages[] = "El proceso ha sido realizado con éxito.";
@@ -100,9 +101,10 @@
                                         ?>
                                 </div>
                                 <?php
-                                } else if ($action != "" && $action == "false" || isset( $_SESSION['action_error'])) {
-                                    $_SESSION['action_error'] = null;
-                                    unset($_SESSION['action_error']);
+                                } else if (isset( $_SESSION['action_success']) && $_SESSION['action_success'] == 'error') {
+                                    
+                                    $_SESSION['action_success'] = null;
+                                    unset($_SESSION['action_success']);
                                     $errors[] = "Error en algun proceso, no se completo la accion";
                                 ?>
                                     <div id="msjerror" class="alert alert-danger" role="alert"
@@ -236,7 +238,7 @@
                                                                     <input type="hidden" name="telefonovalidado"
                                                                         id="telefonovalidado">
                                                                 </div>
-
+                                                                
                                                             </div>
                                                         </div>
                                                     </div>

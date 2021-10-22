@@ -1,5 +1,9 @@
 <?php
 session_start();
+
+if(!isset($_SESSION['Attempts'])){
+    $_SESSION['Attempts'] = 0;
+}
 require_once "../clases/Representante.php";
 require_once "../dao/DaoRepresentante.php";
 require_once "../clases/Usuarios.php";
@@ -19,11 +23,11 @@ $daoR = new DaoRepresentante();
 $daoU = new DaoUsuario();
 
 if ($action != "") {
-    
+
     switch ($action) {
         case 'iniciar':
 
-            if ($usuario != "" && $password != "") { 
+            if ($usuario != "" && $password != "") {
                 $user = $daoU->loging($usuario, $password);
 
                 if ($user != false) {
@@ -32,18 +36,16 @@ if ($action != "") {
                         $identidad = $daoE->BuscarEmpleado($user->idempleado);
 
                         if ($identidad != null) {
-                            
+
                             $_SESSION['usuario'] = $user;
                             $_SESSION['identidad'] = $identidad;
-                            $_SESSION['action_singin'] = 'success';
-                            //echo "<script type='text/javascript'> alert('".$_SESSION['tipo_usuario']."');</script>";
+                            $_SESSION['action_login'] = 'completo';
                             echo '<script>window.location="' . base_url . 'views/index.php"</script>';
                         } else {
 
-                            $_SESSION['action_singin'] = 'error';
-                            echo '<script>window.location="' . base_url . 'views/sesion.php?action=falseidentidad"</script>';
+                            $_SESSION['action_login'] = 'error';
+                            echo '<script>window.location="' . base_url . 'views/sesion.php"</script>';
                         }
-                        
                     } else if ($user->tipo == "usuario") {
                         $identidad = $daoR->BuscarRepresentante($user->idrepresentante);
 
@@ -51,31 +53,33 @@ if ($action != "") {
 
                             $_SESSION['usuario'] = $user;
                             $_SESSION['identidad'] = $identidad;
-                            $_SESSION['action_singin'] = 'success';
-                           // echo "<script type='text/javascript'> alert('".$_SESSION['tipo_usuario']."');</script>";
+                            $_SESSION['action_login'] = 'completo';
                             echo '<script>window.location="' . base_url . 'views/index.php"</script>';
                         } else {
 
-                            $_SESSION['action_singin'] = 'error';
-                            echo '<script>window.location="' . base_url . 'views/sesion.php?action=falseidentidad"</script>';
+                            $_SESSION['action_login'] = 'error';
+                            $_SESSION['Attempts'] ++;
+                            echo '<script>window.location="' . base_url . 'views/sesion.php"</script>';
                         }
                     }
                 } else {
 
-                    $_SESSION['action_singin'] = 'error';
-                    echo '<script>window.location="' . base_url . 'views/sesion.php?action=falseuser"</script>';
+                    $_SESSION['action_login'] = 'error';
+                    $_SESSION['Attempts'] ++;
+                    echo '<script>window.location="' . base_url . 'views/sesion.php"</script>';
                 }
             } else {
 
-                $_SESSION['action_singin'] = 'error';
-                echo '<script>window.location="' . base_url . 'views/sesion.php?action=falsedatos</script>';
+                $_SESSION['action_login'] = 'error';
+                $_SESSION['Attempts'] ++;
+                echo '<script>window.location="' . base_url . 'views/sesion.php"</script>';
             }
             break;
 
         case 'cerrar':
 
             $daoU->logout();
-            
+
             break;
 
         case 'modificar':
@@ -96,6 +100,6 @@ if ($action != "") {
             }
             break;
     }
-}else{
+} else {
     echo "<script type='text/javascript'> alert('Metodo vacio');</script>";
 }

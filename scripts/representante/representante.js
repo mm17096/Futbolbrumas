@@ -4,13 +4,14 @@ function msj() {
 
   setTimeout(function () {
     document.getElementById("msjsuccess").style.display = 'none';
-  }, 4000);
+  }, 3500);
 
   setTimeout(function () {
     document.getElementById("msjerror").style.display = 'none';
-  }, 4000);
+  }, 3500);
 
 }
+
 //Guardar Representante
 function agregarRepresentante() {
   var parametros = $("#addRepresentante").serialize();
@@ -30,6 +31,7 @@ function agregarRepresentante() {
       $('#modalguardarR').modal('hide');
     }
   });
+
 };
 
 function modificarRepresentante() {

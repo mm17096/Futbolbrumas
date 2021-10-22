@@ -31,9 +31,20 @@
 
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
+
+    <script type="text/javascript">
+        function msj() {
+
+            setTimeout(function() {
+                document.getElementById("msjsuccess").style.display = 'none';
+            }, 3500);
+
+        }
+    </script>
+
 </head>
 
-<body class="nav-md">
+<body class="nav-md" onload="msj()">
 
     <?php
     session_start();
@@ -44,9 +55,8 @@
         $clave = isset($_POST['password']) ? $_POST['password'] : false;
 
         if ($usuario != "" && $clave != "") {
-            echo '<script>window.location="' . base_url . 'controller/usuario_controller.php?action=iniciar&usuario='.$usuario.'&password='.$clave.'"</script>';
+            echo '<script>window.location="' . base_url . 'controller/usuario_controller.php?action=iniciar&usuario=' . $usuario . '&password=' . $clave . '"</script>';
         }
-
     }
 
     if (isset($_GET['sesion'])) {
@@ -54,7 +64,6 @@
         if ($_GET['sesion'] == "logout") {
             echo '<script>window.location="' . base_url . 'controller/usuario_controller.php?action=cerrar"</script>';
         }
-        
     }
 
     ?>
@@ -66,19 +75,43 @@
             require_once('menu.php');
             ?>
             <style type="text/css">
-            .required {
-                color: red;
-            }
+                .required {
+                    color: red;
+                }
 
-            .form-group {
-                width: 70%;
-                margin-left: auto;
-                margin-right: auto;
-            }
+                .form-group {
+                    width: 70%;
+                    margin-left: auto;
+                    margin-right: auto;
+                }
             </style>
 
             <div class="right_col" role="main">
             </div>
+
+            <!-- MENSAJE DE ACCIONES -->
+            <?php
+
+            if (isset($_SESSION['action_login']) && $_SESSION['action_login'] == 'completo') {
+
+                $_SESSION['action_login'] = null;
+                unset($_SESSION['action_error']);
+                $messages[] = "Bienvenido ". $_SESSION['identidad']->nombre;
+            ?>
+                <div id="msjsuccess" class="alert alert-success" role="alert" style=" position: absolute;
+                                                   right: 30px;
+                                                      top: 75px;">
+                    <strong>¡Bien hecho!</strong>
+                    <?php
+                    foreach ($messages as $message) {
+                        echo $message;
+                    }
+                    ?>
+                </div>
+            <?php
+            }
+            ?>
+            <!-- MENSAJE DE ACCIONES -->
 
 
             <!-- Pied de  Pagina -->
