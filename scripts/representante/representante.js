@@ -1,16 +1,22 @@
 //--------------- Metodos de crup ---------------//
-
 function msj() {
 
-  setTimeout(function () {
-    document.getElementById("msjsuccess").style.display = 'none';
-  }, 3500);
+    if(isset($_SESSION['identidad']) && isset($_SESSION['usuario']) && isset($_SESSION['action_login']) && $_SESSION['action_login'] == 'completo'){
+      alert('Sesion activa');
+      setTimeout(function () {
+        document.getElementById("msjsuccess").style.display = 'none';
+      }, 3500);
+    
+      setTimeout(function () {
+        document.getElementById("msjerror").style.display = 'none';
+      }, 3500);
+    }else{
+      alert('Activar sesion');
+      window.location = "index.php";
+    }
+};
 
-  setTimeout(function () {
-    document.getElementById("msjerror").style.display = 'none';
-  }, 3500);
 
-}
 
 //Guardar Representante
 function agregarRepresentante() {
@@ -109,6 +115,35 @@ function abrirmodalEditar() {
   });
 };
 
+function mostrarEquipos() {
+  $('#modalEquipos').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget)
+
+    var dui = button.data('dui')
+
+    if (window.XMLHttpRequest) {
+      xmlhttp = new XMLHttpRequest();
+    } else {
+      xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+
+    xmlhttp.onreadystatechange = function () {
+      if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+
+        document.getElementById("tablaEquipos").innerHTML = xmlhttp.responseText;
+        cargarpaginacion();
+      }
+    }
+    xmlhttp.open("GET", "../views/tablas/tb_tablaEquipos.php?id=" + dui, true);
+    xmlhttp.send();
+
+  });
+};
+
+function cargarpaginacion() {
+  $('#example1').DataTable();
+}
+
 //Abrir Modal Dar de Baja Reresentante
 function abrirmodaldeBaja() {
   $('#DeBajaRepresentante').on('show.bs.modal', function (event) {
@@ -167,6 +202,28 @@ function validacionTelefono() {
     $("#telefonovalidado").val("");
   }
 };
+
+function validarTelfinal() {
+  $telefono = document.getElementById("telefono").value;
+
+  if ($telefono.length == 9) {
+    $("#fulltel").val("validado");
+    verificarboton();
+  }else{
+    $("#fulltel").val("");
+    setTimeout(function () {
+      $(".mensajetel").fadeIn(1500);
+    }, 500);
+
+    setTimeout(function () {
+      $(".mensajetel").fadeOut(1500);
+    }, 3000);
+    verificarboton();
+  }
+};
+
+
+
 // ---- Validacion de DUI ---- //
 
 function validacionDui() {
@@ -183,6 +240,151 @@ function validacionDui() {
     $("#duivalidado").val("");
   }
 };
+
+function validarDuifinal() {
+  $dui = document.getElementById("dui").value;
+  if ($dui.length == 10) {
+    $("#fulldui").val("validado");
+    verificarboton();
+  }else{
+    $("#fulldui").val("");
+    setTimeout(function () {
+      $(".mensajedui").fadeIn(1500);
+    }, 100);
+
+    setTimeout(function () {
+      $(".mensajedui").fadeOut(1500);
+    }, 3500);
+    verificarboton();
+  }
+};
+
+// ------- Validacion de Correo ----- //
+
+function validarcorreo(){
+  $correo = document.getElementById("correo").value;
+
+  if (/^\w+([\.-]?\w+)*@(?:|hotmail|outlook|yahoo|live|gmail)\.(?:|com|es)+$/.test($correo)){
+    $("#fullcorreo").val("validado");
+    verificarboton();
+   }else{
+    $("#fullcorreo").val("");
+    setTimeout(function () {
+      $(".mensajecorreo").fadeIn(1500);
+    }, 100);
+
+    setTimeout(function () {
+      $(".mensajecorreo").fadeOut(1500);
+    }, 3500);
+    verificarboton();
+  }
+};
+
+//-------- Validacion de Fecha ------//
+
+function validarfecha(){
+  $today = new Date();
+  $fecha = document.getElementById("date").value;
+
+  $year0 = $fecha[0];
+  $year1 = $fecha[1];
+  $year2 = $fecha[2];
+  $year3 = $fecha[3];
+
+  $year = $year0 + $year1 + $year2 + $year3;
+
+  $edad = $today.getFullYear() - $year;
+
+  if ($edad >= 18) {
+    $("#fulldate").val("validado");
+    verificarboton();
+  }else{
+    document.getElementById("date").value = "";
+    $("#fulldate").val("");
+    setTimeout(function () {
+      $(".mensajefecha").fadeIn(1500);
+    }, 100);
+
+    setTimeout(function () {
+      $(".mensajefecha").fadeOut(1500);
+    }, 3500);
+    verificarboton();
+  }
+};
+
+function validarsexo(){
+  $sexo = document.getElementById("sexo").value;
+ 
+  if ($sexo == 'Masculino' || $sexo == 'Femenino') {
+    $("#fullsexo").val("validado");
+    verificarboton();
+  }else{
+    $("#fullsexo").val("");
+    setTimeout(function () {
+      $(".mensajesexo").fadeIn(1500);
+    }, 100);
+
+    setTimeout(function () {
+      $(".mensajesexo").fadeOut(1500);
+    }, 3500);
+    verificarboton();
+  }
+};
+
+function validarnombre(){
+  $nombre = document.getElementById("nombre").value;
+
+  if ($nombre != '') {
+    $("#fullnombre").val("validado");
+    verificarboton();
+  }else{
+    $("#fullnombre").val("");
+    setTimeout(function () {
+      $(".mensajenombre").fadeIn(1500);
+    }, 100);
+
+    setTimeout(function () {
+      $(".mensajenombre").fadeOut(1500);
+    }, 3500);
+    verificarboton();
+  }
+};
+
+function validarapellido(){
+  $apellido = document.getElementById("apellido").value;
+ 
+  if ($apellido != '') {
+    $("#fullapellido").val("validado");
+    verificarboton();
+  }else{
+    $("#fullapellido").val("");
+    setTimeout(function () {
+      $(".mensajeapellido").fadeIn(1500);
+    }, 100);
+
+    setTimeout(function () {
+      $(".mensajeapellido").fadeOut(1500);
+    }, 3500);
+    verificarboton();
+  }
+};
+
+function verificarboton(){
+  $nombre = document.getElementById("fullnombre").value;
+  $apellido = document.getElementById("fullapellido").value;
+  $dui = document.getElementById("fulldui").value;
+  $correo = document.getElementById("fullcorreo").value;
+  $sexo = document.getElementById("fullsexo").value;
+  $fecha = document.getElementById("fulldate").value;
+  $telefono = document.getElementById("fulltel").value;
+ 
+  if($dui == 'validado' && $sexo == 'validado' && $correo == 'validado' && $fecha == 'validado' && $telefono == 'validado' && $nombre == 'validado' && $apellido == 'validado'){
+    $("#btng").removeAttr("disabled");
+  }else{
+    $("#btng").attr("disabled", "disabled");
+  }
+
+}
 
 // ---- Validacion de Telefono Editable ---- //
 function validacionTelefonoedit() {
@@ -259,7 +461,6 @@ function soloNumeros(e) {
 };
 
 // ---- Validacion de Datos finales ---- //
-
 function validaciondatos() {
 
   $today = new Date();
@@ -273,12 +474,10 @@ function validaciondatos() {
   $year = $year0 + $year1 + $year2 + $year3;
 
   $edad = $today.getFullYear() - $year;
-
   if ($edad >= 18) {
-    agregarRepresentante();
+        agregarRepresentante();
   } else {
     document.getElementById("date").value = "";
-    alert('No se permite el registro, la edad debe ser mayor o igual a 18');
   }
 };
 

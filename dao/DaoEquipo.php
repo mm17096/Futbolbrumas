@@ -71,6 +71,19 @@ class DaoEquipo{
         return $listado;
     }
 
+    function listaEquipoRepresentante($id){
+        $result=$this->Conexion_ID->query("SELECT * FROM `equipo` WHERE idrepresentante = '$id' ");
+        $listado= array();// contendra todos nuestros datos de la base de datos
+        if($result){
+            while($fila=$result->fetch_object()){
+                $listado[]=new Equipo($fila->idequipo, $fila->nombre, $fila->camisa, $fila->idrepresentante, $fila->estado);
+            }
+        }if(!$result){
+           return 0;
+        }
+        return $listado;
+    }
+
     //VALIDACIONES PARA EQUIPOS QUE LLEVEN  MAS DE 22 JUGADORES
     function listaEquipoJornada(){// 1 cuando se agrega a la lista y 0 cuando ya jugo
         $result=$this->Conexion_ID->query("SELECT * FROM equipo  WHERE  equipo.estado = 1 ORDER BY equipo.idequipo ASC");

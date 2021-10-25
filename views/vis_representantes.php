@@ -43,12 +43,20 @@
 </head>
 
 <body class="nav-md" onload="msj()">
+
+
     <div class="container body">
         <div class="main_container">
             <!-- top navigation -->
             <?php
+            
             session_start();
-            require_once('menu.php');
+            if (isset($_SESSION['identidad']) && isset($_SESSION['usuario'])) {
+                require_once('menu.php');
+            } else {
+                header("Location: ../views/index.php");
+            }
+
             ?>
             <style type="text/css">
             .required {
@@ -83,14 +91,13 @@
                                 <?php
                                 //$action = (isset($_REQUEST["action"])) ? $_REQUEST["action"] : "";
 
-                                if (isset( $_SESSION['action_success']) && $_SESSION['action_success'] == 'completo') {
-                                    
+                                if (isset($_SESSION['action_success']) && $_SESSION['action_success'] == 'completo') {
+
                                     $_SESSION['action_success'] = null;
                                     unset($_SESSION['action_success']);
                                     $messages[] = "El proceso ha sido realizado con éxito.";
                                 ?>
-                                <div id="msjsuccess" class="alert alert-success" role="alert"
-                                    style=" position: absolute;
+                                <div id="msjsuccess" class="alert alert-success" role="alert" style=" position: absolute;
                                                    right: 30px;
                                                       top: 5px;">
                                     <strong>¡Bien hecho!</strong>
@@ -101,27 +108,26 @@
                                         ?>
                                 </div>
                                 <?php
-                                } else if (isset( $_SESSION['action_success']) && $_SESSION['action_success'] == 'error') {
-                                    
+                                } else if (isset($_SESSION['action_success']) && $_SESSION['action_success'] == 'error') {
+
                                     $_SESSION['action_success'] = null;
                                     unset($_SESSION['action_success']);
                                     $errors[] = "Error en algun proceso, no se completo la accion";
                                 ?>
-                                    <div id="msjerror" class="alert alert-danger" role="alert"
-                                        style=" position: absolute;
+                                <div id="msjerror" class="alert alert-danger" role="alert" style=" position: absolute;
                                                        right: 30px;
                                                           top: 5px;">
-                                        <strong>Error!</strong>
-                                        <?php
-                                            foreach ($errors as $error) {
-                                                echo $error;
-                                            }
+                                    <strong>Error!</strong>
+                                    <?php
+                                        foreach ($errors as $error) {
+                                            echo $error;
+                                        }
                                         ?>
-                                    </div>
+                                </div>
                                 <?php
                                 }
                                 ?>
-                             <!-- MENSAJE DE ACCIONES -->
+                                <!-- MENSAJE DE ACCIONES -->
 
                                 <!-- MODAL AGREGAR-->
                                 <div class="modal fade bs-example-modal-lg" tabindex="-1" id="modalguardarR"
@@ -144,20 +150,24 @@
                                                                     <label
                                                                         class="col-form-label col-md-6 col-sm-6">Nombre
                                                                         <span class="required">*</span></label>
-                                                                    <input type="text"
+                                                                    <input type="text" minlength="5" maxlength="20"
+                                                                        onblur="validarnombre()"
                                                                         onkeypress="return soloLetras(event)"
                                                                         pattern="[A-Z a-z]{1,50}"
                                                                         title="Formato solicitado: Letras Mayusculas o Minusculas"
                                                                         name="nombre" id="nombre" class="form-control"
                                                                         placeholder="Ingrese Nombres" autocomplete="off"
                                                                         required>
+
+                                                                    <input type="hidden" name="fullnombre"
+                                                                        id="fullnombre">
                                                                 </div>
 
                                                                 <div class="form-group">
                                                                     <label
                                                                         class="col-form-label col-md-6 col-sm-6">Apellido
                                                                         <span class="required">*</span></label>
-                                                                    <input type="text"
+                                                                    <input type="text" onblur="validarapellido()"
                                                                         onkeypress="return soloLetras(event)"
                                                                         pattern="[A-Z a-z]{1,50}"
                                                                         title="Formato solicitado: Letras Mayusculas o Minusculas"
@@ -165,12 +175,16 @@
                                                                         class="form-control"
                                                                         placeholder="Ingrese Apellidos"
                                                                         autocomplete="off" required>
+
+                                                                    <input type="hidden" name="fullapellido"
+                                                                        id="fullapellido">
                                                                 </div>
 
                                                                 <div class="form-group">
                                                                     <label class="col-form-label col-md-6 col-sm-6">DUI
                                                                         <span class="required">*</span></label>
                                                                     <input type="text" oninput="validacionDui()"
+                                                                        onblur="validarDuifinal()"
                                                                         onkeypress="return soloNumeros(event)"
                                                                         name="dui" id="dui"
                                                                         pattern="[0-9]{8}[_-][0-9]{1}"
@@ -180,6 +194,7 @@
                                                                         required>
                                                                     <input type="hidden" name="duivalidado"
                                                                         id="duivalidado">
+                                                                    <input type="hidden" name="fulldui" id="fulldui">
                                                                 </div>
 
 
@@ -187,11 +202,13 @@
                                                                     <label
                                                                         class="col-form-label col-md-6 col-sm-6">Correo
                                                                         <span class="required">*</span></label>
-                                                                    <input type="email"
+                                                                    <input type="email" onblur="validarcorreo()"
                                                                         title="Formato solicitado: Debe ser un correo valido"
                                                                         name="correo" id="correo" class="form-control"
                                                                         placeholder="Ingrese Correo Electronico"
                                                                         autocomplete="off" required>
+                                                                    <input type="hidden" name="fullcorreo"
+                                                                        id="fullcorreo">
                                                                 </div>
 
 
@@ -204,11 +221,13 @@
                                                                         class="col-form-label col-md-3 col-sm-3">Sexo<span
                                                                             class="required">*</span></label>
                                                                     <select name="sexo" id="sexo" class="form-control"
-                                                                        required>
+                                                                        onblur="validarsexo()" required>
                                                                         <option value="">~Seleccione~</option>
                                                                         <option value="Masculino">Masculino</option>
                                                                         <option value="Femenino">Femenino</option>
                                                                     </select>
+
+                                                                    <input type="hidden" name="fullsexo" id="fullsexo">
                                                                 </div>
 
 
@@ -218,9 +237,13 @@
                                                                         de Nacimiento
                                                                         <span class="required">*</span></label>
                                                                     <input type="date" name="date" id="date"
+                                                                        onblur="validarfecha()"
+                                                                        title="Mayoria de edad requerida"
                                                                         class="form-control"
                                                                         placeholder="Ingrese Fecha de Nacimiento"
                                                                         autocomplete="off" required>
+
+                                                                    <input type="hidden" name="fulldate" id="fulldate">
                                                                 </div>
 
                                                                 <div class="form-group">
@@ -228,6 +251,7 @@
                                                                         class="col-form-label col-md-6 col-sm-6">Telefono
                                                                         <span class="required">*</span></label>
                                                                     <input type="text" oninput="validacionTelefono()"
+                                                                        onblur="validarTelfinal()"
                                                                         onkeypress="return soloNumeros(event)"
                                                                         name="telefono" id="telefono"
                                                                         pattern="[0-9]{4}[_-][0-9]{4}"
@@ -235,10 +259,54 @@
                                                                         maxlength="9" min="9" class="form-control"
                                                                         placeholder="0000-0000" autocomplete="off"
                                                                         required>
+
                                                                     <input type="hidden" name="telefonovalidado"
                                                                         id="telefonovalidado">
+
+                                                                    <input type="hidden" name="fulltel" id="fulltel">
                                                                 </div>
-                                                                
+
+                                                                <div class="form-group">
+                                                                    <label
+                                                                        class="col-form-label col-md-6 col-sm-6">Mensaje
+                                                                        <span class="required">*</span></label>
+                                                                    <br /><br />
+                                                                    <div class="mensajedui"
+                                                                        style="display: none; color: red;">
+                                                                        Digite correctamente el DUI
+                                                                    </div>
+
+                                                                    <div class="mensajetel"
+                                                                        style="display: none; color: red;">
+                                                                        Digite correctamente el Telefono
+                                                                    </div>
+
+                                                                    <div class="mensajecorreo"
+                                                                        style="display: none; color: red;">
+                                                                        Digite correctamente el Correo
+                                                                    </div>
+
+                                                                    <div class="mensajefecha"
+                                                                        style="display: none; color: red;">
+                                                                        Debe ser mayor de edad
+                                                                    </div>
+
+                                                                    <div class="mensajesexo"
+                                                                        style="display: none; color: red;">
+                                                                        Debe seleccionar sexo
+                                                                    </div>
+
+                                                                    <div class="mensajenombre"
+                                                                        style="display: none; color: red;">
+                                                                        Debe completar el campo Nombre
+                                                                    </div>
+
+                                                                    <div class="mensajeapellido"
+                                                                        style="display: none; color: red;">
+                                                                        Debe completar el campo Apellido
+                                                                    </div>
+                                                                </div>
+
                                                             </div>
                                                         </div>
                                                     </div>
@@ -249,7 +317,7 @@
                                                         data-dismiss="modal">
                                                         <li class="fa fa-close cancelar"></li> Cancelar
                                                     </button>
-                                                    <button type="submit" onclick="validaciondatos()"
+                                                    <button type="submit" disabled onclick="validaciondatos()"
                                                         class="btn btn-round btn-guardar" id="btng" name="btng">
                                                         <li onclick="validaciondatos()" class="fa fa-save"></li>Guardar
                                                     </button>
@@ -504,8 +572,8 @@
                                                         <tr>
                                                             <th>Nombre</th>
                                                             <th>Telefono</th>
-                                                            <th>Equipos</th>
                                                             <th>Estado</th>
+                                                            <th>Equipos</th>
                                                             <th>Acciones</th>
                                                         </tr>
                                                     </thead>
@@ -529,20 +597,6 @@
                                                             </td>
 
                                                             <td style="text-align: center;">
-
-                                                                <?php
-                                                                        $cantidad = $daoE->CantidadEquipos($value->getDui());
-
-                                                                        if ($cantidad != null) {
-                                                                            echo $cantidad;
-                                                                        } else {
-                                                                            echo 0;
-                                                                        }
-                                                                        ?>
-
-                                                            </td>
-
-                                                            <td style="text-align: center;">
                                                                 <?php
                                                                         if ($value->getEstado() == 1) {
                                                                             echo "Activo";
@@ -551,6 +605,21 @@
                                                                         }
                                                                         ?>
                                                             </td>
+
+                                                            <td style="text-align: center; size: 20px;">
+
+                                                                <button type="button" class="btn btn-round btn-editar"
+                                                                    onclick="mostrarEquipos()"
+                                                                    data-target="#modalEquipos" data-toggle="modal"
+                                                                    data-dui='<?php echo $value->getDui(); ?>'
+                                                                    data-toggle="tooltip">
+                                                                    <li class="fa fa-eye"> Ver</li>
+                                                                </button>
+
+                                                            </td>
+
+
+
                                                             <td style="text-align: center;">
                                                                 <div class="btn-group" role="group">
 
@@ -571,8 +640,9 @@
 
                                                                         <?php if ($value->getEstado() == 1) : ?>
 
-                                                                    </button><button type="button"
-                                                                        onclick="abrirmodaldeBaja()"
+                                                                    </button>
+
+                                                                    <button type="button" onclick="abrirmodaldeBaja()"
                                                                         data-target="#DeBajaRepresentante"
                                                                         data-toggle="modal"
                                                                         data-id="<?php echo $value->getDui(); ?>"
@@ -607,6 +677,48 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <!-- MODAL DE EQUIPOS-->
+
+                                <div id="modalEquipos" class="modal fade">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+
+                                            <div class="modal-header">
+                                                <h4 class="modal-title fa fa-eye"> Equipos</h4>
+                                                <button type="button" class="close" data-dismiss="modal"><span
+                                                        aria-hidden="true">×</span>
+                                                </button>
+                                            </div>
+
+                                            <!--
+                                            <div class="form-group">
+                                                <label class="col-form-label col-md-6 col-sm-6">Representante: </label>
+                                                <input type="text" name="representantever" id="representantever"
+                                                    class="form-control" autocomplete="off"  readonly="readonly" style="left: 100px;">
+                                            </div>
+                                            -->
+
+                                            <div class="x_content">
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <div class="card-box table-responsive">
+
+                                                            <div id="tablaEquipos">
+
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- MODAL DE EQUIPOS-->
+
                             </div>
                         </div>
                     </div>

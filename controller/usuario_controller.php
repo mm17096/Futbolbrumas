@@ -44,7 +44,7 @@ if ($action != "") {
                         } else {
 
                             $_SESSION['action_login'] = 'error';
-                            echo '<script>window.location="' . base_url . 'views/sesion.php"</script>';
+                            echo '<script>window.location="' . base_url . 'views/vis_sesion.php"</script>';
                         }
                     } else if ($user->tipo == "usuario") {
                         $identidad = $daoR->BuscarRepresentante($user->idrepresentante);
@@ -59,20 +59,20 @@ if ($action != "") {
 
                             $_SESSION['action_login'] = 'error';
                             $_SESSION['Attempts'] ++;
-                            echo '<script>window.location="' . base_url . 'views/sesion.php"</script>';
+                            echo '<script>window.location="' . base_url . 'views/vis_sesion.php"</script>';
                         }
                     }
                 } else {
 
                     $_SESSION['action_login'] = 'error';
                     $_SESSION['Attempts'] ++;
-                    echo '<script>window.location="' . base_url . 'views/sesion.php"</script>';
+                    echo '<script>window.location="' . base_url . 'views/vis_sesion.php"</script>';
                 }
             } else {
 
                 $_SESSION['action_login'] = 'error';
                 $_SESSION['Attempts'] ++;
-                echo '<script>window.location="' . base_url . 'views/sesion.php"</script>';
+                echo '<script>window.location="' . base_url . 'views/vis_sesion.php"</script>';
             }
             break;
 

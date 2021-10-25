@@ -38,15 +38,15 @@
 
             setTimeout(function() {
                 document.getElementById("bloqueo").style.display = 'none';
-            }, 3500);
+            }, 9500);
 
             setTimeout(function() {
                 document.getElementById("bloqueo2").style.display = 'none';
-            }, 3500);
+            }, 9500);
 
             setTimeout(function() {
                 document.getElementById("bloqueo3").style.display = 'none';
-            }, 3500);
+            }, 9500);
 
         }
     </script>

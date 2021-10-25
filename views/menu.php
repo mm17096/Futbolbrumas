@@ -133,7 +133,7 @@
         <li class="nav-item dropdown open" style="padding-left: 15px;">
 
           <?php if (isset($_SESSION['identidad']) && isset($_SESSION['usuario'])) : ?>
-            <a href="sesion.php" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
+            <a href="vis_sesion.php" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
               <img src="imagen/usuario.png" alt="">
               <?php if ($_SESSION['identidad']->tipo == 'administrador') : ?>
                 <?php echo 'Administrador ' . $_SESSION['identidad']->nombre ?>
@@ -147,7 +147,7 @@
               <a class="dropdown-item" href="index.php?sesion=logout"><i class="fa fa-sign-out pull-right"></i>Cerrar Sesión</a>
             </div>
           <?php else : ?>
-            <a class="dropdown-item" href="sesion.php"><i class="fa fa-user"></i> Inicio de Sesión</a>
+            <a class="dropdown-item" href="vis_sesion.php"><i class="fa fa-user"></i> Inicio de Sesión</a>
           <?php endif; ?>
         </li>
 

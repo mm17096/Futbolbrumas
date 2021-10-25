@@ -35,7 +35,7 @@
     top: 10px;
     left: 10px;
     margin-bottom: 10px;">
-          <a href="sesion.php" class="site_title" style="padding-left: 0px;">
+          <a href="vis_sesion.php" class="site_title" style="padding-left: 0px;">
               <i class="fa fa-home" style="
               font-size: 12px;
               position: absolute;
