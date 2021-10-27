@@ -52,6 +52,22 @@ class DaoUsuario
         return $result;
     }
 
+    public function UpdateUsuario(Usuario $usu, $imagen)
+    {
+        if (!($usu instanceof Usuario)) {
+            $this->Error = "Error de instanciado,\n el objeto no es de tipo Clase Usuario";
+            return 0;
+        }
+        //(`idusuario`, `idempleado`, `idrepresentante`, `tipo`, `correo`, `nombre`, `clave`)
+        $result = $this->Conexion_ID->query("UPDATE `usuario` SET `correo`= '" . $usu->getCorreo() . "',`nombre`= '" . $usu->getNombre() . "',`clave`= '" . $usu->getClave() . "',`imagen`= '$imagen' WHERE `idusuario`= '" . $usu->getIdusuario() . "'");
+
+        if (!$result) {
+            return 0;
+        } else {
+            return 1;
+        }
+    }
+
     public function logout()
     {
        Utils::deleteSession('usuario');

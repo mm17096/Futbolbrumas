@@ -49,7 +49,7 @@
         <div class="main_container">
             <!-- top navigation -->
             <?php
-            
+
             session_start();
             if (isset($_SESSION['identidad']) && isset($_SESSION['usuario'])) {
                 require_once('menu.php');

@@ -143,15 +143,14 @@
 
             </a>
             <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="#"><i class="fa fa-user pull-right"></i>Perfil</a>
-              <a class="dropdown-item" href="index.php?sesion=logout"><i class="fa fa-sign-out pull-right"></i>Cerrar Sesión</a>
+              <a class="dropdown-item" data-target="#modalperfil" data-toggle="modal" data-toggle="tooltip"><i class="fa fa-user pull-right"></i>Perfil</a>
+              <a class="dropdown-item" href="index.php?sesion=logout"><i class="fa fa-sign-out pull-right"></i>Cerrar
+                Sesión</a>
             </div>
           <?php else : ?>
             <a class="dropdown-item" href="vis_sesion.php"><i class="fa fa-user"></i> Inicio de Sesión</a>
           <?php endif; ?>
         </li>
-
-
       </ul>
     </nav>
   </div>

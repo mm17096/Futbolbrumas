@@ -32,14 +32,17 @@
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
 
+    <!--Diseño css Sistema FutSal las Brumas-->
+    <link href="../build/css/diseño.css" rel="stylesheet">
+
     <script type="text/javascript">
-        function msj() {
+    function msj() {
 
-            setTimeout(function() {
-                document.getElementById("msjsuccess").style.display = 'none';
-            }, 3500);
+        setTimeout(function() {
+            document.getElementById("msjsuccess").style.display = 'none';
+        }, 3500);
 
-        }
+    }
     </script>
 
 </head>
@@ -65,7 +68,6 @@
             echo '<script>window.location="' . base_url . 'controller/usuario_controller.php?action=cerrar"</script>';
         }
     }
-
     ?>
 
     <div class="container body">
@@ -75,15 +77,15 @@
             require_once('menu.php');
             ?>
             <style type="text/css">
-                .required {
-                    color: red;
-                }
+            .required {
+                color: red;
+            }
 
-                .form-group {
-                    width: 70%;
-                    margin-left: auto;
-                    margin-right: auto;
-                }
+            .form-group {
+                width: 70%;
+                margin-left: auto;
+                margin-right: auto;
+            }
             </style>
 
             <div class="right_col" role="main">
@@ -93,26 +95,117 @@
             <?php
 
             if (isset($_SESSION['action_login']) && $_SESSION['action_login'] == 'completo') {
-
                 $_SESSION['action_login'] = null;
                 unset($_SESSION['action_error']);
-                $messages[] = "Bienvenido ". $_SESSION['identidad']->nombre;
+                $_SESSION['Attempts'] = 0;
+                $messages[] = "Bienvenido " . $_SESSION['identidad']->nombre;
             ?>
-                <div id="msjsuccess" class="alert alert-success" role="alert" style=" position: absolute;
+            <div id="msjsuccess" class="alert alert-success" role="alert" style=" position: absolute;
                                                    right: 30px;
                                                       top: 75px;">
-                    <strong>¡Bien hecho!</strong>
-                    <?php
+                <strong>¡Bien hecho!</strong>
+                <?php
                     foreach ($messages as $message) {
                         echo $message;
                     }
                     ?>
-                </div>
+            </div>
             <?php
             }
             ?>
             <!-- MENSAJE DE ACCIONES -->
 
+            <!-- MODAL AGREGAR-->
+            <div class="modal fade bs-example-modal-lg" tabindex="-1" id="modalperfil" role="dialog" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <form action="../controller/usuario_controller.php?action=modificar" method="POST"
+                            enctype="multipart/form-data">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="myModalLabel">Formulario de
+                                    Representante</h4>
+                                <button type="button" class="close" data-dismiss="modal"><span
+                                        aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+
+                                            <div class="form-group">
+                                                <label class="col-form-label col-md-6 col-sm-6">Correo
+                                                    <span class="required">*</span></label>
+                                                <input type="email" class="form-control" id="correo" name="correo"
+                                                    value="<?= isset($_SESSION['usuario']) && $_SESSION['usuario']->correo != "" ? $_SESSION['usuario']->correo : ''; ?>"
+                                                    autocomplete="off" required>
+                                            </div>
+
+
+                                            <div class="form-group">
+                                                <label class="col-form-label col-md-6 col-sm-6">Usuario
+                                                    <span class="required">*</span></label>
+                                                <input type="text" class="form-control" id="usuario" name="usuario"
+                                                    value="<?= isset($_SESSION['usuario']) && $_SESSION['usuario']->nombre != "" ? $_SESSION['usuario']->nombre : ''; ?>"
+                                                    autocomplete="off" required>
+
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-form-label col-md-6 col-sm-6">Contrasenia
+                                                    <span class="required">*</span></label>
+                                                <input type="password" class="form-control" id="clave" name="clave"
+                                                    value="<?= isset($_SESSION['usuario']) && $_SESSION['usuario']->clave != "" ? Utils::desencriptacion($_SESSION['usuario']->clave) : ''; ?>"
+                                                    autocomplete="off" required>
+
+                                            </div>
+                                            <!--
+                                            <div class="form-group">
+                                                <label class="col-form-label col-md-6 col-sm-6">Confirmar Contrasenia
+                                                    <span class="required">*</span></label>
+                                                <input type="password" class="form-control" id="clave2" name="clave2"
+                                                    autocomplete="off" required>
+
+                                            </div>
+                                            -->
+                                            <div class="form-group">
+
+                                                <input type="hidden" class="form-control" id="id" name="id"
+                                                    value="<?= isset($_SESSION['usuario']) && $_SESSION['usuario']->idusuario != "" ? $_SESSION['usuario']->idusuario : ""; ?>"
+                                                    autocomplete="off" required>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6">
+
+
+                                            <div class="form-group">
+                                                <label class="col-form-label col-md-6 col-sm-6">Imagen de Perfil
+                                                    <span class="required">*</span></label>
+                                                <input type="file" accept="imagen/*" class="form-control" id="imagen" name="imagen"
+                                                    autocomplete="off" required>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="reset" class="btn btn btn-round  btn-cancelar" data-dismiss="modal">
+                                    <li class="fa fa-close cancelar"></li> Cancelar
+                                </button>
+                                <button type="submit" class="btn btn-round btn-guardar" id="btng" name="btng">
+                                    <li class="fa fa-save"></li>Actualizar
+                                </button>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- MODAL AGREGAR-->
 
             <!-- Pied de  Pagina -->
             <?php

@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-if(!isset($_SESSION['Attempts'])){
+if (!isset($_SESSION['Attempts'])) {
     $_SESSION['Attempts'] = 0;
 }
 require_once "../clases/Representante.php";
@@ -16,6 +16,19 @@ $action = (isset($_GET["action"])) ? $_GET["action"] : "";
 //variables de Inicio de Sesion
 $usuario = (isset($_GET["usuario"])) ? $_GET["usuario"] : "";
 $password = (isset($_GET["password"])) ? $_GET["password"] : "";
+
+$usuario_edit = isset($_POST['usuario']) ? $_POST['usuario'] : "";
+$clave_edit = isset($_POST['clave']) ? $_POST['clave'] : "";
+//$clave2_edit = isset($_POST['clave2']) ? $_POST['cleve2'] : "";
+$correo_edit = isset($_POST['correo']) ? $_POST['correo'] : "";
+$id_edit = isset($_POST['id']) ? $_POST['id'] : "";
+
+//Guardar imagen
+if (isset($_FILES['imagen']) != null) {
+    $imagen = addslashes(file_get_contents($_FILES['imagen']['tmp_name']));
+} else {
+    $imagen = 'esto';
+}
 
 //Dao Equipo
 $daoE = new DaoEmpleado();
@@ -58,20 +71,20 @@ if ($action != "") {
                         } else {
 
                             $_SESSION['action_login'] = 'error';
-                            $_SESSION['Attempts'] ++;
+                            $_SESSION['Attempts']++;
                             echo '<script>window.location="' . base_url . 'views/vis_sesion.php"</script>';
                         }
                     }
                 } else {
 
                     $_SESSION['action_login'] = 'error';
-                    $_SESSION['Attempts'] ++;
+                    $_SESSION['Attempts']++;
                     echo '<script>window.location="' . base_url . 'views/vis_sesion.php"</script>';
                 }
             } else {
 
                 $_SESSION['action_login'] = 'error';
-                $_SESSION['Attempts'] ++;
+                $_SESSION['Attempts']++;
                 echo '<script>window.location="' . base_url . 'views/vis_sesion.php"</script>';
             }
             break;
@@ -83,23 +96,21 @@ if ($action != "") {
             break;
 
         case 'modificar':
-            if ($dui_baja != "") {
+            if ($id_edit != "") {
 
-                if ($daoR->dardebajaRepresentante($dui_baja) == 1) {
+                if ($daoU->UpdateUsuario(new Usuario($id_edit, null, null, $_SESSION['identidad']->tipo, $correo_edit, $usuario_edit, Utils::encriptacion($clave_edit)), $imagen) == 1) {
 
-                    $_SESSION['action_success'] = true;
-                    echo '<script>window.location="' . base_url . 'views/vis_representantes.php?action=true"</script>';
+                    $_SESSION['perfil_success'] = 'completo';
+                    echo '<script>window.location="' . base_url . 'views/index.php"</script>';
                 } else {
 
-                    $_SESSION['action_error'] = true;
-                    echo '<script>window.location="' . base_url . 'views/vis_representantes.php?action=false"</script>';
+                    $_SESSION['perfil_success'] = 'error';
+                    echo '<script>window.location="' . base_url . 'views/index.php"</script>';
                 }
             } else {
-                $_SESSION['action_error'] = true;
-                echo '<script>window.location="' . base_url . 'views/vis_representantes.php?action=false"</script>';
+                $_SESSION['perfil_success'] = 'error';
+                echo '<script>window.location="' . base_url . 'views/index.php"</script>';
             }
             break;
     }
-} else {
-    echo "<script type='text/javascript'> alert('Metodo vacio');</script>";
 }

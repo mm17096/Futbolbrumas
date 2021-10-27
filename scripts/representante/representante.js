@@ -1,19 +1,14 @@
 //--------------- Metodos de crup ---------------//
 function msj() {
 
-    if(isset($_SESSION['identidad']) && isset($_SESSION['usuario']) && isset($_SESSION['action_login']) && $_SESSION['action_login'] == 'completo'){
-      alert('Sesion activa');
-      setTimeout(function () {
-        document.getElementById("msjsuccess").style.display = 'none';
-      }, 3500);
-    
-      setTimeout(function () {
-        document.getElementById("msjerror").style.display = 'none';
-      }, 3500);
-    }else{
-      alert('Activar sesion');
-      window.location = "index.php";
-    }
+  setTimeout(function () {
+    document.getElementById("msjsuccess").style.display = 'none';
+  }, 3500);
+
+  setTimeout(function () {
+    document.getElementById("msjerror").style.display = 'none';
+  }, 3500);
+
 };
 
 
@@ -209,7 +204,7 @@ function validarTelfinal() {
   if ($telefono.length == 9) {
     $("#fulltel").val("validado");
     verificarboton();
-  }else{
+  } else {
     $("#fulltel").val("");
     setTimeout(function () {
       $(".mensajetel").fadeIn(1500);
@@ -243,10 +238,11 @@ function validacionDui() {
 
 function validarDuifinal() {
   $dui = document.getElementById("dui").value;
+
   if ($dui.length == 10) {
     $("#fulldui").val("validado");
     verificarboton();
-  }else{
+  } else {
     $("#fulldui").val("");
     setTimeout(function () {
       $(".mensajedui").fadeIn(1500);
@@ -261,13 +257,13 @@ function validarDuifinal() {
 
 // ------- Validacion de Correo ----- //
 
-function validarcorreo(){
+function validarcorreo() {
   $correo = document.getElementById("correo").value;
 
-  if (/^\w+([\.-]?\w+)*@(?:|hotmail|outlook|yahoo|live|gmail)\.(?:|com|es)+$/.test($correo)){
+  if (/^\w+([\.-]?\w+)*@(?:|hotmail|outlook|yahoo|live|gmail)\.(?:|com|es)+$/.test($correo)) {
     $("#fullcorreo").val("validado");
     verificarboton();
-   }else{
+  } else {
     $("#fullcorreo").val("");
     setTimeout(function () {
       $(".mensajecorreo").fadeIn(1500);
@@ -282,7 +278,7 @@ function validarcorreo(){
 
 //-------- Validacion de Fecha ------//
 
-function validarfecha(){
+function validarfecha() {
   $today = new Date();
   $fecha = document.getElementById("date").value;
 
@@ -298,7 +294,7 @@ function validarfecha(){
   if ($edad >= 18) {
     $("#fulldate").val("validado");
     verificarboton();
-  }else{
+  } else {
     document.getElementById("date").value = "";
     $("#fulldate").val("");
     setTimeout(function () {
@@ -312,13 +308,13 @@ function validarfecha(){
   }
 };
 
-function validarsexo(){
+function validarsexo() {
   $sexo = document.getElementById("sexo").value;
- 
+
   if ($sexo == 'Masculino' || $sexo == 'Femenino') {
     $("#fullsexo").val("validado");
     verificarboton();
-  }else{
+  } else {
     $("#fullsexo").val("");
     setTimeout(function () {
       $(".mensajesexo").fadeIn(1500);
@@ -331,13 +327,13 @@ function validarsexo(){
   }
 };
 
-function validarnombre(){
+function validarnombre() {
   $nombre = document.getElementById("nombre").value;
 
   if ($nombre != '') {
     $("#fullnombre").val("validado");
     verificarboton();
-  }else{
+  } else {
     $("#fullnombre").val("");
     setTimeout(function () {
       $(".mensajenombre").fadeIn(1500);
@@ -350,13 +346,13 @@ function validarnombre(){
   }
 };
 
-function validarapellido(){
+function validarapellido() {
   $apellido = document.getElementById("apellido").value;
- 
+
   if ($apellido != '') {
     $("#fullapellido").val("validado");
     verificarboton();
-  }else{
+  } else {
     $("#fullapellido").val("");
     setTimeout(function () {
       $(".mensajeapellido").fadeIn(1500);
@@ -369,7 +365,7 @@ function validarapellido(){
   }
 };
 
-function verificarboton(){
+function verificarboton() {
   $nombre = document.getElementById("fullnombre").value;
   $apellido = document.getElementById("fullapellido").value;
   $dui = document.getElementById("fulldui").value;
@@ -377,10 +373,10 @@ function verificarboton(){
   $sexo = document.getElementById("fullsexo").value;
   $fecha = document.getElementById("fulldate").value;
   $telefono = document.getElementById("fulltel").value;
- 
-  if($dui == 'validado' && $sexo == 'validado' && $correo == 'validado' && $fecha == 'validado' && $telefono == 'validado' && $nombre == 'validado' && $apellido == 'validado'){
+
+  if ($dui == 'validado' && $sexo == 'validado' && $correo == 'validado' && $fecha == 'validado' && $telefono == 'validado' && $nombre == 'validado' && $apellido == 'validado') {
     $("#btng").removeAttr("disabled");
-  }else{
+  } else {
     $("#btng").attr("disabled", "disabled");
   }
 
@@ -475,7 +471,7 @@ function validaciondatos() {
 
   $edad = $today.getFullYear() - $year;
   if ($edad >= 18) {
-        agregarRepresentante();
+    agregarRepresentante();
   } else {
     document.getElementById("date").value = "";
   }
