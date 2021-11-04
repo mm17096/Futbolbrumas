@@ -29,6 +29,10 @@
         function msj() {
 
             setTimeout(function() {
+                document.getElementById("msjreset").style.display = 'none';
+            }, 3000);
+
+            setTimeout(function() {
                 document.getElementById("msjerror").style.display = 'none';
             }, 3000);
 
@@ -79,18 +83,45 @@
         <!-- MENSAJE DE ACCIONES -->
         <?php
         session_start();
-        if (isset($_SESSION['action_login']) && $_SESSION['action_login'] == 'error' && !isset($_COOKIE['bloqueado'])) {
+        if (isset($_SESSION['Attempts'])) {
+            $count = $_SESSION['Attempts'];
+        } else {
+            $count = 5;
+        }
+
+        if (isset($_SESSION['modificacionfull'])) {
+            $_SESSION['modificacionfull'] = null;
+            unset($_SESSION['modificacionfull']);
+            $mensaje[] = "Contraseña modificada";
+
+        ?>
+            <div id="msjreset" class="alert alert-success" role="alert" style=" position: absolute;
+                                                   right: 30px;
+                                                      top: 5px;">
+                <strong>¡Bien hecho!</strong>
+                <?php
+                foreach ($mensaje as $message) {
+                    echo $message;
+                }
+                ?>
+            </div>
+        <?php
+        }
+
+        if ($count == 0) {
+            $bloqueado = true;
+            date_default_timezone_set("America/El_Salvador");
+            setcookie("bloqueado", date('m-d-Y g:i:s a',), time() + 180);
+            $_SESSION['bloqueado'] = true;
+        }
+
+        if (isset($_SESSION['action_login']) && $_SESSION['action_login'] == 'error' && !isset($_COOKIE['bloqueado']) && !isset($_SESSION['bloqueado'])) {
 
             $_SESSION['action_login'] = null;
             unset($_SESSION['action_login']);
             $errors[] = "Los datos no coinciden";
-            $Attempts[] = "Intentos restantes: " . 4 - $_SESSION['Attempts'];
-            $count = $_SESSION['Attempts'];
+            $Attempts[] = "Intentos restantes: " . $_SESSION['Attempts'];
 
-            if ($count == 3) {
-                date_default_timezone_set("America/El_Salvador");
-                setcookie("bloqueado", date('m-d-Y g:i:s a',), time() + 180);
-            }
         ?>
             <div id="msjerror" class="alert alert-danger" role="alert" style=" position: absolute;
                                                                 right: 30px;
@@ -132,18 +163,25 @@
                         height: 110px;">
                     </center>
 
-                    <form action="index.php" method="POST" autocomplete="off" enctype="multipart/form-data">
+                    <form action="index.php" method="POST" autocomplete="off">
                         <h1>Inicio de Sesión</h1>
 
                         <?php
 
-                        if (isset($_COOKIE['bloqueado'])) {
-                            $_SESSION['Attempts'] = 0;
+                        if (isset($_COOKIE['bloqueado']) ||  isset($_SESSION['bloqueado'])) {
+                            $_SESSION['Attempts'] = 5;
                             $_SESSION['action_login'] = null;
                             unset($_SESSION['action_login']);
+                            $_SESSION['bloqueado'] = null;
+                            unset($_SESSION['bloqueado']);
                             $mensaje[] = "Sesion bloqueada por intentos erroneos  ";
                             $mensaje2[] = "Vuelva a intentarlo dentro de 3 minutos  ";
-                            $mensaje3[] = "Bloqueado desde: " . $_COOKIE['bloqueado'];
+                            if (isset($_COOKIE['bloqueado'])) {
+                                $mensaje3[] = "Bloqueado desde: " . $_COOKIE['bloqueado'];
+                            } else {
+                                date_default_timezone_set("America/El_Salvador");
+                                $mensaje3[] = "Bloqueado desde: " . date('m-d-Y g:i:s a');
+                            }
                         ?>
 
                             <center>
@@ -202,7 +240,8 @@
                                 <li class="fa fa-sign-in"></li> Iniciar Sesión
                             </button>
 
-                            <a href="recuperardatos.php" class="btn btn btn-round  btn-link">¿Ha perdido su contraseña?</a>
+                            <a href="vis_recuperardatos.php" class="btn btn btn-round  btn-link">¿Ha perdido su
+                                contraseña?</a>
 
                             <div class="clearfix"></div>
 

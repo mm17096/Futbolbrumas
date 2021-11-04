@@ -45,30 +45,29 @@ if ($action != "") {
 
                     if ($daoR->registroRepresentante(new Representante($dui, $nombre, $apellido, $sexo, $date, $telefono, $correo, true)) == 1) {
 
-                        if ($daoU->registroUsuarioRe(new Usuario(null, null, $dui,'usuario',$correo, $correo, Utils::encriptacion($dui))) == 1) {
+                        if ($daoU->registroUsuarioRe(new Usuario(null, null, $dui, 'usuario', $correo, $correo, Utils::encriptacion($dui))) == 1) {
 
                             $_SESSION['action_success'] = "completo";
-                            echo '<script>window.location="'.base_url.'views/vis_representantes.php"</script>';
-                          
+                            echo '<script>window.location="' . base_url . 'views/vis_representantes.php"</script>';
                         } else {
 
                             $_SESSION['action_success'] = "error";
-                            echo '<script>window.location="'.base_url.'views/vis_representantes.php"</script>';
+                            echo '<script>window.location="' . base_url . 'views/vis_representantes.php"</script>';
                         }
                     } else {
 
                         $_SESSION['action_success'] = "error";
-                        echo '<script>window.location="'.base_url.'views/vis_representantes.php"</script>';
+                        echo '<script>window.location="' . base_url . 'views/vis_representantes.php"</script>';
                     }
                 } else {
 
                     $_SESSION['action_success'] = "error";
-                    echo '<script>window.location="'.base_url.'views/vis_representantes.php"</script>';
+                    echo '<script>window.location="' . base_url . 'views/vis_representantes.php"</script>';
                 }
             } else {
 
                 $_SESSION['action_success'] = "error";
-                echo '<script>window.location="'.base_url.'views/vis_representantes.php"</script>';
+                echo '<script>window.location="' . base_url . 'views/vis_representantes.php"</script>';
             }
             break;
 
@@ -78,11 +77,11 @@ if ($action != "") {
                 if ($daoR->modificarRepresentante(new Representante($dui_update, $nombre_update, $apellido_update, $sexo_update, $date_update, $telefono_update, "", $estado)) == 1) {
 
                     $_SESSION['action_success'] = "completo";
-                    echo '<script>window.location="'.base_url.'views/vis_representantes.php"</script>';
+                    echo '<script>window.location="' . base_url . 'views/vis_representantes.php"</script>';
                 } else {
 
                     $_SESSION['action_success'] = "error";
-                    echo '<script>window.location="'.base_url.'views/vis_representantes.php"</script>';
+                    echo '<script>window.location="' . base_url . 'views/vis_representantes.php"</script>';
                 }
             }
             break;
@@ -93,15 +92,15 @@ if ($action != "") {
                 if ($daoR->dardebajaRepresentante($dui_baja) == 1) {
 
                     $_SESSION['action_success'] = "completo";
-                    echo '<script>window.location="'.base_url.'views/vis_representantes.php"</script>';
+                    echo '<script>window.location="' . base_url . 'views/vis_representantes.php"</script>';
                 } else {
 
                     $_SESSION['action_success'] = "error";
-                    echo '<script>window.location="'.base_url.'views/vis_representantes.php"</script>';
+                    echo '<script>window.location="' . base_url . 'views/vis_representantes.php"</script>';
                 }
             } else {
                 $_SESSION['action_success'] = "error";
-                echo '<script>window.location="'.base_url.'views/vis_representantes.php"</script>';
+                echo '<script>window.location="' . base_url . 'views/vis_representantes.php"</script>';
             }
             break;
 
@@ -111,16 +110,44 @@ if ($action != "") {
                 if ($daoR->dardealtaRepresentante($dui_alta) == 1) {
 
                     $_SESSION['action_success'] = "completo";
-                    echo '<script>window.location="'.base_url.'views/vis_representantes.php"</script>';
+                    echo '<script>window.location="' . base_url . 'views/vis_representantes.php"</script>';
                 } else {
 
                     $_SESSION['action_success'] = "error";
-                    echo '<script>window.location="'.base_url.'views/vis_representantes.php"</script>';
+                    echo '<script>window.location="' . base_url . 'views/vis_representantes.php"</script>';
                 }
             } else {
                 $_SESSION['action_success'] = "error";
-                echo '<script>window.location="'.base_url.'views/vis_representantes.php"</script>';
+                echo '<script>window.location="' . base_url . 'views/vis_representantes.php"</script>';
             }
+            break;
+
+        case 'verificarcorreo':
+
+            if (isset($_POST['correo'])) {
+                if ($daoR->BuscarcorreoRepresentante($_POST['correo']) == 1) {
+                    print json_encode(array("Error", $_POST));
+                    exit();
+                } else {
+                    print json_encode(array("Exito", $_POST));
+                    exit();
+                }
+            }
+
+            break;
+
+        case 'verificardui':
+
+            if (isset($_POST['dui'])) {
+                if ($daoR->BuscarduiRepresentante($_POST['dui']) == 1) {
+                    print json_encode(array("Error", $_POST));
+                    exit();
+                } else {
+                    print json_encode(array("Exito", $_POST));
+                    exit();
+                }
+            }
+            
             break;
     }
 }

@@ -51,7 +51,7 @@ class DaoRepresentante
 
         $mail = new PHPMailer();
         $mail->isHTML(true);
-        $mail->msgHTML(file_get_contents('message.html'), __DIR__);
+        //$mail->msgHTML(file_get_contents('message.html'), __DIR__);
         $mail->addAttachment('Content-type: text/html; charset=iso-8859-1');
         $mail->isSMTP();
         $mail->SMTPAuth = true;
@@ -425,8 +425,8 @@ class DaoRepresentante
     function dardealtaRepresentante($dui)
     {
         $result = $this->Conexion_ID->query("UPDATE `representante` SET `estado`= 1 WHERE dui = '$dui'");
-        if (!$result) {
-
+        
+		if (!$result) {
             return 0;
         } else {
             return 1;
@@ -446,6 +446,27 @@ class DaoRepresentante
         }
 		
         return $representante;
+    }
+
+	function BuscarcorreoRepresentante($correo)
+    {
+        $consulta = $this->Conexion_ID->query("SELECT u.correo FROM `representante` as r, usuario as u WHERE u.idrepresentante = r.dui AND u.correo = '$correo'");
+        
+		if ($consulta && $consulta->num_rows == 1) {
+           return 1;
+        }
+		
+        return 0;
+    }
+
+	function BuscarduiRepresentante($dui)
+    {
+        $consulta = $this->Conexion_ID->query("SELECT u.idrepresentante FROM `representante` as r, usuario as u WHERE u.idrepresentante = r.dui AND r.dui = '$dui'");
+        
+		if ($consulta && $consulta->num_rows == 1) {
+           return 1;
+        }
+        return 0;
     }
 
     function listaRepresentantes()

@@ -34,23 +34,13 @@
 
     <!--Diseño css Sistema FutSal las Brumas-->
     <link href="../build/css/diseño.css" rel="stylesheet">
-
-    <script type="text/javascript">
-    function msj() {
-
-        setTimeout(function() {
-            document.getElementById("msjsuccess").style.display = 'none';
-        }, 3500);
-
-    }
-    </script>
-
 </head>
 
 <body class="nav-md" onload="msj()">
 
     <?php
     session_start();
+    $_SESSION['index'] = true;
     require_once "../helpers/utils.php";
     if (isset($_POST['user']) && isset($_POST['password'])) {
 
@@ -97,7 +87,7 @@
             if (isset($_SESSION['action_login']) && $_SESSION['action_login'] == 'completo') {
                 $_SESSION['action_login'] = null;
                 unset($_SESSION['action_error']);
-                $_SESSION['Attempts'] = 0;
+                $_SESSION['Attempts'] = 5;
                 $messages[] = "Bienvenido " . $_SESSION['identidad']->nombre;
             ?>
             <div id="msjsuccess" class="alert alert-success" role="alert" style=" position: absolute;
@@ -115,15 +105,14 @@
             ?>
             <!-- MENSAJE DE ACCIONES -->
 
-            <!-- MODAL AGREGAR-->
+            <!-- MODAL MODIFICAR PERFIL-->
             <div class="modal fade bs-example-modal-lg" tabindex="-1" id="modalperfil" role="dialog" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <form action="../controller/usuario_controller.php?action=modificar" method="POST"
                             enctype="multipart/form-data">
                             <div class="modal-header">
-                                <h4 class="modal-title" id="myModalLabel">Formulario de
-                                    Representante</h4>
+                                <h4 class="modal-title" id="myModalLabel">Modificar Perfil</h4>
                                 <button type="button" class="close" data-dismiss="modal"><span
                                         aria-hidden="true">×</span>
                                 </button>
@@ -137,8 +126,20 @@
                                                 <label class="col-form-label col-md-6 col-sm-6">Correo
                                                     <span class="required">*</span></label>
                                                 <input type="email" class="form-control" id="correo" name="correo"
+                                                    onblur="validarcorreo()"
                                                     value="<?= isset($_SESSION['usuario']) && $_SESSION['usuario']->correo != "" ? $_SESSION['usuario']->correo : ''; ?>"
                                                     autocomplete="off" required>
+                                                <span class="mensajecorreo" style="display: none; color: red;">Digite
+                                                    correctamente el Correo</span>
+                                                <span class="mensajecorreoexiste" style="display: none; color: red;">El
+                                                    Correo ya esta en uso</span>
+
+                                                <input type="hidden" id="correoact" name="correoact"
+                                                    value="<?= isset($_SESSION['usuario']) && $_SESSION['usuario']->correo != "" ? $_SESSION['usuario']->correo : ''; ?>">
+
+                                                <input type="hidden" id="fullcorreo" name="fullcorreo"
+                                                    value="<?= isset($_SESSION['usuario']) && $_SESSION['usuario']->correo != "" ? 'validado' : ''; ?>"
+                                                    required>
                                             </div>
 
 
@@ -146,28 +147,49 @@
                                                 <label class="col-form-label col-md-6 col-sm-6">Usuario
                                                     <span class="required">*</span></label>
                                                 <input type="text" class="form-control" id="usuario" name="usuario"
+                                                    onblur="validarusuario()"
                                                     value="<?= isset($_SESSION['usuario']) && $_SESSION['usuario']->nombre != "" ? $_SESSION['usuario']->nombre : ''; ?>"
                                                     autocomplete="off" required>
+                                                <span class="mensajeusuario" style="display: none; color: red;">Debe
+                                                    completar este campo</span>
+                                                <span class="mensajeusuarioexiste"
+                                                    style="display: none; color: red;">Este Usuario ya esta en
+                                                    unso</span>
 
+                                                <input type="hidden" id="usuarioact" name="usuarioact"
+                                                    value="<?= isset($_SESSION['usuario']) && $_SESSION['usuario']->nombre != "" ? $_SESSION['usuario']->nombre : ''; ?>">
+
+                                                <input type="hidden" id="fullusuario" name="fullusuario"
+                                                    value="<?= isset($_SESSION['usuario']) && $_SESSION['usuario']->nombre != "" ? 'validado' : ''; ?>"
+                                                    required>
                                             </div>
 
                                             <div class="form-group">
                                                 <label class="col-form-label col-md-6 col-sm-6">Contrasenia
                                                     <span class="required">*</span></label>
                                                 <input type="password" class="form-control" id="clave" name="clave"
+                                                    oninput="valcontrasenia()"
                                                     value="<?= isset($_SESSION['usuario']) && $_SESSION['usuario']->clave != "" ? Utils::desencriptacion($_SESSION['usuario']->clave) : ''; ?>"
-                                                    autocomplete="off" required>
+                                                    autocomplete="off" required> <span id="mensajepass"></span>
 
+                                                <input type="hidden" id="fullclave" name="fullclave"
+                                                    value="<?= isset($_SESSION['usuario']) && $_SESSION['usuario']->clave != "" ? 'validado' : ''; ?>"
+                                                    required>
+
+                                                <input type="hidden" id="claveact" name="claveact"
+                                                    value="<?= isset($_SESSION['usuario']) && $_SESSION['usuario']->clave != "" ? Utils::desencriptacion($_SESSION['usuario']->clave) : ''; ?>">
                                             </div>
-                                            <!--
+
                                             <div class="form-group">
                                                 <label class="col-form-label col-md-6 col-sm-6">Confirmar Contrasenia
                                                     <span class="required">*</span></label>
                                                 <input type="password" class="form-control" id="clave2" name="clave2"
-                                                    autocomplete="off" required>
+                                                    oninput="valcontraseniaconfir()" onblur="verificarpass()"
+                                                    autocomplete="off" required><span id="mensajepassconfir"></span>
 
+                                                <input type="hidden" id="fullclave2" name="fullclave2" required>
                                             </div>
-                                            -->
+
                                             <div class="form-group">
 
                                                 <input type="hidden" class="form-control" id="id" name="id"
@@ -175,18 +197,34 @@
                                                     autocomplete="off" required>
 
                                             </div>
+
                                         </div>
 
                                         <div class="col-lg-6">
 
 
                                             <div class="form-group">
-                                                <label class="col-form-label col-md-6 col-sm-6">Imagen de Perfil
+                                                <label class="col-form-label col-md-6 col-sm-6">Imagen de Perfil (PNG &
+                                                    JPG)
                                                     <span class="required">*</span></label>
-                                                <input type="file" accept="imagen/*" class="form-control" id="imagen" name="imagen"
-                                                    autocomplete="off" required>
+                                                <input type="file" accept="imagen/*" class="form-control" id="imagen"
+                                                    name="imagen" autocomplete="off">
                                             </div>
 
+                                            <?php if ($_SESSION['usuario']->imagen != null) : ?>
+
+                                            <center>
+                                                <div class="form-group">
+                                                    <img height="170px" width="150px"
+                                                        src="data:image/jpg;base64,<?php echo base64_encode($_SESSION['usuario']->imagen) ?>"
+                                                        class="img-circle profile_img">
+                                                </div>
+                                            </center>
+
+                                            <?php endif; ?>
+
+                                            <input type="hidden" id="nuevo" name="nuevo"
+                                                value="<?= isset($_SESSION['usuario']) && $_SESSION['usuario']->nuevo != "" ? $_SESSION['usuario']->nuevo : ''; ?>">
                                         </div>
                                     </div>
                                 </div>
@@ -196,7 +234,8 @@
                                 <button type="reset" class="btn btn btn-round  btn-cancelar" data-dismiss="modal">
                                     <li class="fa fa-close cancelar"></li> Cancelar
                                 </button>
-                                <button type="submit" class="btn btn-round btn-guardar" id="btng" name="btng">
+                                <button type="submit" disabled class="btn btn-round btn-guardar" id="btnact"
+                                    name="btnact">
                                     <li class="fa fa-save"></li>Actualizar
                                 </button>
                             </div>
@@ -213,6 +252,8 @@
             ?>
         </div>
     </div>
+    <!-- Validaciones y Metodos-->
+    <script src="../scripts/usuario/usuario.js" type="text/javascript" charset="utf-8"></script>
     <!-- jQuery -->
     <script src="../vendors/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap -->
@@ -269,7 +310,6 @@
     <script src="../vendors/jszip/dist/jszip.min.js"></script>
     <script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
     <script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
-
 
 </body>
 

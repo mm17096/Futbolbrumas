@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Modificar Datos</title>
+    <title>Validar Codigo</title>
 
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -24,9 +24,19 @@
     <!--Diseño css Sistema FutSal las Brumas-->
     <link href="../build/css/diseño.css" rel="stylesheet">
     <link href="../resources/bootstrap/css/diseño.css" rel="stylesheet" type="text/css" />
+
+    <script type="text/javascript">
+        function msj() {
+
+            setTimeout(function() {
+                document.getElementById("msjerror").style.display = 'none';
+            }, 3000);
+        };
+    </script>
+
 </head>
 
-<body class="login">
+<body class="login" onload="msj()">
 
     <div class="col-md-3 left_col" style="
     max-width: 7%;
@@ -35,12 +45,12 @@
     top: 10px;
     left: 10px;
     margin-bottom: 10px;">
-          <a href="vis_sesion.php" class="site_title" style="padding-left: 0px;">
-              <i class="fa fa-home" style="
+        <a href="vis_sesion.php" class="site_title" style="padding-left: 0px;">
+            <i class="fa fa-home" style="
               font-size: 12px;
               position: absolute;
               margin-top: 15px;">
-              </i> <span style="
+            </i> <span style="
                                  font-size: 12px;
                                  position: absolute;
                                  margin-top: 0px;
@@ -48,6 +58,33 @@
         </a>
         <div class="clearfix"></div>
     </div>
+
+    <?php
+    session_start();
+
+    if (isset($_SESSION['falloverificacion'])) {
+
+        $_SESSION['falloverificacion'] = null;
+        unset($_SESSION['falloverificacion']);
+
+        $mensaje[] = "Codigo de verificacion incorrecto";
+    ?>
+
+        <div id="msjerror" class="alert alert-danger" role="alert" style=" position: absolute;
+                                                        right: 30px;
+                                                            top: 5px;
+                                                            size: 5px;">
+            <strong>Error!</strong>
+            <?php
+            foreach ($mensaje as $error) {
+                echo $error;
+            }
+            ?>
+        </div>
+
+    <?php
+    }
+    ?>
 
     <div class="content_sesion">
         <div class="login_wrapper">
@@ -58,20 +95,20 @@
                         width: 110x;
                         height: 110px;">
                     </center>
-                    <form action="index.php" method="POST" autocomplete="off" enctype="multipart/form-data">
-                        <h1>Modificar Datos</h1>
+                    <form action="../controller/usuario_controller.php?action=verificarcodigo" method="POST" autocomplete="off">
+                        <h1>Validar Codigo</h1>
                         <div class="form-group">
-                            <label style="right: 20px; max-width: 50%;" class="col-md-4 col-sm-12">Nueva Clave <span class="required" style="color: red;"> *</span></label>
-                            <input class="form-control" id="user" name="user" placeholder="Nueva Contraseña" required>
+                            <label class="col-md-4 col-sm-12">Codigo <span class="required" style="color: red;">
+                                    *</span></label>
+                            <input type="text" class="form-control" id="codigo" name="codigo" placeholder="Codigo de confirmación" required>
                         </div>
 
                         <div class="form-group">
-                            <label style="right: 20px; max-width: 50%;" class="col-md-4 col-sm-12">Confirmar <span class="required" style="color: red;"> *</span></label>
-                            <input class="form-control" id="user" name="user" placeholder="Confirmar Contraseña" required>
+                            <input type="hidden" class="form-control" id="id" name="id" value="<?=$_SESSION['id']?>" placeholder="Codigo de confirmación" required>
                         </div>
 
                         <button type="submit" class="btn btn-round btn-guardar">
-                            <li class="fa fa-refresh"></li> Modificar Datos
+                            <li class="fa fa-lock"></li> Validar Codigo
                         </button>
 
                         <div class="clearfix"></div>
@@ -80,7 +117,8 @@
 
 
                             <div class="clearfix"></div>
-                            <br />
+
+                            <br /><br /><br /><br /><br />
 
                             <div>
                                 <h1><i class="fa fa-futbol-o" aria-hidden="true"></i> Las Brumas</h1>

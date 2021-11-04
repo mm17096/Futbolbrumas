@@ -51,6 +51,8 @@
             <?php
 
             session_start();
+            $_SESSION['index'] = null;
+            unset($_SESSION['index']);
             if (isset($_SESSION['identidad']) && isset($_SESSION['usuario'])) {
                 require_once('menu.php');
             } else {
@@ -59,15 +61,15 @@
 
             ?>
             <style type="text/css">
-            .required {
-                color: red;
-            }
+                .required {
+                    color: red;
+                }
 
-            .form-group {
-                width: 70%;
-                margin-left: auto;
-                margin-right: auto;
-            }
+                .form-group {
+                    width: 70%;
+                    margin-left: auto;
+                    margin-right: auto;
+                }
             </style>
             <!-- Contenido -->
             <div class="right_col" role="main">
@@ -83,8 +85,7 @@
 
                             <div class="x_content">
 
-                                <button type="button" class="btn btn-round btn-guardar" data-toggle="modal"
-                                    data-target=".bs-example-modal-lg"> Agregar Representante</button>
+                                <button type="button" class="btn btn-round btn-guardar" data-toggle="modal" data-target=".bs-example-modal-lg"> Agregar Representante</button>
 
 
                                 <!-- MENSAJE DE ACCIONES -->
@@ -97,16 +98,17 @@
                                     unset($_SESSION['action_success']);
                                     $messages[] = "El proceso ha sido realizado con éxito.";
                                 ?>
-                                <div id="msjsuccess" class="alert alert-success" role="alert" style=" position: absolute;
+                                    <div id="msjsuccess" class="alert alert-success" role="alert" style=" position: absolute;
                                                    right: 30px;
                                                       top: 5px;">
-                                    <strong>¡Bien hecho!</strong>
-                                    <?php
+                                        <i class="fa fa-check"></i>
+                                        <strong>¡Bien hecho!</strong>
+                                        <?php
                                         foreach ($messages as $message) {
                                             echo $message;
                                         }
                                         ?>
-                                </div>
+                                    </div>
                                 <?php
                                 } else if (isset($_SESSION['action_success']) && $_SESSION['action_success'] == 'error') {
 
@@ -114,32 +116,30 @@
                                     unset($_SESSION['action_success']);
                                     $errors[] = "Error en algun proceso, no se completo la accion";
                                 ?>
-                                <div id="msjerror" class="alert alert-danger" role="alert" style=" position: absolute;
+                                    <div id="msjerror" class="alert alert-danger" role="alert" style=" position: absolute;
                                                        right: 30px;
                                                           top: 5px;">
-                                    <strong>Error!</strong>
-                                    <?php
+                                        <i class="fa fa-close"></i>
+                                        <strong>Error!</strong>
+                                        <?php
                                         foreach ($errors as $error) {
                                             echo $error;
                                         }
                                         ?>
-                                </div>
+                                    </div>
                                 <?php
                                 }
                                 ?>
                                 <!-- MENSAJE DE ACCIONES -->
 
                                 <!-- MODAL AGREGAR-->
-                                <div class="modal fade bs-example-modal-lg" tabindex="-1" id="modalguardarR"
-                                    role="dialog" aria-hidden="true">
+                                <div class="modal fade bs-example-modal-lg" tabindex="-1" id="modalguardarR" role="dialog" aria-hidden="true">
                                     <div class="modal-dialog modal-lg">
                                         <div class="modal-content">
                                             <form method="POST" id="addRepresentante" name="addRepresentante">
                                                 <div class="modal-header">
-                                                    <h4 class="modal-title" id="myModalLabel">Formulario de
-                                                        Representante</h4>
-                                                    <button type="button" class="close" data-dismiss="modal"><span
-                                                            aria-hidden="true">×</span>
+                                                    <h4 class="modal-title" id="myModalLabel">Agregar Representante</h4>
+                                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
@@ -147,68 +147,49 @@
                                                         <div class="row">
                                                             <div class="col-lg-6">
                                                                 <div class="form-group">
-                                                                    <label
-                                                                        class="col-form-label col-md-6 col-sm-6">Nombre
+                                                                    <label class="col-form-label col-md-6 col-sm-6">Nombre
                                                                         <span class="required">*</span></label>
-                                                                    <input type="text" minlength="5" maxlength="20"
-                                                                        onblur="validarnombre()"
-                                                                        onkeypress="return soloLetras(event)"
-                                                                        pattern="[A-Z a-z]{1,50}"
-                                                                        title="Formato solicitado: Letras Mayusculas o Minusculas"
-                                                                        name="nombre" id="nombre" class="form-control"
-                                                                        placeholder="Ingrese Nombres" autocomplete="off"
-                                                                        required>
+                                                                    <input type="text" minlength="5" maxlength="20" onblur="validarnombre()" onkeypress="return soloLetras(event)" pattern="[A-Z a-z]{1,50}" title="Formato solicitado: Letras Mayusculas o Minusculas" name="nombre" id="nombre" class="form-control" placeholder="Ingrese Nombres" autocomplete="off" required>
+                                                                    <span class="mensajenombre" style="display: none; color: red;"> Debe
+                                                                        completar el campo Nombre</span>
 
-                                                                    <input type="hidden" name="fullnombre"
-                                                                        id="fullnombre">
+                                                                    <input type="hidden" name="fullnombre" id="fullnombre">
                                                                 </div>
 
                                                                 <div class="form-group">
-                                                                    <label
-                                                                        class="col-form-label col-md-6 col-sm-6">Apellido
+                                                                    <label class="col-form-label col-md-6 col-sm-6">Apellido
                                                                         <span class="required">*</span></label>
-                                                                    <input type="text" onblur="validarapellido()"
-                                                                        onkeypress="return soloLetras(event)"
-                                                                        pattern="[A-Z a-z]{1,50}"
-                                                                        title="Formato solicitado: Letras Mayusculas o Minusculas"
-                                                                        name="apellido" id="apellido"
-                                                                        class="form-control"
-                                                                        placeholder="Ingrese Apellidos"
-                                                                        autocomplete="off" required>
+                                                                    <input type="text" onblur="validarapellido()" onkeypress="return soloLetras(event)" pattern="[A-Z a-z]{1,50}" title="Formato solicitado: Letras Mayusculas o Minusculas" name="apellido" id="apellido" class="form-control" placeholder="Ingrese Apellidos" autocomplete="off" required>
+                                                                    <span class="mensajeapellido" style="display: none; color: red;">Debe
+                                                                        completar el campo Apellido</span>
 
-                                                                    <input type="hidden" name="fullapellido"
-                                                                        id="fullapellido">
+                                                                    <input type="hidden" name="fullapellido" id="fullapellido">
                                                                 </div>
 
                                                                 <div class="form-group">
                                                                     <label class="col-form-label col-md-6 col-sm-6">DUI
                                                                         <span class="required">*</span></label>
-                                                                    <input type="text" oninput="validacionDui()"
-                                                                        onblur="validarDuifinal()"
-                                                                        onkeypress="return soloNumeros(event)"
-                                                                        name="dui" id="dui"
-                                                                        pattern="[0-9]{8}[_-][0-9]{1}"
-                                                                        title="Formato solicitado: 00000000-0"
-                                                                        maxlength="10" min="10" class="form-control"
-                                                                        placeholder="0000000-0" autocomplete="off"
-                                                                        required>
-                                                                    <input type="hidden" name="duivalidado"
-                                                                        id="duivalidado">
+                                                                    <input type="text" oninput="validacionDui()" onblur="validarDuifinal()" onkeypress="return soloNumeros(event)" name="dui" id="dui" pattern="[0-9]{8}[_-][0-9]{1}" title="Formato solicitado: 00000000-0" maxlength="10" min="10" class="form-control" placeholder="0000000-0" autocomplete="off" required>
+                                                                    <span class="mensajedui" style="display: none; color: red;">Digite
+                                                                        correctamente el DUI</span>
+                                                                    <span class="mensajeduiexiste" style="display: none; color: red;">El DUI ya
+                                                                        esta en uso</span>
+
+                                                                    <input type="hidden" name="duivalidado" id="duivalidado">
                                                                     <input type="hidden" name="fulldui" id="fulldui">
                                                                 </div>
 
 
                                                                 <div class="form-group">
-                                                                    <label
-                                                                        class="col-form-label col-md-6 col-sm-6">Correo
+                                                                    <label class="col-form-label col-md-6 col-sm-6">Correo
                                                                         <span class="required">*</span></label>
-                                                                    <input type="email" onblur="validarcorreo()"
-                                                                        title="Formato solicitado: Debe ser un correo valido"
-                                                                        name="correo" id="correo" class="form-control"
-                                                                        placeholder="Ingrese Correo Electronico"
-                                                                        autocomplete="off" required>
-                                                                    <input type="hidden" name="fullcorreo"
-                                                                        id="fullcorreo">
+                                                                    <input type="email" onblur="validarcorreo()" title="Formato solicitado: Debe ser un correo valido" name="correo" id="correo" class="form-control" placeholder="Ingrese Correo Electronico" autocomplete="off" required>
+                                                                    <span class="mensajecorreo" style="display: none; color: red;">Digite
+                                                                        correctamente el Correo</span>
+                                                                    <span class="mensajecorreoexiste" style="display: none; color: red;">El Correo ya
+                                                                        esta en uso</span>
+
+                                                                    <input type="hidden" name="fullcorreo" id="fullcorreo">
                                                                 </div>
 
 
@@ -217,94 +198,40 @@
                                                             <div class="col-lg-6">
 
                                                                 <div class="form-group">
-                                                                    <label form="sexo"
-                                                                        class="col-form-label col-md-3 col-sm-3">Sexo<span
-                                                                            class="required">*</span></label>
-                                                                    <select name="sexo" id="sexo" class="form-control"
-                                                                        onblur="validarsexo()" required>
+                                                                    <label form="sexo" class="col-form-label col-md-3 col-sm-3">Sexo<span class="required">*</span></label>
+                                                                    <select name="sexo" id="sexo" class="form-control" onblur="validarsexo()" required>
                                                                         <option value="">~Seleccione~</option>
                                                                         <option value="Masculino">Masculino</option>
                                                                         <option value="Femenino">Femenino</option>
                                                                     </select>
+                                                                    <span class="mensajesexo" style="display: none; color: red;">Debe
+                                                                        seleccionar sexo</span>
 
                                                                     <input type="hidden" name="fullsexo" id="fullsexo">
                                                                 </div>
 
 
                                                                 <div class="form-group">
-                                                                    <label
-                                                                        class="col-form-label col-md-6 col-sm-6">Fecha
+                                                                    <label class="col-form-label col-md-6 col-sm-6">Fecha
                                                                         de Nacimiento
                                                                         <span class="required">*</span></label>
-                                                                    <input type="date" name="date" id="date"
-                                                                        onblur="validarfecha()"
-                                                                        title="Mayoria de edad requerida"
-                                                                        class="form-control"
-                                                                        placeholder="Ingrese Fecha de Nacimiento"
-                                                                        autocomplete="off" required>
+                                                                    <input type="date" name="date" id="date" onblur="validarfecha()" title="Mayoria de edad requerida" class="form-control" placeholder="Ingrese Fecha de Nacimiento" autocomplete="off" required>
+                                                                    <span class="mensajefecha" style="display: none; color: red;">Debe ser
+                                                                        mayor de edad</span>
 
                                                                     <input type="hidden" name="fulldate" id="fulldate">
                                                                 </div>
 
                                                                 <div class="form-group">
-                                                                    <label
-                                                                        class="col-form-label col-md-6 col-sm-6">Telefono
+                                                                    <label class="col-form-label col-md-6 col-sm-6">Telefono
                                                                         <span class="required">*</span></label>
-                                                                    <input type="text" oninput="validacionTelefono()"
-                                                                        onblur="validarTelfinal()"
-                                                                        onkeypress="return soloNumeros(event)"
-                                                                        name="telefono" id="telefono"
-                                                                        pattern="[0-9]{4}[_-][0-9]{4}"
-                                                                        title="Formato solicitado: 0000-0000"
-                                                                        maxlength="9" min="9" class="form-control"
-                                                                        placeholder="0000-0000" autocomplete="off"
-                                                                        required>
+                                                                    <input type="text" oninput="validacionTelefono()" onblur="validarTelfinal()" onkeypress="return soloNumeros(event)" name="telefono" id="telefono" pattern="[0-9]{4}[_-][0-9]{4}" title="Formato solicitado: 0000-0000" maxlength="9" min="9" class="form-control" placeholder="0000-0000" autocomplete="off" required>
+                                                                    <span class="mensajetel" style="display: none; color: red;">Digite
+                                                                        correctamente el Telefono</span>
 
-                                                                    <input type="hidden" name="telefonovalidado"
-                                                                        id="telefonovalidado">
+                                                                    <input type="hidden" name="telefonovalidado" id="telefonovalidado">
 
                                                                     <input type="hidden" name="fulltel" id="fulltel">
-                                                                </div>
-
-                                                                <div class="form-group">
-                                                                    <label
-                                                                        class="col-form-label col-md-6 col-sm-6">Mensaje
-                                                                        <span class="required">*</span></label>
-                                                                    <br /><br />
-                                                                    <div class="mensajedui"
-                                                                        style="display: none; color: red;">
-                                                                        Digite correctamente el DUI
-                                                                    </div>
-
-                                                                    <div class="mensajetel"
-                                                                        style="display: none; color: red;">
-                                                                        Digite correctamente el Telefono
-                                                                    </div>
-
-                                                                    <div class="mensajecorreo"
-                                                                        style="display: none; color: red;">
-                                                                        Digite correctamente el Correo
-                                                                    </div>
-
-                                                                    <div class="mensajefecha"
-                                                                        style="display: none; color: red;">
-                                                                        Debe ser mayor de edad
-                                                                    </div>
-
-                                                                    <div class="mensajesexo"
-                                                                        style="display: none; color: red;">
-                                                                        Debe seleccionar sexo
-                                                                    </div>
-
-                                                                    <div class="mensajenombre"
-                                                                        style="display: none; color: red;">
-                                                                        Debe completar el campo Nombre
-                                                                    </div>
-
-                                                                    <div class="mensajeapellido"
-                                                                        style="display: none; color: red;">
-                                                                        Debe completar el campo Apellido
-                                                                    </div>
                                                                 </div>
 
                                                             </div>
@@ -313,13 +240,12 @@
                                                 </div>
 
                                                 <div class="modal-footer">
-                                                    <button type="reset" class="btn btn btn-round  btn-cancelar"
-                                                        data-dismiss="modal">
+                                                    <button type="reset" class="btn btn btn-round  btn-cancelar" data-dismiss="modal">
                                                         <li class="fa fa-close cancelar"></li> Cancelar
                                                     </button>
-                                                    <button type="submit" disabled onclick="validaciondatos()"
-                                                        class="btn btn-round btn-guardar" id="btng" name="btng">
-                                                        <li onclick="validaciondatos()" class="fa fa-save"></li>Guardar
+                                                    <button type="submit" disabled onclick="agregarRepresentante()" class="btn btn-round btn-guardar" id="btng" name="btng">
+                                                        <li onclick="agregarRepresentante()" class="fa fa-save"></li>
+                                                        Guardar
                                                     </button>
                                                 </div>
 
@@ -337,8 +263,7 @@
                                                 <div class="modal-header">
                                                     <h4 class="modal-title" id="myModalLabel">Modificar
                                                         Representante</h4>
-                                                    <button type="button" class="close" data-dismiss="modal"><span
-                                                            aria-hidden="true">×</span>
+                                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
                                                     </button>
                                                 </div>
 
@@ -347,46 +272,39 @@
                                                         <div class="row">
                                                             <div class="col-lg-6">
                                                                 <div class="form-group">
-                                                                    <label
-                                                                        class="col-form-label col-md-6 col-sm-6">Nombre
+                                                                    <label class="col-form-label col-md-6 col-sm-6">Nombre
                                                                         <span class="required">*</span></label>
-                                                                    <input type="text"
-                                                                        onkeypress="return soloLetras(event)"
-                                                                        pattern="[A-Z a-z]{1,50}"
-                                                                        title="Formato solicitado: Letras Mayusculas o Minusculas"
-                                                                        name="nombre_update" id="nombre_update"
-                                                                        class="form-control"
-                                                                        placeholder="Ingrese Nombres" autocomplete="off"
-                                                                        required>
+                                                                    <input type="text" onblur="validarnombreEdit()" onkeypress="return soloLetras(event)" pattern="[A-Z a-z]{1,50}" title="Formato solicitado: Letras Mayusculas o Minusculas" name="nombre_update" id="nombre_update" class="form-control" placeholder="Ingrese Nombres" autocomplete="off" required>
+                                                                    <span class="mensajenombreedit" style="display: none; color: red;"> Debe
+                                                                        completar el campo Nombre</span>
+
+                                                                    <input type="hidden" name="fullnombreedit" id="fullnombreedit">
                                                                 </div>
 
                                                                 <div class="form-group">
-                                                                    <label
-                                                                        class="col-form-label col-md-6 col-sm-6">Apellido
+                                                                    <label class="col-form-label col-md-6 col-sm-6">Apellido
                                                                         <span class="required">*</span></label>
-                                                                    <input type="text"
-                                                                        onkeypress="return soloLetras(event)"
-                                                                        pattern="[A-Z a-z]{1,50}"
-                                                                        title="Formato solicitado: Letras Mayusculas o Minusculas"
-                                                                        name="apellido_update" id="apellido_update"
-                                                                        class="form-control"
-                                                                        placeholder="Ingrese Apellidos"
-                                                                        autocomplete="off" required>
+                                                                    <input type="text" onblur="validarapellidoEdit()" onkeypress="return soloLetras(event)" pattern="[A-Z a-z]{1,50}" title="Formato solicitado: Letras Mayusculas o Minusculas" name="apellido_update" id="apellido_update" class="form-control" placeholder="Ingrese Apellidos" autocomplete="off" required>
+                                                                    <span class="mensajeapellidoedit" style="display: none; color: red;">Debe
+                                                                        completar el campo Apellido</span>
+
+                                                                    <input type="hidden" name="fullapellidoedit" id="fullapellidoedit">
                                                                 </div>
 
                                                                 <div class="form-group">
                                                                     <label class="col-form-label col-md-6 col-sm-6">DUI
                                                                         <span class="required">*</span></label>
-                                                                    <input type="text" oninput="validacionDuiedit()"
-                                                                        onkeypress="return soloNumeros(event)"
-                                                                        name="dui_update" id="dui_update"
-                                                                        pattern="[0-9]{8}[_-][0-9]{1}"
-                                                                        title="Formato solicitado: 00000000-0"
-                                                                        maxlength="10" min="10" class="form-control"
-                                                                        placeholder="0000000-0" autocomplete="off"
-                                                                        required>
-                                                                    <input type="hidden" name="duivalidado_update"
-                                                                        id="duivalidado_update">
+                                                                    <input type="text" oninput="validacionDuiEdit()" onblur="validarDuifinalEdit()" onkeypress="return soloNumeros(event)" name="dui_update" id="dui_update" pattern="[0-9]{8}[_-][0-9]{1}" title="Formato solicitado: 00000000-0" maxlength="10" min="10" class="form-control" placeholder="0000000-0" autocomplete="off" required>
+                                                                    <span class="mensajeduiedit" style="display: none; color: red;">Digite
+                                                                        correctamente el DUI</span>
+                                                                    <span class="mensajeduiexisteedit" style="display: none; color: red;">El DUI ya
+                                                                        esta en uso</span>
+
+                                                                    <input type="hidden" name="duivalidado_update" id="duivalidado_update">
+
+                                                                    <input type="hidden" name="duiactedit" id="duiactedit">
+
+                                                                    <input type="hidden" name="fullduiedit" id="fullduiedit">
                                                                 </div>
 
 
@@ -395,44 +313,40 @@
                                                             <div class="col-lg-6">
 
                                                                 <div class="form-group">
-                                                                    <label form="sexo"
-                                                                        class="col-form-label col-md-3 col-sm-3">Sexo<span
-                                                                            class="required">*</span></label>
-                                                                    <select name="sexo_update" id="sexo_update"
-                                                                        class="form-control" required>
+                                                                    <label form="sexo" class="col-form-label col-md-3 col-sm-3">Sexo<span class="required">*</span></label>
+                                                                    <select name="sexo_update" id="sexo_update" onblur="validarsexoEdit()" class="form-control" required>
                                                                         <option value="">~Seleccione~</option>
                                                                         <option value="Masculino">Masculino</option>
                                                                         <option value="Femenino">Femenino</option>
                                                                     </select>
+                                                                    <span class="mensajesexoedit" style="display: none; color: red;">Debe
+                                                                        seleccionar sexo</span>
+
+                                                                    <input type="hidden" name="fullsexoedit" id="fullsexoedit">
                                                                 </div>
 
 
                                                                 <div class="form-group">
-                                                                    <label
-                                                                        class="col-form-label col-md-6 col-sm-6">Fecha
+                                                                    <label class="col-form-label col-md-6 col-sm-6">Fecha
                                                                         de Nacimiento
                                                                         <span class="required">*</span></label>
-                                                                    <input type="date" name="date_update"
-                                                                        id="date_update" class="form-control"
-                                                                        placeholder="Ingrese Fecha de Nacimiento"
-                                                                        autocomplete="off" required>
+                                                                    <input type="date" name="date_update" onblur="validarfechaEdit()" id="date_update" class="form-control" placeholder="Ingrese Fecha de Nacimiento" autocomplete="off" required>
+                                                                    <span class="mensajefechaedit" style="display: none; color: red;">Debe ser
+                                                                        mayor de edad</span>
+
+                                                                    <input type="hidden" name="fulldateedit" id="fulldateedit">
                                                                 </div>
 
                                                                 <div class="form-group">
-                                                                    <label
-                                                                        class="col-form-label col-md-6 col-sm-6">Telefono
+                                                                    <label class="col-form-label col-md-6 col-sm-6">Telefono
                                                                         <span class="required">*</span></label>
-                                                                    <input type="text"
-                                                                        oninput="validacionTelefonoedit()"
-                                                                        onkeypress="return soloNumeros(event)"
-                                                                        name="telefono_update" id="telefono_update"
-                                                                        pattern="[0-9]{4}[_-][0-9]{4}"
-                                                                        title="Formato solicitado: 0000-0000"
-                                                                        maxlength="9" min="9" class="form-control"
-                                                                        placeholder="0000-0000" autocomplete="off"
-                                                                        required>
-                                                                    <input type="hidden" name="telefonovalidado_update"
-                                                                        id="telefonovalidado_update">
+                                                                    <input type="text" oninput="validacionTelefonoEdit()" onblur="validarTelfinalEdit()" onkeypress="return soloNumeros(event)" name="telefono_update" id="telefono_update" pattern="[0-9]{4}[_-][0-9]{4}" title="Formato solicitado: 0000-0000" maxlength="9" min="9" class="form-control" placeholder="0000-0000" autocomplete="off" required>
+                                                                    <span class="mensajeteledit" style="display: none; color: red;">Digite
+                                                                        correctamente el Telefono</span>
+
+                                                                    <input type="hidden" name="telefonovalidado_update" id="telefonovalidado_update">
+
+                                                                    <input type="hidden" name="fullteledit" id="fullteledit">
                                                                 </div>
 
                                                                 <input type="hidden" name="estado" id="estado">
@@ -442,13 +356,11 @@
                                                 </div>
 
                                                 <div class="modal-footer">
-                                                    <button type="reset" class="btn btn btn-round  btn-cancelar"
-                                                        data-dismiss="modal">
+                                                    <button type="reset" class="btn btn btn-round  btn-cancelar" data-dismiss="modal">
                                                         <li class="fa fa-close cancelar"></li> Cancelar
                                                     </button>
-                                                    <button type="submit" onclick="validaciondatosupdate()"
-                                                        class="btn btn-round btn-guardar" id="btng" name="btng">
-                                                        <li onclick="validaciondatosupdate()" class="fa fa-save"></li>
+                                                    <button type="submit" disabled onclick="modificarRepresentante()" class="btn btn-round btn-guardar" id="btngedit" name="btngedit">
+                                                        <li onclick="modificarRepresentante()" class="fa fa-save"></li>
                                                         Actualizar Datos
                                                     </button>
                                                 </div>
@@ -468,8 +380,7 @@
                                                 <div class="modal-header">
                                                     <h4 class="modal-title">Dar de Baja a Representante</h4>
 
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                        aria-hidden="true">&times;</button>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                                                 </div>
 
                                                 <div class="modal-body">
@@ -482,14 +393,10 @@
                                                 <div class="modal-footer text-center">
                                                     <div class="form-group">
                                                         <div class="col-sm-6">
-                                                            <button type="submit" onclick="debajaRepresentante()"
-                                                                class="btn  btn-danger pull-right"><span
-                                                                    class="fa fa-save"></span> Dar de Baja</button>
+                                                            <button type="submit" onclick="debajaRepresentante()" class="btn  btn-danger pull-right"><span class="fa fa-save"></span> Dar de Baja</button>
                                                         </div>
                                                         <div class="col-sm-6">
-                                                            <button id="cancelar" name="cancelar" type="button"
-                                                                data-dismiss="modal" class="btn btn-warning"><span
-                                                                    class="fa fa-dedent"></span>
+                                                            <button id="cancelar" name="cancelar" type="button" data-dismiss="modal" class="btn btn-warning"><span class="fa fa-dedent"></span>
                                                                 Cancelar</button>
                                                         </div>
                                                     </div>
@@ -512,8 +419,7 @@
                                                 <div class="modal-header">
                                                     <h4 class="modal-title">Dar de Alta a Representante</h4>
 
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                        aria-hidden="true">&times;</button>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                                                 </div>
 
                                                 <div class="modal-body">
@@ -526,14 +432,10 @@
                                                 <div class="modal-footer text-center">
                                                     <div class="form-group">
                                                         <div class="col-sm-6">
-                                                            <button type="submit" onclick="dealtaRepresentante()"
-                                                                class="btn btn-guardar pull-right"><span
-                                                                    class="fa fa-save"></span> Dar de Alta</button>
+                                                            <button type="submit" onclick="dealtaRepresentante()" class="btn btn-guardar pull-right"><span class="fa fa-save"></span> Dar de Alta</button>
                                                         </div>
                                                         <div class="col-sm-6">
-                                                            <button id="cancelar" name="cancelar" type="button"
-                                                                data-dismiss="modal" class="btn btn-warning"><span
-                                                                    class="fa fa-dedent"></span>
+                                                            <button id="cancelar" name="cancelar" type="button" data-dismiss="modal" class="btn btn-warning"><span class="fa fa-dedent"></span>
                                                                 Cancelar</button>
                                                         </div>
                                                     </div>
@@ -566,8 +468,7 @@
                                         <div class="col-sm-12">
                                             <div class="card-box table-responsive">
 
-                                                <table id="datatable-buttons" class="table table-striped table-bordered"
-                                                    style="width:100% ">
+                                                <table id="datatable-buttons" class="table table-striped table-bordered" style="width:100% ">
                                                     <thead align="center">
                                                         <tr>
                                                             <th>Nombre</th>
@@ -587,87 +488,62 @@
                                                             foreach ($fila as $key => $value) {
                                                         ?>
 
-                                                        <tr>
-                                                            <td style="text-align: center;">
-                                                                <?php echo $value->getNombre() . ' ' . $value->getApellido() ?>
-                                                            </td>
+                                                                <tr>
+                                                                    <td style="text-align: center;">
+                                                                        <?php echo $value->getNombre() . ' ' . $value->getApellido() ?>
+                                                                    </td>
 
-                                                            <td style="text-align: center;">
-                                                                <?php echo $value->getTelefono() ?>
-                                                            </td>
+                                                                    <td style="text-align: center;">
+                                                                        <?php echo $value->getTelefono() ?>
+                                                                    </td>
 
-                                                            <td style="text-align: center;">
-                                                                <?php
+                                                                    <td style="text-align: center;">
+                                                                        <?php
                                                                         if ($value->getEstado() == 1) {
                                                                             echo "Activo";
                                                                         } else {
                                                                             echo "De baja";
                                                                         }
                                                                         ?>
-                                                            </td>
+                                                                    </td>
 
-                                                            <td style="text-align: center; size: 20px;">
+                                                                    <td style="text-align: center; size: 20px;">
 
-                                                                <button type="button" class="btn btn-round btn-editar"
-                                                                    onclick="mostrarEquipos()"
-                                                                    data-target="#modalEquipos" data-toggle="modal"
-                                                                    data-dui='<?php echo $value->getDui(); ?>'
-                                                                    data-toggle="tooltip">
-                                                                    <li class="fa fa-eye"> Ver</li>
-                                                                </button>
+                                                                        <button type="button" class="btn btn-round btn-editar" onclick="mostrarEquipos()" data-target="#modalEquipos" data-toggle="modal" data-dui='<?php echo $value->getDui(); ?>' data-toggle="tooltip">
+                                                                            <li class="fa fa-eye"> Ver</li>
+                                                                        </button>
 
-                                                            </td>
+                                                                    </td>
 
 
 
-                                                            <td style="text-align: center;">
-                                                                <div class="btn-group" role="group">
+                                                                    <td style="text-align: center;">
+                                                                        <div class="btn-group" role="group">
 
-                                                                    <button type="button"
-                                                                        class="btn btn-round btn-editar"
-                                                                        onclick="abrirmodalEditar()"
-                                                                        data-target="#modalmodificarR"
-                                                                        data-toggle="modal"
-                                                                        data-nombre='<?php echo $value->getNombre(); ?>'
-                                                                        data-apellido='<?php echo $value->getApellido(); ?>'
-                                                                        data-dui='<?php echo $value->getDui(); ?>'
-                                                                        data-sexo='<?php echo $value->getSexo(); ?>'
-                                                                        data-fecha='<?php echo $value->getFecha_nac(); ?>'
-                                                                        data-telefono='<?php echo $value->getTelefono(); ?>'
-                                                                        data-estado='<?php echo $value->getEstado(); ?>'
-                                                                        data-toggle="tooltip">
-                                                                        <li class="fa fa-edit"></li>
+                                                                            <button type="button" class="btn btn-round btn-editar" onclick="abrirmodalEditar()" data-target="#modalmodificarR" data-toggle="modal" data-nombre='<?php echo $value->getNombre(); ?>' data-apellido='<?php echo $value->getApellido(); ?>' data-dui='<?php echo $value->getDui(); ?>' data-sexo='<?php echo $value->getSexo(); ?>' data-fecha='<?php echo $value->getFecha_nac(); ?>' data-telefono='<?php echo $value->getTelefono(); ?>' data-estado='<?php echo $value->getEstado(); ?>' data-toggle="tooltip">
+                                                                                <li class="fa fa-edit"></li>
 
-                                                                        <?php if ($value->getEstado() == 1) : ?>
+                                                                                <?php if ($value->getEstado() == 1) : ?>
 
-                                                                    </button>
+                                                                            </button>
 
-                                                                    <button type="button" onclick="abrirmodaldeBaja()"
-                                                                        data-target="#DeBajaRepresentante"
-                                                                        data-toggle="modal"
-                                                                        data-id="<?php echo $value->getDui(); ?>"
-                                                                        class="btn btn-round btn-baja">
-                                                                        <li class="fa fa-thumbs-o-down"></li>
-                                                                        <!--fa fa-thumbs-o-up -->
-                                                                    </button>
+                                                                            <button type="button" onclick="abrirmodaldeBaja()" data-target="#DeBajaRepresentante" data-toggle="modal" data-id="<?php echo $value->getDui(); ?>" class="btn btn-round btn-baja">
+                                                                                <li class="fa fa-thumbs-o-down"></li>
+                                                                                <!--fa fa-thumbs-o-up -->
+                                                                            </button>
 
-                                                                    <?php else : ?>
+                                                                        <?php else : ?>
 
-                                                                    </button><button type="button"
-                                                                        onclick="abrirmodaldeAlta()"
-                                                                        data-target="#DeAltaRepresentante"
-                                                                        data-toggle="modal"
-                                                                        data-id="<?php echo $value->getDui(); ?>"
-                                                                        class="btn btn-round btn-alta">
-                                                                        <li class="fa fa-thumbs-o-up"></li>
-                                                                        <!--fa fa-thumbs-o-up -->
-                                                                    </button>
+                                                                            </button><button type="button" onclick="abrirmodaldeAlta()" data-target="#DeAltaRepresentante" data-toggle="modal" data-id="<?php echo $value->getDui(); ?>" class="btn btn-round btn-alta">
+                                                                                <li class="fa fa-thumbs-o-up"></li>
+                                                                                <!--fa fa-thumbs-o-up -->
+                                                                            </button>
 
-                                                                    <?php endif; ?>
+                                                                        <?php endif; ?>
 
-                                                                </div>
-                                                            </td>
-                                                        </tr>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
                                                         <?php }
                                                         endif; ?>
                                                     </tbody>
@@ -686,8 +562,7 @@
 
                                             <div class="modal-header">
                                                 <h4 class="modal-title fa fa-eye"> Equipos</h4>
-                                                <button type="button" class="close" data-dismiss="modal"><span
-                                                        aria-hidden="true">×</span>
+                                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
                                                 </button>
                                             </div>
 

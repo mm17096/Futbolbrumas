@@ -1,4 +1,5 @@
-//--------------- Metodos de crup ---------------//
+
+//--------------- Metodos de mensaje ---------------//
 function msj() {
 
   setTimeout(function () {
@@ -10,10 +11,36 @@ function msj() {
   }, 3500);
 
 };
+//--------------- Metodos de mensaje ---------------//
+
+//--------------- Cargar tabla --------------------//
+/*
+function cargartabla() {
+  if (window.XMLHttpRequest) {
+    xmlhttp = new XMLHttpRequest();
+  } else {
+    xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+  }
+
+  xmlhttp.onreadystatechange = function () {
+    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+
+      document.getElementById("tablarepresentante").innerHTML = xmlhttp.responseText;
+      cargarpaginaciontabla();
+    }
+  }
+  xmlhttp.open("GET", "../views/tablas/tb_representantes.php", true);
+  xmlhttp.send();
+}
+
+function cargarpaginaciontabla() {
+  $('#example2').DataTable();
+};
+*/
+//--------------- Cargar tabla --------------------//
 
 
-
-//Guardar Representante
+//-------------------- Guardar Representante --------------------//
 function agregarRepresentante() {
   var parametros = $("#addRepresentante").serialize();
   $.ajax({
@@ -34,7 +61,10 @@ function agregarRepresentante() {
   });
 
 };
+//-------------------- Guardar Representante --------------------//
 
+
+//-------------------- Modificar Representante -----------------//
 function modificarRepresentante() {
   var parametros = $("#updateRepresentante").serialize();
   $.ajax({
@@ -52,8 +82,51 @@ function modificarRepresentante() {
       $('#modalmodificarR').modal('hide');
     }
   });
-};
 
+};
+//-------------------- Modificar Representante -----------------//
+
+
+//-------------------- Abrir Modal Editar Reresentante ---------//
+function abrirmodalEditar() {
+  $('#modalmodificarR').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget)
+
+    var nombre = button.data('nombre')
+    $('#nombre_update').val(nombre)
+    $('#fullnombreedit').val("validado")
+    
+    var apellido = button.data('apellido')
+    $('#apellido_update').val(apellido)
+    $('#fullapellidoedit').val("validado")
+
+    var dui = button.data('dui')
+    $('#dui_update').val(dui)
+    $('#duiactedit').val(dui)
+    $('#fullduiedit').val("validado")
+
+    var sexo = button.data('sexo')
+    $('#sexo_update').val(sexo);
+    $('#fullsexoedit').val("validado")
+
+    var fecha = button.data('fecha')
+    $('#date_update').val(fecha)
+    $('#fulldateedit').val("validado")
+
+    var telefono = button.data('telefono')
+    $('#telefono_update').val(telefono)
+    $('#fullteledit').val("validado")
+
+    var estado = button.data('estado')
+    $('#estado').val(estado)
+
+    verificarbotonEdit();
+  });
+};
+//-------------------- Abrir Modal Editar Reresentante ---------//
+
+
+//----------------- Dar de baja Representante ------------------//
 function debajaRepresentante() {
   var parametros = $("#bajaRepresentante").serialize();
   $.ajax({
@@ -66,7 +139,21 @@ function debajaRepresentante() {
     }
   });
 };
+//----------------- Dar de baja Representante ------------------//
 
+
+//---------------- Abrir Modal Dar de Baja Reresentante --------//
+function abrirmodaldeBaja() {
+  $('#DeBajaRepresentante').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget) // Button that triggered the modal
+    var id = button.data('id')
+    $('#dui_baja').val(id)
+  })
+};
+//---------------- Abrir Modal Dar de Baja Reresentante --------//
+
+
+//---------------- Dar de alta representante -------------------//
 function dealtaRepresentante() {
   var parametros = $("#altaRepresentante").serialize();
   $.ajax({
@@ -80,36 +167,21 @@ function dealtaRepresentante() {
     }
   });
 };
+//---------------- Dar de alta representante -------------------//
 
-//Abrir Modal Editar Reresentante
-function abrirmodalEditar() {
-  $('#modalmodificarR').on('show.bs.modal', function (event) {
-    var button = $(event.relatedTarget)
 
-    var nombre = button.data('nombre')
-    $('#nombre_update').val(nombre)
-
-    var apellido = button.data('apellido')
-    $('#apellido_update').val(apellido)
-
-    var dui = button.data('dui')
-    $('#dui_update').val(dui)
-
-    var sexo = button.data('sexo')
-    $('#sexo_update').val(sexo);
-
-    var fecha = button.data('fecha')
-    $('#date_update').val(fecha)
-
-    var telefono = button.data('telefono')
-    $('#telefono_update').val(telefono)
-
-    var estado = button.data('estado')
-    $('#estado').val(estado)
-
-  });
+//---------------- Abrir Modal Dar de Baja Reresentante --------//
+function abrirmodaldeAlta() {
+  $('#DeAltaRepresentante').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget) // Button that triggered the modal
+    var id = button.data('id')
+    $('#dui_alta').val(id)
+  })
 };
+//---------------- Abrir Modal Dar de Baja Reresentante --------//
 
+
+//---------------- MODAL DE MOSTRAR EQUIPOS -------------------//
 function mostrarEquipos() {
   $('#modalEquipos').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget)
@@ -137,52 +209,11 @@ function mostrarEquipos() {
 
 function cargarpaginacion() {
   $('#example1').DataTable();
-}
-
-//Abrir Modal Dar de Baja Reresentante
-function abrirmodaldeBaja() {
-  $('#DeBajaRepresentante').on('show.bs.modal', function (event) {
-    var button = $(event.relatedTarget) // Button that triggered the modal
-    var id = button.data('id')
-    $('#dui_baja').val(id)
-  })
 };
+//---------------- MODAL DE MOSTRAR EQUIPOS -------------------//
 
-//Abrir Modal Dar de Baja Reresentante
-function abrirmodaldeAlta() {
-  $('#DeAltaRepresentante').on('show.bs.modal', function (event) {
-    var button = $(event.relatedTarget) // Button that triggered the modal
-    var id = button.data('id')
-    $('#dui_alta').val(id)
-  })
-};
 
-//--------------- Validaciones y Otros-----------------//
-
-/*function mensaje(){
-  $mensaje = document.getElementById("mensaje").value;
-  console.log($mensaje);
-  if($mensaje == 'exito'){
-    Swal.fire({
-      position: 'top-end',
-      icon: 'success',
-      title: 'Registro Exitoso!',
-      showConfirmButton: false,
-      timer: 1500
-  })
-  }else if($mensaje == 'error'){
-    Swal.fire({
-      position: 'top-end',
-      icon: 'error',
-      title: 'Registro no completado...',
-      showConfirmButton: false,
-      timer: 1500
-  })
-  }
-}
-*/
-
-// ---- Validacion de Telefono ---- //
+// ---- Validacion de Telefono con respecto al '-'---- //
 function validacionTelefono() {
   $telefono = document.getElementById("telefono").value;
   $validado = document.getElementById("telefonovalidado").value;
@@ -197,7 +228,10 @@ function validacionTelefono() {
     $("#telefonovalidado").val("");
   }
 };
+// ---- Validacion de Telefono con respecto al '-'---- //
 
+
+// ------ Verificacion si el telefono esta completo ------//
 function validarTelfinal() {
   $telefono = document.getElementById("telefono").value;
 
@@ -208,7 +242,7 @@ function validarTelfinal() {
     $("#fulltel").val("");
     setTimeout(function () {
       $(".mensajetel").fadeIn(1500);
-    }, 500);
+    }, 100);
 
     setTimeout(function () {
       $(".mensajetel").fadeOut(1500);
@@ -216,17 +250,16 @@ function validarTelfinal() {
     verificarboton();
   }
 };
+// ------ Verificacion si el telefono esta completo ------//
 
 
-
-// ---- Validacion de DUI ---- //
-
+// ---- Validacion de DUI con respecto al '-'---- //
 function validacionDui() {
   $dui = document.getElementById("dui").value;
   $validadodui = document.getElementById("duivalidado").value;
 
   if ($dui.length == 8 && $validadodui == "") {
-    console.log("validando DUI");
+    //console.log("validando DUI");
     $dui = $dui + "-";
     //console.log($dui);
     $("#dui").val($dui);
@@ -235,13 +268,15 @@ function validacionDui() {
     $("#duivalidado").val("");
   }
 };
+// ---- Validacion de DUI con respecto al '-'---- //
 
+
+// ------ Verificacion si el DUI esta completo ------//
 function validarDuifinal() {
   $dui = document.getElementById("dui").value;
 
   if ($dui.length == 10) {
-    $("#fulldui").val("validado");
-    verificarboton();
+    validarduibase();
   } else {
     $("#fulldui").val("");
     setTimeout(function () {
@@ -254,15 +289,51 @@ function validarDuifinal() {
     verificarboton();
   }
 };
+// ------ Verificacion si el DUI esta completo ------//
 
-// ------- Validacion de Correo ----- //
 
+//--- Validar si el DUI esta en la base de datos ---//
+function validarduibase() {
+  $dui = document.getElementById("dui").value;
+  
+  var datos = { "action": "verificardui", "dui": $dui }
+  $respuesta = $.ajax({
+    dataType: "json",
+    method: "POST",
+    url: '../controller/representante_controller.php',
+    data: datos,
+  }).done(function (json) {
+    //console.log("EL consultar especifico", json);
+    if (json[0] == "Exito") {
+      $("#fulldui").val("validado");
+      verificarboton();
+    } else if (json[0] == "Error") {
+      $("#fulldui").val("");
+      document.getElementById("dui").value = "";
+      setTimeout(function () {
+        $(".mensajeduiexiste").fadeIn(1500);
+      }, 100);
+
+      setTimeout(function () {
+        $(".mensajeduiexiste").fadeOut(1500);
+      }, 3500);
+      verificarboton();
+    }
+  }).fail(function (json) {
+    alert('Entro al metodo');
+  }).always(function (json) {
+
+  });
+};
+//--- Validar si el DUI esta en la base de datos ---//
+
+
+// ------- Validacion de Correo esta completo----- //
 function validarcorreo() {
   $correo = document.getElementById("correo").value;
 
   if (/^\w+([\.-]?\w+)*@(?:|hotmail|outlook|yahoo|live|gmail)\.(?:|com|es)+$/.test($correo)) {
-    $("#fullcorreo").val("validado");
-    verificarboton();
+    validarcorreobase();
   } else {
     $("#fullcorreo").val("");
     setTimeout(function () {
@@ -275,9 +346,46 @@ function validarcorreo() {
     verificarboton();
   }
 };
+// ------- Validacion de Correo esta completo----- //
+
+
+//--- Validar si el correo esta en la base de datos ---//
+function validarcorreobase() {
+  $correo = document.getElementById("correo").value;
+
+  var datos = { "action": "verificarcorreo", "correo": $correo }
+  $respuesta = $.ajax({
+    dataType: "json",
+    method: "POST",
+    url: '../controller/representante_controller.php',
+    data: datos,
+  }).done(function (json) {
+    //console.log("EL consultar especifico", json);
+    if (json[0] == "Exito") {
+      $("#fullcorreo").val("validado");
+      verificarboton();
+    } else if (json[0] == "Error") {
+      $("#fullcorreo").val("");
+      document.getElementById("correo").value = "";
+      verificarboton();
+      setTimeout(function () {
+        $(".mensajecorreoexiste").fadeIn(1500);
+      }, 100);
+
+      setTimeout(function () {
+        $(".mensajecorreoexiste").fadeOut(1500);
+      }, 3500);
+    }
+  }).fail(function (json) {
+
+  }).always(function (json) {
+
+  });
+};
+//--- Validar si el correo esta en la base de datos ---//
+
 
 //-------- Validacion de Fecha ------//
-
 function validarfecha() {
   $today = new Date();
   $fecha = document.getElementById("date").value;
@@ -307,7 +415,10 @@ function validarfecha() {
     verificarboton();
   }
 };
+//-------- Validacion de Fecha ------//
 
+
+//------  Validacion del Sexo ------//
 function validarsexo() {
   $sexo = document.getElementById("sexo").value;
 
@@ -326,7 +437,10 @@ function validarsexo() {
     verificarboton();
   }
 };
+//------  Validacion del Sexo ------//
 
+
+//------  Validacion del Nombre ------//
 function validarnombre() {
   $nombre = document.getElementById("nombre").value;
 
@@ -345,7 +459,10 @@ function validarnombre() {
     verificarboton();
   }
 };
+//------  Validacion del Nombre ------//
 
+
+//------  Validacion del Apellido ------//
 function validarapellido() {
   $apellido = document.getElementById("apellido").value;
 
@@ -364,7 +481,10 @@ function validarapellido() {
     verificarboton();
   }
 };
+//------  Validacion del Apellido ------//
 
+
+//------  Validacion del Boton agregar ------//
 function verificarboton() {
   $nombre = document.getElementById("fullnombre").value;
   $apellido = document.getElementById("fullapellido").value;
@@ -374,16 +494,65 @@ function verificarboton() {
   $fecha = document.getElementById("fulldate").value;
   $telefono = document.getElementById("fulltel").value;
 
-  if ($dui == 'validado' && $sexo == 'validado' && $correo == 'validado' && $fecha == 'validado' && $telefono == 'validado' && $nombre == 'validado' && $apellido == 'validado') {
+  if ($dui == 'validado' && $sexo == 'validado' && $correo == 'validado' && $fecha == 'validado' && 
+  $telefono == 'validado' && $nombre == 'validado' && $apellido == 'validado') {
     $("#btng").removeAttr("disabled");
   } else {
     $("#btng").attr("disabled", "disabled");
   }
 
-}
+};
+//------  Validacion del Boton agregar ------//
+
+
+///// --------------- Parte Funciones Campos Editables ---------------- /////
+
+//------  Validacion del Nombre ------//
+function validarnombreEdit() {
+  $nombre = document.getElementById("nombre_update").value;
+
+  if ($nombre != '') {
+    $("#fullnombreedit").val("validado");
+    verificarbotonEdit();
+  } else {
+    $("#fullnombreedit").val("");
+    setTimeout(function () {
+      $(".mensajenombreedit").fadeIn(1500);
+    }, 100);
+
+    setTimeout(function () {
+      $(".mensajenombreedit").fadeOut(1500);
+    }, 3500);
+    verificarbotonEdit();
+  }
+};
+//------  Validacion del Nombre ------//
+
+
+//------  Validacion del Apellido ------//
+function validarapellidoEdit() {
+  $apellido = document.getElementById("apellido_update").value;
+
+  if ($apellido != '') {
+    $("#fullapellidoedit").val("validado");
+    verificarbotonEdit();
+  } else {
+    $("#fullapellidoedit").val("");
+    setTimeout(function () {
+      $(".mensajeapellidoedit").fadeIn(1500);
+    }, 100);
+
+    setTimeout(function () {
+      $(".mensajeapellidoedit").fadeOut(1500);
+    }, 3500);
+    verificarbotonEdit();
+  }
+};
+//------  Validacion del Apellido ------//
+
 
 // ---- Validacion de Telefono Editable ---- //
-function validacionTelefonoedit() {
+function validacionTelefonoEdit() {
   $telefono = document.getElementById("telefono_update").value;
   $validado = document.getElementById("telefonovalidado_update").value;
 
@@ -397,14 +566,16 @@ function validacionTelefonoedit() {
     $("#telefonovalidado_update").val("");
   }
 };
-// ---- Validacion de DUI Editable---- //
+// ---- Validacion de Telefono Editable ---- //
 
-function validacionDuiedit() {
+
+// ---- Validacion de DUI Editable---- //
+function validacionDuiEdit() {
   $dui = document.getElementById("dui_update").value;
   $validadodui = document.getElementById("duivalidado_update").value;
 
   if ($dui.length == 8 && $validadodui == "") {
-    console.log("validando DUI");
+    //console.log("validando DUI");
     $dui = $dui + "-";
     //console.log($dui);
     $("#dui_update").val($dui);
@@ -413,9 +584,182 @@ function validacionDuiedit() {
     $("#duivalidado_update").val("");
   }
 };
+// ---- Validacion de DUI Editable---- //
+
+
+// ------ Verificacion si el DUI esta completo ------//
+function validarDuifinalEdit() {
+  $dui = document.getElementById("dui_update").value;
+
+  if ($dui.length == 10) {
+    validarduibaseEdit();
+  } else {
+    $("#fullduiedit").val("");
+    setTimeout(function () {
+      $(".mensajeduiedit").fadeIn(1500);
+    }, 100);
+
+    setTimeout(function () {
+      $(".mensajeduiedit").fadeOut(1500);
+    }, 3500);
+    verificarbotonEdit();
+  }
+};
+// ------ Verificacion si el DUI esta completo ------//
+
+
+//--- Validar si el DUI esta en la base de datos ---//
+function validarduibaseEdit() {
+  $dui = document.getElementById("dui_update").value;
+  
+  var datos = { "action": "verificardui", "dui": $dui }
+  $respuesta = $.ajax({
+    dataType: "json",
+    method: "POST",
+    url: '../controller/representante_controller.php',
+    data: datos,
+  }).done(function (json) {
+    //console.log("EL consultar especifico", json);
+    if (json[0] == "Exito") {
+      $("#fullduiedit").val("validado");
+      verificarbotonEdit();
+    } else if (json[0] == "Error") {
+      $("#fullduiedit").val("");
+      document.getElementById("dui_update").value = "";
+      setTimeout(function () {
+        $(".mensajeduiexisteedit").fadeIn(1500);
+      }, 100);
+
+      setTimeout(function () {
+        $(".mensajeduiexisteedit").fadeOut(1500);
+      }, 3500);
+      verificarbotonEdit();
+    }
+  }).fail(function (json) {
+    
+  }).always(function (json) {
+
+  });
+};
+//--- Validar si el DUI esta en la base de datos ---//
+
+
+//------  Validacion del Sexo ------//
+function validarsexoEdit() {
+  $sexo = document.getElementById("sexo_update").value;
+
+  if ($sexo == 'Masculino' || $sexo == 'Femenino') {
+    $("#fullsexoedit").val("validado");
+    verificarbotonEdit();
+  } else {
+    $("#fullsexoedit").val("");
+    setTimeout(function () {
+      $(".mensajesexoedit").fadeIn(1500);
+    }, 100);
+
+    setTimeout(function () {
+      $(".mensajesexoedit").fadeOut(1500);
+    }, 3500);
+    verificarbotonEdit();
+  }
+};
+//------  Validacion del Sexo ------//
+
+
+//-------- Validacion de Fecha ------//
+function validarfechaEdit() {
+  $today = new Date();
+  $fecha = document.getElementById("date_update").value;
+
+  $year0 = $fecha[0];
+  $year1 = $fecha[1];
+  $year2 = $fecha[2];
+  $year3 = $fecha[3];
+
+  $year = $year0 + $year1 + $year2 + $year3;
+
+  $edad = $today.getFullYear() - $year;
+
+  if ($edad >= 18) {
+    $("#fulldateedit").val("validado");
+    verificarbotonEdit();
+  } else {
+    document.getElementById("date_update").value = "";
+    $("#fulldateedit").val("");
+    setTimeout(function () {
+      $(".mensajefechaedit").fadeIn(1500);
+    }, 100);
+
+    setTimeout(function () {
+      $(".mensajefechaedit").fadeOut(1500);
+    }, 3500);
+    verificarbotonEdit();
+  }
+};
+//-------- Validacion de Fecha ------//
+
+
+// ---- Validacion de Telefono con respecto al '-'---- //
+function validacionTelefonoEdit() {
+  $telefono = document.getElementById("telefono_update").value;
+  $validado = document.getElementById("telefonovalidado_update").value;
+
+  if ($telefono.length == 4 && $validado == "") {
+    //console.log("validando Telefono");
+    $telefono = $telefono + "-";
+    //console.log($telefono);
+    $("#telefono_update").val($telefono);
+    $("#telefonovalidado_update").val("validado");
+  } else if ($telefono.length <= 4 && $validado != "") {
+    $("#telefonovalidado_update").val("");
+  }
+};
+// ---- Validacion de Telefono con respecto al '-'---- //
+
+
+// ------ Verificacion si el telefono esta completo ------//
+function validarTelfinalEdit() {
+  $telefono = document.getElementById("telefono_update").value;
+
+  if ($telefono.length == 9) {
+    $("#fullteledit").val("validado");
+    verificarbotonEdit();
+  } else {
+    $("#fullteledit").val("");
+    setTimeout(function () {
+      $(".mensajeteledit").fadeIn(1500);
+    }, 100);
+
+    setTimeout(function () {
+      $(".mensajeteledit").fadeOut(1500);
+    }, 3000);
+    verificarbotonEdit();
+  }
+};
+// ------ Verificacion si el telefono esta completo ------//
+
+
+//------  Validacion del Boton agregar ------//
+function verificarbotonEdit() {
+  $nombre = document.getElementById("fullnombreedit").value;
+  $apellido = document.getElementById("fullapellidoedit").value;
+  $dui = document.getElementById("fullduiedit").value;
+  $sexo = document.getElementById("fullsexoedit").value;
+  $fecha = document.getElementById("fulldateedit").value;
+  $telefono = document.getElementById("fullteledit").value;
+
+  if ($dui == 'validado' && $sexo == 'validado' && $fecha == 'validado' && 
+  $telefono == 'validado' && $nombre == 'validado' && $apellido == 'validado') {
+    $("#btngedit").removeAttr("disabled");
+  } else {
+    $("#btngedit").attr("disabled", "disabled");
+  }
+
+};
+//------  Validacion del Boton agregar ------//
+
 
 // ---- Validacion de Campos de tipo texto ---- //
-
 function soloLetras(e) {
   var key = e.keyCode || e.which,
     tecla = String.fromCharCode(key).toLowerCase(),
@@ -434,9 +778,10 @@ function soloLetras(e) {
     return false;
   }
 };
+// ---- Validacion de Campos de tipo texto ---- //
+
 
 // ---- Validacion de Campos de tipo numericos ---- //
-
 function soloNumeros(e) {
   var key = e.keyCode || e.which,
     tecla = String.fromCharCode(key).toLowerCase(),
@@ -455,28 +800,14 @@ function soloNumeros(e) {
     return false;
   }
 };
+// ---- Validacion de Campos de tipo numericos ---- //
 
+
+///// --------------- Parte Funciones Campos Editables ---------------- /////
+
+
+/*
 // ---- Validacion de Datos finales ---- //
-function validaciondatos() {
-
-  $today = new Date();
-  $fecha = document.getElementById("date").value;
-
-  $year0 = $fecha[0];
-  $year1 = $fecha[1];
-  $year2 = $fecha[2];
-  $year3 = $fecha[3];
-
-  $year = $year0 + $year1 + $year2 + $year3;
-
-  $edad = $today.getFullYear() - $year;
-  if ($edad >= 18) {
-    agregarRepresentante();
-  } else {
-    document.getElementById("date").value = "";
-  }
-};
-
 function validaciondatosupdate() {
 
   $today = new Date();
@@ -498,3 +829,51 @@ function validaciondatosupdate() {
     alert('No se permite la modificacion, la edad debe ser mayor o igual a 18');
   }
 };
+*/
+
+//--------------- Validaciones y Otros-----------------//
+
+/*function mensaje(){
+  $mensaje = document.getElementById("mensaje").value;
+  console.log($mensaje);
+  if($mensaje == 'exito'){
+    Swal.fire({
+      position: 'top-end',
+      icon: 'success',
+      title: 'Registro Exitoso!',
+      showConfirmButton: false,
+      timer: 1500
+  })
+  }else if($mensaje == 'error'){
+    Swal.fire({
+      position: 'top-end',
+      icon: 'error',
+      title: 'Registro no completado...',
+      showConfirmButton: false,
+      timer: 1500
+  })
+  }
+}
+*/
+
+/*
+function validaciondatos() {
+
+  $today = new Date();
+  $fecha = document.getElementById("date").value;
+
+  $year0 = $fecha[0];
+  $year1 = $fecha[1];
+  $year2 = $fecha[2];
+  $year3 = $fecha[3];
+
+  $year = $year0 + $year1 + $year2 + $year3;
+
+  $edad = $today.getFullYear() - $year;
+  if ($edad >= 18) {
+    agregarRepresentante();
+  } else {
+    document.getElementById("date").value = "";
+  }
+};
+*/
