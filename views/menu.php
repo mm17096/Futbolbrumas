@@ -53,7 +53,7 @@
                         <li><a><i class="fa fa-estadio"><img class="fa fa-estadio" src="imagen/equipo.png" /></i>
                                 Equipos<span class="fa fa-chevron-down"></span></a>
                             <ul class="nav child_menu">
-                                <li><a href="equipo.php">Registros</a></li>
+                                <li><a href="vis_equipos.php">Registros</a></li>
                             </ul>
                         </li>
 
@@ -68,7 +68,7 @@
 
                         <li><a><i class="fa fa-estadio"><img src="imagen/jugador.png" /></i> Jugadores<span class="fa fa-chevron-down"></span></a>
                             <ul class="nav child_menu">
-                                <li><a href="#">Registros</a></li>
+                                <li><a href="vis_jugadores.php">Registros</a></li>
                             </ul>
                         </li>
 

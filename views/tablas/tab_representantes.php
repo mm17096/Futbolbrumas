@@ -72,7 +72,7 @@ if ($result) {
                         data-target="#modalmodificarR" data-toggle="modal"
                         data-nombre='<?php echo $value->getNombre(); ?>'
                         data-apellido='<?php echo $value->getApellido(); ?>' data-dui='<?php echo $value->getDui(); ?>'
-                        data-sexo='<?php echo $value->getSexo(); ?>' data-fecha='<?php echo $value->getFecha_nac(); ?>'
+                        data-sexo='<?php echo $value->getSexo(); ?>' data-fecha='<?php echo $value->getFechaNacimiento(); ?>'
                         data-telefono='<?php echo $value->getTelefono(); ?>'
                         data-estado='<?php echo $value->getEstado(); ?>' data-toggle="tooltip">
                         <li class="fa fa-edit"></li>

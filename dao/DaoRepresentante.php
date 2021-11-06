@@ -34,7 +34,7 @@ class DaoRepresentante
         }
 
         //(`dui`, `nombre`, `apellido`, `sexo`, `fecha_nacimiento`, `telefono`, `estado`)
-        $result = $this->Conexion_ID->query("INSERT INTO `representante` VALUES('" . $re->getDui() . "','" . $re->getNombre() . "','" . $re->getApellido() . "','" . $re->getSexo() . "','" . $re->getFecha_nac() . "','" . $re->getTelefono() . "','" . $re->getEstado() . "')");
+        $result = $this->Conexion_ID->query("INSERT INTO `representante` VALUES('" . $re->getDui() . "','" . $re->getNombre() . "','" . $re->getApellido() . "','" . $re->getSexo() . "','" . $re->getFechaNacimiento() . "','" . $re->getTelefono() . "','" . $re->getEstado() . "')");
 
         if (!$result) {
             return 0;
@@ -402,7 +402,7 @@ class DaoRepresentante
             return 0;
         }
         //(`dui`, `nombre`, `apellido`, `sexo`, `fecha_nacimiento`, `telefono`, `estado`)
-        $result = $this->Conexion_ID->query("UPDATE `representante` SET `nombre`='" . $re->getNombre() . "',`apellido`='" . $re->getApellido() . "',`sexo`='" . $re->getSexo() . "',`fecha_nacimiento`='" . $re->getFecha_nac() . "',`telefono`='" . $re->getTelefono() . "',`estado`='" . $re->getEstado() . "' WHERE `dui`='" . $re->getDui() . "'");
+        $result = $this->Conexion_ID->query("UPDATE `representante` SET `nombre`='" . $re->getNombre() . "',`apellido`='" . $re->getApellido() . "',`sexo`='" . $re->getSexo() . "',`fecha_nacimiento`='" . $re->getFechaNacimiento() . "',`telefono`='" . $re->getTelefono() . "',`estado`='" . $re->getEstado() . "' WHERE `dui`='" . $re->getDui() . "'");
         if (!$result) {
 
             return 0;
@@ -480,6 +480,33 @@ class DaoRepresentante
         }
         if (!$result) {
             echo ("no hay datos");
+        }
+        return $listado;
+    }
+
+	function BuscarRepresentanteR($dui){
+        $result=$this->Conexion_ID->query("SELECT * FROM representante WHERE dui='".$dui."'");
+        $representante=null;
+        if($result){
+            while($fila=$result->fetch_object()){
+                $representante=new Representante($fila->dui,$fila->nombre,$fila->apellido,$fila->sexo,$fila->fecha_nacimiento,$fila->telefono,$fila->estado);
+
+            }
+        }if(!$result){
+            return 0;
+        }
+        return $representante;
+    }
+    function listaRepresentanteR(){
+        $result=$this->Conexion_ID->query("SELECT * FROM representante ORDER BY dui asc");
+        $listado= array();// contendra todos nuestros datos de la base de datos
+        if($result){
+            while($fila=$result->fetch_object()){
+                $listado[]=new Representante($fila->dui,$fila->nombre,$fila->apellido,$fila->sexo,$fila->fecha_nacimiento,$fila->telefono,$fila->estado);
+
+            }
+        }if(!$result){
+			return 0;
         }
         return $listado;
     }

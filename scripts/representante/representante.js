@@ -31,7 +31,7 @@ function cargartabla() {
       $('#tbrepresentante').DataTable();
     }
   }
-  xmlhttp.open("GET", "../views/tb_representantes.php", true);
+  xmlhttp.open("GET", "../views/tablas/tab_representantes.php", true);
   xmlhttp.send();
 };
 
@@ -47,13 +47,6 @@ function agregarRepresentante() {
     data: parametros,
     success: function (datos) {
       //$("#resultados").html(datos);
-      $("#nombre").val("");
-      $("#apellido").val("");
-      $("#dui").val("");
-      $("#correo").val("");
-      $("#sexo").val("");
-      $("#date").val("");
-      $("#telefono").val("");
       $('#modalguardarR').modal('hide');
     }
   });
@@ -206,7 +199,7 @@ function mostrarEquipos() {
         cargarpaginacion();
       }
     }
-    xmlhttp.open("GET", "../views/tablas/tb_tablaEquipos.php?id=" + dui, true);
+    xmlhttp.open("GET", "../views/tablas/tab_tablaEquipos.php?id=" + dui, true);
     xmlhttp.send();
 
   });

@@ -5,7 +5,6 @@ require_once "../dao/DaoRepresentante.php";
 require_once "../clases/Usuarios.php";
 require_once "../dao/DaoUsuario.php";
 require_once "../clases/Equipo.php";
-require_once "../dao/DaoEquipo.php";
 require_once "../helpers/utils.php";
 
 
@@ -33,7 +32,6 @@ $dui_alta = (isset($_REQUEST["dui_alta"])) ? $_REQUEST["dui_alta"] : "";
 //Dao Equipo
 $daoR = new DaoRepresentante();
 $daoU = new DaoUsuario();
-$daoE = new DaoEquipo();
 
 if ($action != "") {
     switch ($action) {

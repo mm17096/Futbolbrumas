@@ -1,7 +1,6 @@
 <?php
 require_once("../clases/Usuarios.php");
 require_once("../conexion/Conexion.php");
-require_once("../dao/DaoJugador.php");
 require_once("../helpers/utils.php");
 
 //Uso de PHPMailer

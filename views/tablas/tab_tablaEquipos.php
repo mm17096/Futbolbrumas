@@ -10,6 +10,7 @@
 
         <?php
         $ID = (isset($_GET["id"])) ? $_GET["id"] : "";
+
             require_once("../../conexion/Conexion.php");
             require_once("../../clases/Equipo.php");
             $Conexion_ID;
@@ -19,6 +20,7 @@
             $result = $Conexion_ID->query("SELECT e.idequipo as 'idequipo', e.nombre as 'nombre',(SELECT COUNT(j.idjugador) 
             WHERE j.idequipo = e.idequipo) as 'jugadores', e.idrepresentante as 'idrepresentante', e.estado as 'estado' 
             FROM `equipo` as e, jugador as j WHERE e.idrepresentante ='$ID' GROUP BY e.idequipo");
+            
             $listado = array();
             if ($result) :
                 while ($fila = $result->fetch_object()) {
@@ -59,7 +61,6 @@
             endif; ?>
 
         <?php else :
-
             echo "No hay datos para mostrar";
         ?>
 
