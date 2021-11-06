@@ -1,3 +1,4 @@
+cargartabla();
 
 //--------------- Metodos de mensaje ---------------//
 function msj() {
@@ -13,8 +14,9 @@ function msj() {
 };
 //--------------- Metodos de mensaje ---------------//
 
+
 //--------------- Cargar tabla --------------------//
-/*
+
 function cargartabla() {
   if (window.XMLHttpRequest) {
     xmlhttp = new XMLHttpRequest();
@@ -26,17 +28,13 @@ function cargartabla() {
     if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
 
       document.getElementById("tablarepresentante").innerHTML = xmlhttp.responseText;
-      cargarpaginaciontabla();
+      $('#tbrepresentante').DataTable();
     }
   }
-  xmlhttp.open("GET", "../views/tablas/tb_representantes.php", true);
+  xmlhttp.open("GET", "../views/tb_representantes.php", true);
   xmlhttp.send();
-}
-
-function cargarpaginaciontabla() {
-  $('#example2').DataTable();
 };
-*/
+
 //--------------- Cargar tabla --------------------//
 
 
@@ -126,6 +124,17 @@ function abrirmodalEditar() {
 //-------------------- Abrir Modal Editar Reresentante ---------//
 
 
+//---------------- Abrir Modal Dar de Baja Reresentante --------//
+function abrirmodaldeBaja() {
+  $('#DeBajaRepresentante').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget) // Button that triggered the modal
+    var id = button.data('id')
+    $('#dui_baja').val(id)
+  })
+};
+//---------------- Abrir Modal Dar de Baja Reresentante --------//
+
+
 //----------------- Dar de baja Representante ------------------//
 function debajaRepresentante() {
   var parametros = $("#bajaRepresentante").serialize();
@@ -143,34 +152,6 @@ function debajaRepresentante() {
 
 
 //---------------- Abrir Modal Dar de Baja Reresentante --------//
-function abrirmodaldeBaja() {
-  $('#DeBajaRepresentante').on('show.bs.modal', function (event) {
-    var button = $(event.relatedTarget) // Button that triggered the modal
-    var id = button.data('id')
-    $('#dui_baja').val(id)
-  })
-};
-//---------------- Abrir Modal Dar de Baja Reresentante --------//
-
-
-//---------------- Dar de alta representante -------------------//
-function dealtaRepresentante() {
-  var parametros = $("#altaRepresentante").serialize();
-  $.ajax({
-    type: "POST",
-    url: "../controller/representante_controller.php?action=dealta",
-    data: parametros,
-    success: function (datos) {
-      //$("#resultados").html(datos);
-      $('#DeAltaRepresentante').modal('hide');
-
-    }
-  });
-};
-//---------------- Dar de alta representante -------------------//
-
-
-//---------------- Abrir Modal Dar de Baja Reresentante --------//
 function abrirmodaldeAlta() {
   $('#DeAltaRepresentante').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget) // Button that triggered the modal
@@ -179,6 +160,30 @@ function abrirmodaldeAlta() {
   })
 };
 //---------------- Abrir Modal Dar de Baja Reresentante --------//
+
+
+//---------------- Dar de alta representante -------------------//
+function dealtaRepresentante() {
+  var datos = $("#altaRepresentante").serialize();
+
+  $.ajax({
+    dataType: "json",
+    method: "POST",
+    url: '../controller/representante_controller.php?action=dealta',
+    data: datos,
+  }).done(function (json) {
+    if (json[0] == "Exito") {
+      $("#DeAltaRepresentante").modal('hide');
+      cargartabla();
+    }
+  }).fail(function (json) {
+
+  }).always(function (json) {
+
+  });
+
+};
+//---------------- Dar de alta representante -------------------//
 
 
 //---------------- MODAL DE MOSTRAR EQUIPOS -------------------//
@@ -320,7 +325,7 @@ function validarduibase() {
       verificarboton();
     }
   }).fail(function (json) {
-    alert('Entro al metodo');
+
   }).always(function (json) {
 
   });
@@ -466,7 +471,7 @@ function validarnombre() {
 function validarapellido() {
   $apellido = document.getElementById("apellido").value;
 
-  if ($apellido != '') {
+  if ($apellido != '' && $apellido.length >= 4) {
     $("#fullapellido").val("validado");
     verificarboton();
   } else {

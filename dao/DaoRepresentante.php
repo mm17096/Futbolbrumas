@@ -58,8 +58,8 @@ class DaoRepresentante
         $mail->SMTPSecure = 'tls';
         $mail->Host = 'smtp.gmail.com';
         $mail->Port = '587';
-        $mail->Username = 'restaurantequevaquerer@gmail.com';
-        $mail->Password = 'quevaquerer123';
+        $mail->Username = 'torneofutsalbrumas@gmail.com';
+        $mail->Password = 'futsalbrumas';
 
         $mail->setFrom('futsalbrumas@gmail.com', 'Torneo Futbol Sala las Brumas');
         $mail->addAddress($correo, 'Cuenta de Usuario');

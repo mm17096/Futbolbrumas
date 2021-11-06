@@ -215,6 +215,7 @@ function valcontraseniaconfir() {
             $("#mensajepassconfir").text('Muy Segura').css('color', 'green');
         }
     }
+    verificarpass();
 }
 
 function verificarpass() {
@@ -226,9 +227,9 @@ function verificarpass() {
         $("#mensajepassconfir").text('Confirmada').css('color', 'blue');
         verificarboton();
     } else {
-        document.getElementById("clave2").value = "";
+        //document.getElementById("clave2").value = "";
         $('#fullclave2').val('');
-        $("#mensajepassconfir").text('Contrasenia no coincide').css('color', 'red');
+        //$("#mensajepassconfir").text('Contrasenia no coincide').css('color', 'red');
         verificarboton();
     }
 }

@@ -111,6 +111,7 @@ if ($action != "") {
                     if ($daoU->UpdateUsuario(new Usuario($id_edit, null, null, $_SESSION['identidad']->tipo, $correo_edit, $usuario_edit, Utils::encriptacion($clave_edit)), $imagen) == 1) {
                         $user = $daoU->BuscarUser($id_edit);
                         if ($user != false) {
+                         /*
                             if ($claveact != $clave_edit || $usuarioact != $usuario_edit) {
                                 if ($daoU->confirmarcambiosUsuario($correo_edit, $_SESSION['identidad']->nombre, $_SESSION['identidad']->apellido, $usuario_edit, $clave_edit) == true) {
                                     $_SESSION['perfil_success'] = 'completo';
@@ -120,20 +121,24 @@ if ($action != "") {
                                 $_SESSION['usuario'] = $user;
                                 echo '<script>window.location="' . base_url . 'views/index.php?correo=enviado"</script>';
                             }
-
+                         */
                             $_SESSION['perfil_success'] = 'completo';
                             $_SESSION['usuario'] = $user;
+                            echo '<script>window.location="' . base_url . 'views/index.php"</script>';
+                        } else {
+                            $_SESSION['perfil_success'] = 'Incompleto';
                             echo '<script>window.location="' . base_url . 'views/index.php"</script>';
                         }
                     } else {
 
-                        $_SESSION['perfil_success'] = 'error';
+                        $_SESSION['perfil_success'] = 'Incompleto';
                         echo '<script>window.location="' . base_url . 'views/index.php"</script>';
                     }
                 } else {
                     if ($daoU->UpdateUsuariosinIMG(new Usuario($id_edit, null, null, $_SESSION['identidad']->tipo, $correo_edit, $usuario_edit, Utils::encriptacion($clave_edit)), $imagen) == 1) {
                         $user = $daoU->BuscarUser($id_edit);
                         if ($user != false) {
+                        /*
                             if ($claveact != $clave_edit || $usuarioact != $usuario_edit) {
                                 if ($daoU->confirmarcambiosUsuario($correo_edit, $_SESSION['identidad']->nombre, $_SESSION['identidad']->apellido, $usuario_edit, $clave_edit) == true) {
                                     $_SESSION['perfil_success'] = 'completo';
@@ -143,7 +148,7 @@ if ($action != "") {
                                 $_SESSION['usuario'] = $user;
                                 echo '<script>window.location="' . base_url . 'views/index.php"</script>';
                             }
-
+                        */
                             $_SESSION['perfil_success'] = 'completo';
                             $_SESSION['usuario'] = $user;
                             echo '<script>window.location="' . base_url . 'views/index.php"</script>';
@@ -246,27 +251,26 @@ if ($action != "") {
                     echo '<script>window.location="' . base_url . 'views/vis_cambiardatos.php"</script>';
                 } else {
                     $_SESSION['falloverificacion'] = true;
-                    $_SESSION['Attempts']++;
                     echo '<script>window.location="' . base_url . 'views/vis_verificarcodigo.php"</script>';
                 }
             }
 
             break;
 
-            case 'cambiarclave':
+        case 'cambiarclave':
 
-                if (isset($_POST['clave']) && isset($_POST['id'])) {
-                    if ($daoU->modificarclave(Utils::encriptacion($_POST['clave']), $_POST['id'])){
-                        $_SESSION['modificacionfull'] = true;
-                        $_SESSION['id'] = null;
-                        unset($_SESSION['id']);
-                        echo '<script>window.location="' . base_url . 'views/vis_sesion.php"</script>';
-                    } else {
-                        $_SESSION['fallomodificacion'] = true;
-                        echo '<script>window.location="' . base_url . 'views/vis_cambiardatos.php"</script>';
-                    }
+            if (isset($_POST['clave']) && isset($_SESSION['id'])) {
+                if ($daoU->modificarclave(Utils::encriptacion($_POST['clave']), $_SESSION['id'])) {
+                    $_SESSION['modificacionfull'] = true;
+                    $_SESSION['id'] = null;
+                    unset($_SESSION['id']);
+                    echo '<script>window.location="' . base_url . 'views/vis_sesion.php"</script>';
+                } else {
+                    $_SESSION['fallomodificacion'] = true;
+                    echo '<script>window.location="' . base_url . 'views/vis_cambiardatos.php"</script>';
                 }
-    
-                break;
+            }
+
+            break;
     }
 }

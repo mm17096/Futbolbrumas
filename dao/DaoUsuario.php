@@ -185,6 +185,8 @@ class DaoUsuario
 		echo '<script>window.location="' . base_url . 'views/index.php"</script>';
 	}
 
+	/*
+
 	public function confirmarcambiosUsuario($correo, $nombre, $apellido, $usuario, $clave)
 	{
 
@@ -533,7 +535,7 @@ class DaoUsuario
 		}
 		return $resultado;
 	}
-
+*/
 	public function cambiarcodigo($correo, $codigo)
 	{
 		$result = $this->Conexion_ID->query("UPDATE `usuario` SET `codigore`= '$codigo'  WHERE correo = '$correo'");
@@ -560,12 +562,12 @@ class DaoUsuario
 		$mail->SMTPSecure = 'tls';
 		$mail->Host = 'smtp.gmail.com';
 		$mail->Port = '587';
-		$mail->Username = 'restaurantequevaquerer@gmail.com';
-		$mail->Password = 'quevaquerer123';
+		$mail->Username = 'torneofutsalbrumas@gmail.com';
+        $mail->Password = 'futsalbrumas';
 
-		$mail->setFrom('futsalbrumas@gmail.com', 'Torneo Futbol Sala las Brumas');
+		$mail->setFrom('torneofutsalbrumas@gmail.com', 'Torneo Futbol Sala las Brumas');
 		$mail->addAddress($correo);
-		$mail->Subject = 'Estos son sus nuevos datos de Usuario';
+		$mail->Subject = 'Use este codigo de para seguir con el proceso';
 		$mail->Body = '
         
         <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">

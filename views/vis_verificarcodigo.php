@@ -26,12 +26,12 @@
     <link href="../resources/bootstrap/css/diseño.css" rel="stylesheet" type="text/css" />
 
     <script type="text/javascript">
-        function msj() {
+    function msj() {
 
-            setTimeout(function() {
-                document.getElementById("msjerror").style.display = 'none';
-            }, 3000);
-        };
+        setTimeout(function() {
+            document.getElementById("msjerror").style.display = 'none';
+        }, 3000);
+    };
     </script>
 
 </head>
@@ -62,25 +62,33 @@
     <?php
     session_start();
 
+    $_SESSION['index'] = null;
+    unset($_SESSION['index']);
+    if (!isset($_SESSION['id'])) {
+        header("Location: ../views/vis_sesion.php");
+    }
+
     if (isset($_SESSION['falloverificacion'])) {
 
         $_SESSION['falloverificacion'] = null;
         unset($_SESSION['falloverificacion']);
 
-        $mensaje[] = "Codigo de verificacion incorrecto";
+        $mensaje[] = "Código de verificación incorrecto";
     ?>
 
-        <div id="msjerror" class="alert alert-danger" role="alert" style=" position: absolute;
+    <div id="msjerror" class="alert alert-danger" role="alert" style=" position: absolute;
                                                         right: 30px;
                                                             top: 5px;
                                                             size: 5px;">
-            <strong>Error!</strong>
+        <i class="fa fa-search"></i>
+        <strong>Validación</strong>
+        <p>
             <?php
-            foreach ($mensaje as $error) {
-                echo $error;
-            }
-            ?>
-        </div>
+                foreach ($mensaje as $error) {
+                    echo $error;
+                }
+                ?>
+    </div>
 
     <?php
     }
@@ -95,20 +103,24 @@
                         width: 110x;
                         height: 110px;">
                     </center>
-                    <form action="../controller/usuario_controller.php?action=verificarcodigo" method="POST" autocomplete="off">
-                        <h1>Validar Codigo</h1>
+                    <form action="../controller/usuario_controller.php?action=verificarcodigo" method="POST"
+                        autocomplete="off">
+                        <h1>Validar Código</h1>
                         <div class="form-group">
-                            <label class="col-md-4 col-sm-12">Codigo <span class="required" style="color: red;">
+                            <label class="col-md-4 col-sm-12">Código <span class="required" style="color: red;">
                                     *</span></label>
-                            <input type="text" class="form-control" id="codigo" name="codigo" placeholder="Codigo de confirmación" required>
+                            <input type="text" class="form-control" id="codigo" name="codigo"
+                                placeholder="Código de confirmación"
+                                maxlength="15" minlength="8" required>
                         </div>
 
                         <div class="form-group">
-                            <input type="hidden" class="form-control" id="id" name="id" value="<?=$_SESSION['id']?>" placeholder="Codigo de confirmación" required>
+                            <input type="hidden" class="form-control" id="id" name="id" value="<?= $_SESSION['id'] ?>"
+                                required>
                         </div>
 
                         <button type="submit" class="btn btn-round btn-guardar">
-                            <li class="fa fa-lock"></li> Validar Codigo
+                            <li class="fa fa-lock"></li> Validar Código
                         </button>
 
                         <div class="clearfix"></div>
@@ -122,7 +134,7 @@
 
                             <div>
                                 <h1><i class="fa fa-futbol-o" aria-hidden="true"></i> Las Brumas</h1>
-                                <p>©Todos los derechos resevados UES FMP 2021</p>
+                                <p>©Todos los derechos reservados UES FMP 2021</p>
                             </div>
                         </div>
                     </form>

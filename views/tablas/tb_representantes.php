@@ -14,11 +14,11 @@ if ($result) {
 }
 ?>
 
-<table id="example2" class="table table-striped table-bordered" style="width:100% ">
+<table id="tbrepresentante" class="table table-striped table-bordered" style="width:100% ">
     <thead align="center">
         <tr>
             <th>Nombre</th>
-            <th>Telefono</th>
+            <th>Teléfono</th>
             <th>Estado</th>
             <th>Equipos</th>
             <th>Acciones</th>
@@ -34,62 +34,72 @@ if ($result) {
             foreach ($listado as $key => $value) {
         ?>
 
-                <tr>
-                    <td style="text-align: center;">
-                        <?php echo $value->getNombre() . ' ' . $value->getApellido() ?>
-                    </td>
+        <tr>
+            <td style="text-align: center;">
+                <?php echo $value->getNombre() . ' ' . $value->getApellido() ?>
+            </td>
 
-                    <td style="text-align: center;">
-                        <?php echo $value->getTelefono() ?>
-                    </td>
+            <td style="text-align: center;">
+                <?php echo $value->getTelefono() ?>
+            </td>
 
-                    <td style="text-align: center;">
-                        <?php
+            <td style="text-align: center;">
+                <?php
                         if ($value->getEstado() == 1) {
                             echo "Activo";
                         } else {
                             echo "De baja";
                         }
                         ?>
-                    </td>
+            </td>
 
-                    <td style="text-align: center; size: 20px;">
+            <td style="text-align: center; size: 20px;">
 
-                        <button type="button" class="btn btn-round btn-editar" onclick="mostrarEquipos()" data-target="#modalEquipos" data-toggle="modal" data-dui='<?php echo $value->getDui(); ?>' data-toggle="tooltip">
-                            <li class="fa fa-eye"> Ver</li>
-                        </button>
+                <button type="button" class="btn btn-round btn-editar" onclick="mostrarEquipos()"
+                    data-target="#modalEquipos" data-toggle="modal" data-dui='<?php echo $value->getDui(); ?>'
+                    data-toggle="tooltip">
+                    <li class="fa fa-eye"> Ver</li>
+                </button>
 
-                    </td>
+            </td>
 
 
 
-                    <td style="text-align: center;">
-                        <div class="btn-group" role="group">
+            <td style="text-align: center;">
+                <div class="btn-group" role="group">
 
-                            <button type="button" class="btn btn-round btn-editar" onclick="abrirmodalEditar()" data-target="#modalmodificarR" data-toggle="modal" data-nombre='<?php echo $value->getNombre(); ?>' data-apellido='<?php echo $value->getApellido(); ?>' data-dui='<?php echo $value->getDui(); ?>' data-sexo='<?php echo $value->getSexo(); ?>' data-fecha='<?php echo $value->getFecha_nac(); ?>' data-telefono='<?php echo $value->getTelefono(); ?>' data-estado='<?php echo $value->getEstado(); ?>' data-toggle="tooltip">
-                                <li class="fa fa-edit"></li>
+                    <button type="button" class="btn btn-round btn-editar" onclick="abrirmodalEditar()"
+                        data-target="#modalmodificarR" data-toggle="modal"
+                        data-nombre='<?php echo $value->getNombre(); ?>'
+                        data-apellido='<?php echo $value->getApellido(); ?>' data-dui='<?php echo $value->getDui(); ?>'
+                        data-sexo='<?php echo $value->getSexo(); ?>' data-fecha='<?php echo $value->getFecha_nac(); ?>'
+                        data-telefono='<?php echo $value->getTelefono(); ?>'
+                        data-estado='<?php echo $value->getEstado(); ?>' data-toggle="tooltip">
+                        <li class="fa fa-edit"></li>
 
-                                <?php if ($value->getEstado() == 1) : ?>
+                        <?php if ($value->getEstado() == 1) : ?>
 
-                            </button>
+                    </button>
 
-                            <button type="button" onclick="abrirmodaldeBaja()" data-target="#DeBajaRepresentante" data-toggle="modal" data-id="<?php echo $value->getDui(); ?>" class="btn btn-round btn-baja">
-                                <li class="fa fa-thumbs-o-down"></li>
-                                <!--fa fa-thumbs-o-up -->
-                            </button>
+                    <button type="button" onclick="abrirmodaldeBaja()" data-target="#DeBajaRepresentante"
+                        data-toggle="modal" data-id="<?php echo $value->getDui(); ?>" class="btn btn-round btn-baja">
+                        <li class="fa fa-thumbs-o-down"></li>
+                        <!--fa fa-thumbs-o-up -->
+                    </button>
 
-                        <?php else : ?>
+                    <?php else : ?>
 
-                            </button><button type="button" onclick="abrirmodaldeAlta()" data-target="#DeAltaRepresentante" data-toggle="modal" data-id="<?php echo $value->getDui(); ?>" class="btn btn-round btn-alta">
-                                <li class="fa fa-thumbs-o-up"></li>
-                                <!--fa fa-thumbs-o-up -->
-                            </button>
+                    </button><button type="button" onclick="abrirmodaldeAlta()" data-target="#DeAltaRepresentante"
+                        data-toggle="modal" data-id="<?php echo $value->getDui(); ?>" class="btn btn-round btn-alta">
+                        <li class="fa fa-thumbs-o-up"></li>
+                        <!--fa fa-thumbs-o-up -->
+                    </button>
 
-                        <?php endif; ?>
+                    <?php endif; ?>
 
-                        </div>
-                    </td>
-                </tr>
+                </div>
+            </td>
+        </tr>
         <?php }
         endif; ?>
     </tbody>

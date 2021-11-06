@@ -26,21 +26,92 @@
     <link href="../resources/bootstrap/css/diseño.css" rel="stylesheet" type="text/css" />
 
     <script type="text/javascript">
-        function verificarpassreset() {
-            var clave = document.getElementById("clave").value;
-            var clave2 = document.getElementById("clave2").value;
+    function verificarpassreset() {
+        var clave = document.getElementById("clave").value;
+        var clave2 = document.getElementById("clave2").value;
 
-            if (clave != "" && clave2 != "") {
-                if (clave == clave2) {
-                    document.getElementById("btnreset").removeAttribute("disabled");
-                } else {
-                    document.getElementById("btnreset").setAttribute("disabled", "disabled");
-                }
+        if (clave != "" && clave2 != "") {
+            if (clave == clave2) {
+                document.getElementById("btnreset").removeAttribute("disabled");
             } else {
                 document.getElementById("btnreset").setAttribute("disabled", "disabled");
             }
-
+        } else {
+            document.getElementById("btnreset").setAttribute("disabled", "disabled");
         }
+    };
+
+    //------ Validacion de la contrasenia --------//
+    function valcontrasenia() {
+        var mayus = new RegExp("^(?=.*[A-Z])");
+        var special = new RegExp("^(?=.*[!@#$%&*-])");
+        var numbers = new RegExp("(?=.*[0-9])");
+        var lower = new RegExp("(?=.*[a-z])");
+        var len = new RegExp("(?=.{8,})");
+
+        var clave = document.getElementById("clave").value;
+        var check = 0;
+
+        var regExp = [mayus, special, numbers, lower, len];
+
+        if (clave != "") {
+            for (var i = 0; i < 5; i++) {
+                if (regExp[i].test(clave)) {
+                    check++;
+                } else {
+
+                }
+            }
+            //console.log(check);
+
+            if (check >= 0 && check <= 2) {
+                $("#mensajepass").text('Muy Insegura').css('color', 'red');
+            } else if (check >= 3 && check <= 4) {
+                $("#mensajepass").text('Poco Segura').css('color', 'orange');
+            } else if (check == 5) {
+                $("#mensajepass").text('Muy Segura').css('color', 'green');
+            }
+        } else {
+            $("#mensajepass").text('');
+        }
+        verificarpassreset();
+    };
+
+    function valcontraseniaconfir() {
+        var mayus = new RegExp("^(?=.*[A-Z])");
+        var special = new RegExp("^(?=.*[!@#$%&*-])");
+        var numbers = new RegExp("(?=.*[0-9])");
+        var lower = new RegExp("(?=.*[a-z])");
+        var len = new RegExp("(?=.{8,})");
+
+        var clave = document.getElementById("clave2").value;
+        var check = 0;
+
+        var regExp = [mayus, special, numbers, lower, len];
+
+        if (clave != "") {
+            for (var i = 0; i < 5; i++) {
+                if (regExp[i].test(clave)) {
+                    check++;
+                } else {
+
+                }
+            }
+
+            //console.log(check);
+
+            if (check >= 0 && check <= 2) {
+                $("#mensajepassconfir").text('Muy Insegura').css('color', 'red');
+            } else if (check >= 3 && check <= 4) {
+                $("#mensajepassconfir").text('Poco Segura').css('color', 'orange');
+            } else if (check == 5) {
+                $("#mensajepassconfir").text('Muy Segura').css('color', 'green');
+            }
+        } else {
+            $("#mensajepassconfir").text('');
+        }
+        verificarpassreset();
+    };
     </script>
 
 </head>
@@ -77,22 +148,27 @@
                         width: 110x;
                         height: 110px;">
                     </center>
-                    <form action="../controller/usuario_controller.php?action=cambiarclave" method="POST" autocomplete="off" enctype="multipart/form-data">
+                    <form action="../controller/usuario_controller.php?action=cambiarclave" method="POST"
+                        autocomplete="off" enctype="multipart/form-data">
                         <h1>Modificar Datos</h1>
                         <div class="form-group">
-                            <label style="right: 20px; max-width: 50%;" class="col-md-4 col-sm-12">Nueva Clave <span class="required" style="color: red;"> *</span></label>
-                            <input type="password" class="form-control" id="clave" name="clave" oninput="verificarpassreset()" placeholder="Nueva Contraseña" required>
+                            <label style="right: 20px; max-width: 50%;" class="col-md-4 col-sm-12">Nueva Clave <span
+                                    class="required" style="color: red;"> *</span></label>
+                            <div align="right">
+                                <h6> <span id="mensajepass"></span> </h6>
+                            </div>
+                            <input type="password" class="form-control" id="clave" name="clave"
+                                oninput="valcontrasenia()" minlength="8" maxlength="25" placeholder="Nueva Contraseña" required>
                         </div>
 
                         <div class="form-group">
-                            <label style="right: 20px; max-width: 50%;" class="col-md-4 col-sm-12">Confirmar <span class="required" style="color: red;"> *</span></label>
-                            <input type="password" class="form-control" id="clave2" name="clave2" oninput="verificarpassreset()" placeholder="Confirmar Contraseña" required>
-                        </div>
-
-                        <?php session_start(); ?>
-
-                        <div class="form-group">
-                            <input type="hidden" class="form-control" id="id" name="id" value="<?=$_SESSION['id']?>" placeholder="Codigo de confirmación" required>
+                            <label style="right: 20px; max-width: 50%;" class="col-md-4 col-sm-12">Confirmar <span
+                                    class="required" style="color: red;"> *</span></label>
+                            <div align="right">
+                                <h6> <span id="mensajepassconfir"></span> </h6>
+                            </div>
+                            <input type="password" class="form-control" id="clave2" name="clave2"
+                                oninput="valcontraseniaconfir()" minlength="8" maxlength="25" placeholder="Confirmar Contraseña" required>
                         </div>
 
                         <button type="submit" class="btn btn-round btn-guardar" disabled id="btnreset" name="btnreset">
@@ -109,7 +185,7 @@
 
                             <div>
                                 <h1><i class="fa fa-futbol-o" aria-hidden="true"></i> Las Brumas</h1>
-                                <p>©Todos los derechos resevados UES FMP 2021</p>
+                                <p>©Todos los derechos reservados UES FMP 2021</p>
                             </div>
                         </div>
                     </form>
@@ -118,6 +194,8 @@
 
         </div>
     </div>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 </body>
 
 </html>

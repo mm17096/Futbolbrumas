@@ -76,7 +76,7 @@ if ($action != "") {
 
                 if ($daoR->modificarRepresentante(new Representante($dui_update, $nombre_update, $apellido_update, $sexo_update, $date_update, $telefono_update, "", $estado)) == 1) {
 
-                    $_SESSION['action_success'] = "completo";
+                    $_SESSION['action_success'] = "modificado";
                     echo '<script>window.location="' . base_url . 'views/vis_representantes.php"</script>';
                 } else {
 
@@ -91,7 +91,7 @@ if ($action != "") {
 
                 if ($daoR->dardebajaRepresentante($dui_baja) == 1) {
 
-                    $_SESSION['action_success'] = "completo";
+                    $_SESSION['action_success'] = "modificadobaja";
                     echo '<script>window.location="' . base_url . 'views/vis_representantes.php"</script>';
                 } else {
 
@@ -109,16 +109,20 @@ if ($action != "") {
 
                 if ($daoR->dardealtaRepresentante($dui_alta) == 1) {
 
-                    $_SESSION['action_success'] = "completo";
-                    echo '<script>window.location="' . base_url . 'views/vis_representantes.php"</script>';
+                    $_SESSION['action_success'] = "modificadoalta";
+                    print json_encode(array("Exito", $_POST));
+                    exit();
                 } else {
 
                     $_SESSION['action_success'] = "error";
-                    echo '<script>window.location="' . base_url . 'views/vis_representantes.php"</script>';
+                    print json_encode(array("Error", $_POST));
+                    exit();
                 }
             } else {
+                
                 $_SESSION['action_success'] = "error";
-                echo '<script>window.location="' . base_url . 'views/vis_representantes.php"</script>';
+                print json_encode(array("Error", $_POST));
+                exit();
             }
             break;
 
@@ -147,7 +151,7 @@ if ($action != "") {
                     exit();
                 }
             }
-            
+
             break;
     }
 }

@@ -68,14 +68,16 @@
         $_SESSION['falloverificacion'] = null;
         unset($_SESSION['falloverificacion']);
 
-        $mensaje[] = "Fallo en la verificacion de datos";
+        $mensaje[] = "Los datos no coinciden";
     ?>
 
         <div id="msjerror" class="alert alert-danger" role="alert" style=" position: absolute;
                                                         right: 30px;
                                                             top: 5px;
                                                             size: 5px;">
-            <strong>Error!</strong>
+            <i class="fa fa-search"></i>
+            <strong>Validación</strong>
+            <p>
             <?php
             foreach ($mensaje as $error) {
                 echo $error;
@@ -101,12 +103,12 @@
                         <div class="form-group">
                             <label class="col-md-4 col-sm-12">DUI <span class="required" style="color: red;">
                                     *</span></label>
-                            <input class="form-control" id="dui" name="dui" placeholder="Numero de DUI" minlength="10" required>
+                            <input class="form-control" id="dui" name="dui" placeholder="Numero de DUI" minlength="10" maxlength="10" required>
                         </div>
                         <div class="form-group">
                             <label class="col-md-4 col-sm-12">Correo <span class="required" style="color: red;">
                                     *</span></label>
-                            <input class="form-control" id="correo" name="correo" placeholder="Correo electronico">
+                            <input class="form-control" id="correo" name="correo" minlength="15" maxlength="30" placeholder="Correo electronico">
                         </div>
 
                         <button type="submit" class="btn btn-round btn-guardar">
@@ -124,7 +126,7 @@
 
                             <div>
                                 <h1><i class="fa fa-futbol-o" aria-hidden="true"></i> Las Brumas</h1>
-                                <p>©Todos los derechos resevados UES FMP 2021</p>
+                                <p>©Todos los derechos reservados UES FMP 2021</p>
                             </div>
                         </div>
                     </form>
