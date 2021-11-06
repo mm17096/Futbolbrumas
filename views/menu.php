@@ -45,7 +45,7 @@
 
                             <li><a><i class="fa fa-calendar"></i> Jornadas<span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
-                                    <li><a href="#">Tabla de jornadas</a></li>
+                                    <li><a href="vis_jornada.php">Tabla de jornadas</a></li>
                                 </ul>
                             </li>
                         <?php endif; ?>
