@@ -1,10 +1,11 @@
 <?php
-
+session_start();
 require_once "../clases/jornada.php";
 //require_once "../clases/Partidos.php";
 
 require_once "../dao/DaoJornada.php";
 require_once "../dao/DaoEquipo.php";
+
 //require_once "../dao/DaoPartido.php";
 
 //variables de Guardar
@@ -22,6 +23,7 @@ $segunda_hora = (isset($_REQUEST["segunda"])) ? $_REQUEST["segunda"] : "";
 $tercera_hora = (isset($_REQUEST["tercera"])) ? $_REQUEST["tercera"] : "";
 $cuarta_hora = (isset($_REQUEST["cuarta"])) ? $_REQUEST["cuarta"] : "";
 $quinta_hora = (isset($_REQUEST["quinta"])) ? $_REQUEST["quinta"] : "";
+
 
 
 
@@ -104,7 +106,6 @@ if ($numEquipos % 2 == 0) {
                 $k = $equipoImparMasAlto;
         }
     }
-   
 } else {
     //PARTIDOS IMPAR 
     $numero_jornada = count($equipos) - 1;
@@ -146,17 +147,61 @@ if ($numEquipos % 2 == 0) {
                 $k = $equipoImparMasAlto;
         }
     }
+}
+
+if ($action == 'guardar') {   
+    
+
+      //variables para realizar jornadas
+      $contador=0;
+
+    //separar la fecha de inicio de las jornadas
+    if ($fecha_actual < $fecha) {
+
+        //ASIGNACION DE FECHAS DE JORNADAS PARA PARTIDOS
+        $anio = date("Y", strtotime($fecha));
+        $mes = date("m", strtotime($fecha));
+        $dia = date("d", strtotime($fecha));
+
+        while($contador<(2*$numero_jornada)) {// dos dias por las 2 matrices
+           
+            if(!checkdate($mes, $dia, $anio)) { //validando si existe la fecha
+                $mes++;
+                $dia = 1;
+                if($mes==13 && !checkdate($mes, $dia, $anio) ){
+                    $anio++;
+                    $mes=1;
+                    print($dia);
+                    print($mes);
+                    print($anio);
+                    break;
+                }
+                break;
+            }
+            $dia++;
+            
+        }
+    }
+
 
   
-}
 
-if($action=='guardar'){
-    if($fecha_actual<$fecha){
-         //ASIGNACION DE FECHAS DE JORNADAS PARA PARTIDOS
-         $anio = date("Y", strtotime($fecha));
-         $mes = date("m", strtotime($fecha));
-         $dia = date("d", strtotime($fecha));
-    }
+    
+
 }
 ?>
+<script type="text/javascript">
+    msj();
 
+    function msj() {
+
+        setTimeout(function() {
+            document.getElementById("msjsuccess").style.display = 'none';
+        }, 3500);
+
+        setTimeout(function() {
+            document.getElementById("msjerror").style.display = 'none';
+        }, 3500);
+
+    };
+</script>

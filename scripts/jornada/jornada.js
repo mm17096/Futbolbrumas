@@ -1,6 +1,18 @@
 Jornada();
 
 
+//--------------- Metodos de mensaje ---------------//
+function msj() {
+
+    setTimeout(function () {
+      document.getElementById("msjsuccess").style.display = 'none';
+    }, 3500);
+  
+    setTimeout(function () {
+      document.getElementById("msjerror").style.display = 'none';
+    }, 3500);
+  
+  };
   
 //Guardar Equipo
 $("#Addjornada").submit(function (event) {
@@ -10,11 +22,9 @@ $("#Addjornada").submit(function (event) {
         url: "../controller/jornada_controller.php?action=guardar",
         data: parametros,
         success: function (datos) {
-            $("#resultados").html(datos);
-            
-            
             $('#modal_jornada').modal('hide');
-           
+            $("#resultados").html(datos);
+            Jornada();
         }
     });
 

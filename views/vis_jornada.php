@@ -43,9 +43,11 @@
   <link href="../vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
   <!--Diseño css Sistema FutSal las Brumas-->
   <link href="../build/css/diseño.css" rel="stylesheet">
+    
+
 </head>
 
-<body class="nav-md" onload="msj()">
+<body class="nav-md" >
   <div class="container body">
     <div class="main_container">
       <!-- top navigation -->
@@ -91,6 +93,10 @@
 
 
                 <button type="button" class="btn btn-round btn-guardar" data-toggle="modal" data-target=".bs-example-modal-lg">Generar Jornadas</button>
+
+                <div   id="resultado" >
+
+                </div>
                 <!-- modal -->
                 <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true" id="modal_jornada">
                   <div class="modal-dialog modal-lg">
@@ -338,12 +344,8 @@
   <script src="../vendors/jszip/dist/jszip.min.js"></script>
   <script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
   <script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
-  <script src="../scripts/jornada/jornada.js"></script>
-  <!--alerta-->
+  <script src="../scripts/jornada/jornada.js" type="text/javascript" charset="utf-8"></script>
 
-  <script src="../alerta/build/toastr.js"></script>
-  <script src="../alerta/build/alerts.js"></script>
-  <script src="../alerta/build/prueba.js"></script>
 
 
 

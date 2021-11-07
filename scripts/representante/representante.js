@@ -48,6 +48,7 @@ function agregarRepresentante() {
     success: function (datos) {
       //$("#resultados").html(datos);
       $('#modalguardarR').modal('hide');
+      
     }
   });
 

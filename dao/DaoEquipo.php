@@ -24,8 +24,8 @@ class DaoEquipo{
 
             }
         }if(!$result){
-            $this->Errno=mysqli_conecct_errno();
-            $this->Errror=mysqli_conecct_error();
+            $this->Errno=mysqli_connect_errno();
+            $this->Errror=mysqli_connect_error();
         }
         return $listado;
     }
@@ -39,8 +39,8 @@ class DaoEquipo{
 
             }
         }if(!$result){
-            $this->Errno=mysqli_conecct_errno();
-            $this->Errror=mysqli_conecct_error();
+            $this->Errno=mysqli_connect_errno();
+            $this->Errror=mysqli_connect_error();
         }
         return $equipo;
     }
@@ -54,8 +54,8 @@ class DaoEquipo{
 
             }
         }if(!$result){
-            $this->Errno=mysqli_conecct_errno();
-            $this->Errror=mysqli_conecct_error();
+            $this->Errno=mysqli_connect_errno();
+            $this->Errror=mysqli_connect_error();
         }
         return $equipo;
     }
@@ -70,8 +70,8 @@ class DaoEquipo{
         }
         $result= $this->Conexion_ID->query("INSERT into equipo VALUES('".$e->getIdequipo()."','".$e->getNombre()."','".$e->getCamisa()."','".$e->getIdrepresentante()."','".$e->getEstado()."')");
         if(!$result){
-            $this->Errno=mysqli_conecct_errno();
-            $this->Errror=mysqli_conecct_error();
+            $this->Errno=mysqli_connect_errno();
+            $this->Errror=mysqli_connect_error();
             
             return 0;
         }else {
@@ -144,8 +144,8 @@ function actualizarEstadoEquipo($idequipo){
 
     $result= $this->Conexion_ID->query("UPDATE `equipo` SET estado=1 WHERE idequipo='".$idequipo."'");
     if(!$result){
-        $this->Errno=mysqli_conecct_errno();
-        $this->Errror=mysqli_conecct_error();
+        $this->Errno=mysqli_connect_errno();
+        $this->Errror=mysqli_connect_error();
         return 0;
     }else {
         return 1;
@@ -164,8 +164,8 @@ function actualizarEstadoEquipo($idequipo){
 
           }
       }if(!$result){
-          $this->Errno=mysqli_conecct_errno();
-          $this->Errror=mysqli_conecct_error();
+        $this->Errno=mysqli_connect_errno();
+        $this->Errror=mysqli_connect_error();
       }
       return $listado;
     }
@@ -178,8 +178,8 @@ function actualizarEstadoEquipo($idequipo){
         }
         $result= $this->Conexion_ID->query("UPDATE equipo SET nombre ='".$idequipo->getNombre()."' ,camisa='".$idequipo->getCamisa()."',idrepresentante='".$idequipo->getIdrepresentante()."', estado='".$idequipo->getEstado()."' WHERE idequipo='".$idequipo->getIdequipo()."'");
         if(!$result){
-            $this->Errno=mysqli_conecct_errno();
-            $this->Errror=mysqli_conecct_error();
+            $this->Errno=mysqli_connect_errno();
+            $this->Errror=mysqli_connect_error();
             return 0;
         }else {
             return 1;
@@ -208,8 +208,8 @@ function verificarNombreEquipo($nombre){
         }
         $result= $this->Conexion_ID->query("UPDATE equipo SET nombre ='".$idequipo->getNombre()."',idrepresentante='".$idequipo->getIdrepresentante()."', estado='".$idequipo->getEstado()."' WHERE idequipo='".$idequipo->getIdequipo()."'");
         if(!$result){
-            $this->Errno=mysqli_conecct_errno();
-            $this->Errror=mysqli_conecct_error();
+            $this->Errno=mysqli_connect_errno();
+            $this->Errror=mysqli_connect_error();
             return 0;
         }else {
             return 1;
