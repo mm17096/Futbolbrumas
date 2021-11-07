@@ -42,7 +42,7 @@
     <link href="../alerta/build/toastr.css" rel="stylesheet" type="text/css" />
 </head>
 
-<body class="nav-md">
+<body class="nav-md" id="msjsuccess">
     <main class="page-content">
         <div class="container body">
             <div class="main_container">
@@ -82,12 +82,14 @@
                                     <h2><i class="fa fa-group"></i> Datos Equipos</h2>
                                     <div class="clearfix"></div>
                                 </div>
-                                <div class="x_content">
+                                <div class="x_content" >
                                     <button type="button" class="btn btn-round btn-guardar" data-toggle="modal"
-                                        data-target=".bs-example-modal-lg"> Agregar Equipo</button>
+                                    data-target=".bs-example-modal-lg"> Agregar Equipo</button>
                                 </div>
+                                
+                                          
                                 <!--Respuesta JS-->
-                                <div class="col-xs-70">
+                               <div class="col-xs-70">
                                     <div class="col-xs-1"></div>
                                     <div class="col-xs-10">
                                         <div id="resultados"></div>
@@ -415,8 +417,7 @@
     <script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
 
     <script src="../scripts/equipo/equipo.js"></script>
-    <script src="../alerta/build/alerts.js"></script>
-    <script src="../alerta/build/toastr.js"></script>
+    
 </body>
 
 </html>

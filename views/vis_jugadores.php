@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html leng="en">
+<html lang="en">
     <head> <!--encabezado-->
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta charset="utf-8">
@@ -94,7 +94,7 @@
                                     <!--Iniciotabla-->
                                     <div class="x_content">
                                         <div class="row"></div>
-                                        <div class="col-xs-12">
+                                        <div class="col-sm-12">
                                             <div class="card-box table-responsive">
                                                 <div id="jugadortabla">
                                                    
@@ -104,12 +104,12 @@
                                     </div>
                                     <!--Fin Iniciotabla-->
                                     <!--INICIA modal agregar un NUEVO JUGADOR-->
-                                    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true" id="modalJ" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true" id="modalJ"  aria-hidden="true">
                                         <div class="modal-dialog modal-lg">
                                             <div class="modal-content">
                                                 <form class="" action="" method="post" id="addJugador" name="addJugador" enctype="multipart/form-data">
                                                     <div class="modal-header">
-                                                        <h4 class="modal-title" id="myModalLabel">Formulario de Jugadores</h4>
+                                                        <h4 class="modal-title" id="myModalLabel">Jugadores</h4>
                                                         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">x</span></button>
                                                     </div>
                                                     <div class="modal-body">
@@ -119,23 +119,35 @@
                                                                 <div class="col-lg-6">
                                                                     <div class="form-group">
                                                                         <label for="nombre" class="col-form-label col-md-6 col-sm-6">Nombres<span class="required">*</span></label>
-                                                                        <input type="text" id="nombre" name="nombre" class="form-control" placeholder="Ingrese nombres del Jugador" required="required" >
+                                                                        <input type="text" id="nombre" name="nombre" class="form-control" placeholder="Ingrese nombres del Jugador"  minlength="5" maxlength="25" onblur="validarnombre()" onkeypress="return soloLetras(event)" autocomplete="off">
+                                                                        <span class="mensajenombre"
+                                                                        style="display: none; color: orange;"><i
+                                                                            class="fa fa-exclamation-triangle"></i>
+                                                                        Debe completar los campos obligatorios</span>
+                                                                        <input type="hidden" name="fullnombre" id="fullnombre">
                                                                     </div>
 
                                                                     <div class="form-group">
                                                                         <label for="apellido" class="col-form-label col-md-6 col-sm-6">Apellidos<span class="required">*</span></label>
-                                                                        <input type="text" id="apellido" name="apellido" class="form-control" placeholder="Ingrese apellidos del Jugador" required="required">
+                                                                        <input type="text" id="apellido" name="apellido" class="form-control" placeholder="Ingrese apellidos del Jugador"  onblur="validarapellido()" onkeypress="return soloLetras(event)" minlength="5" maxlength="25">
+                                                                        <span class="mensajeapellido"
+                                                                        style="display: none; color: orange;">
+                                                                        <i class="fa fa-exclamation-triangle"> </i>
+                                                                        Debe completar los campos obligatorios</span>
+
+                                                                        <input type="hidden" name="fullapellido" id="fullapellido">
                                                                     </div>
 
                                                                     <div class="form-group">
                                                                   
                                                                         <label for="fechanacimiento" class="col-form-label col-md-10 col-sm-6">Fecha de Nacimiento<span class="required">*</span></label>
-                                                                        <input  type="date" class="form-control" id="fechanacimiento" name="fechanacimiento" required="required" placeholder=""  onblur="validarfecha()" autocomplete="off" >
+                                                                        <input  type="date" class="form-control" id="fechanacimiento" name="fechanacimiento"  placeholder=""  onblur="validarfecha()" autocomplete="off" >
                                                                         <div class="mensajefecha"
                                                                             style="display: none; color: orange;">
                                                                             <i class="fa fa-exclamation-triangle">
                                                                                 Debe ser mayor de 13 años
                                                                             </i>
+                                                                            <input type="hidden" name="fullfechanacimiento" id="fullfechanacimiento">
                                                                         </div>
 
                                                                     </div>
@@ -144,7 +156,7 @@
                                                                 <div class="col-lg-6">
                                                                 <div class="form-group">
                                                                         <label for="idequipo" class="col-form-label col-md-3 col-sm-9">Equipo<span class="required">*</span></label>
-                                                                        <select id="idequipo" name="idequipo" class="form-control" onclick="abilitarcamisa()" required="required">
+                                                                        <select id="idequipo" name="idequipo" class="form-control" onclick="abilitarcamisa()"  onblur="validarequipo()">
                                                                             <option value="">seleccione una opcion</option>
                                                                             <?php
                                                                             $daoE=new DaoEquipo();
@@ -155,26 +167,39 @@
                                                                             <?php  echo $value->getNombre(); ?> </option>
                                                                             <?php } ?>
                                                                         </select>
+                                                                        <span class="mensajequipo"
+                                                                        style="display: none; color: orange;"><i
+                                                                            class="fa fa-exclamation-triangle"> </i>
+                                                                        Debe seleccionar un equipo</span>
+
+                                                                    <input type="hidden" name="fullequipo" id="fullequipo">
                                                                     </div>
 
                                                                     <div class="form-group">
                                                                         <label for="numero_camisa" class="col-form-label col-md-10 col-sm-6">Número  de camisa<span class="required">*</span></label>
-                                                                        <input disabled id="numero_camisa" name="numero_camisa" onblur="validarnumero()" Type="number" value="" class="form-control" placeholder="Ingrese número  de camisa" required="required" min="1" max="30">                                                                    
+                                                                        <input disabled id="numero_camisa" name="numero_camisa" onblur="validarnumero()" Type="number" value="" class="form-control" placeholder="Ingrese número  de camisa"  min="1" max="30">                                                                    
                                                                         <div class="mensajenuemro" style="display: none; color: orange;">
                                                                             <i class="fa fa-exclamation-triangle">
                                                                               El numero de camisa ya fue asignado
                                                                             </i>
+                                                                            <input type="hidden" name="fullnumerocamisa" id="fullnumerocamisa">
                                                                         </div>
                                                                     </div>
                                                                     <div class="form-group">
                                                                             <label for="posicion" class="col-form-label col-md-3 col-sm-9">Posición<span class="required">*</span></label>
-                                                                        <select id="posicion" name="posicion" class="form-control" required="required">
+                                                                        <select id="posicion" name="posicion" class="form-control"  onblur="validarposicion()">
                                                                             <option value="">seleccione una opcion</option>
                                                                             <option>Delantero</option>
                                                                             <option>Defensa</option>
                                                                             <option>Media</option>
                                                                             <option>Portero</option>
                                                                         </select>
+                                                                        <span class="mensajeposicion"
+                                                                        style="display: none; color: orange;"><i
+                                                                        class="fa fa-exclamation-triangle"> </i>
+                                                                        Debe seleccionar posicion del jugador</span>
+
+                                                                        <input type="hidden" name="fullposicion" id="fullposicion">
                                                                     </div>
 
                                                                    
@@ -192,11 +217,11 @@
                                                     </div>
 
                                                     <div class="modal-footer">
-                                                        <button type="button" class="btn btn btn-round  btn-cancelar" data-dismiss="modal">
+                                                        <button type="reset" class="btn btn btn-round  btn-cancelar" data-dismiss="modal">
                                                             <li class="fa fa-close cancelar"></li>Cancelar
                                                         </button>
-                                                        <button type="submit" class="btn btn-round btn-guardar">
-                                                            <li class="fa fa-save"></li>Guardar
+                                                        <button type="submit" class="btn btn-round btn-guardar" id="btnn" disabled onclick="agregarJugador()">
+                                                            <li   class="fa fa-save" ></li>Guardar
                                                         </button>                                                       
                                                     </div>
                                                 </form>
@@ -225,22 +250,32 @@
                                                                 <div class="col-lg-6">
                                                                     <div class="form-group">
                                                                         <label for="nombre" class="col-form-label col-md-6 col-sm-6">Nombres<span class="required">*</span></label>
-                                                                        <input  type="text" id="nombreedit" name="nombreedit"  required="required" class="form-control">
+                                                                        <input  type="text" id="nombreedit" name="nombreedit"  required="required" class="form-control" onkeypress="return soloLetras(event)"
+                                                                        minlength="5" maxlength="25" onblur="validarnombreEdit()" autocomplete="off">
+                                                                        <span class="mensajenombreedit" style="display: none; color: orange;">
+                                                                        <i class="fa fa-exclamation-triangle"></i> Debe completar los campos obligatorios</span>
+
+                                                                        <input type="hidden" name="fullnombreedit" id="fullnombreedit">
                                                                     </div>
 
                                                                     <div class="form-group">
                                                                         <label for="apellido" class="col-form-label col-md-6 col-sm-6">Apellidos<span class="required">*</span></label>
-                                                                        <input type="text" id="apellidoedit" name="apellidoedit" class="form-control"  required="required">
+                                                                        <input type="text" id="apellidoedit" name="apellidoedit" class="form-control"  required="required" onkeypress="return soloLetras(event)"
+                                                                        minlength="5" maxlength="25" onblur="validarapellidoEdit()" autocomplete="off">
+                                                                        <span class="mensajeapellidoedit" style="display: none; color: orange;">
+                                                                        <i class="fa fa-exclamation-triangle"></i> Debe completar los campos obligatorios</span>
+
+                                                                        <input type="hidden" name="fullapellidoedit" id="fullapellidoedit">
                                                                     </div>
 
                                                                     <div class="form-group">
                                                                         <label for="fechanacimiento" class="col-form-label col-md-10 col-sm-6">Fecha de Nacimiento<span class="required">*</span></label>
-                                                                        <input  type="date" class="form-control" id="fechanacimientoedit" name="fechanacimientoedit" required="required" onblur="validarfechaEdit()" autocomplete="off">
+                                                                        <input  type="date" class="form-control" id="fechanacimientoedit" name="fechanacimientoedit" required="required" onblur="validarfechaEdit()" autocomplete="off" >
                                                                         <div class="mensajefechaEdit"
                                                                             style="display: none; color: orange;">
                                                                             <i class="fa fa-exclamation-triangle">
                                                                                 Debe ser mayor de 13 años</i>
-                                                                            
+                                                                                <input type="hidden" name="fullfechaedit" id="fullfechaedit">
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -248,7 +283,7 @@
                                                                 <div class="col-lg-6">
                                                                     <div class="form-group">
                                                                         <label for="idequipo" class="col-form-label col-md-3 col-sm-9">Equipo<span class="required">*</span></label>
-                                                                        <select id="equipoedit" name="equipoedit" class="form-control" required="required" onclick="abilitarcamisaEdit()">
+                                                                        <select id="equipoedit" name="equipoedit" class="form-control" required="required" onclick="abilitarcamisaEdit()" onblur="validarequipoEdit()">
                                                                             <option value="">seleccione una opcion</option>
                                                                             <?php
                                                                             $daoE=new DaoEquipo();
@@ -259,28 +294,39 @@
                                                                             <?php  echo $value->getNombre(); ?> </option>
                                                                             <?php } ?>
                                                                         </select>
+                                                                        <span class="mensajeequipoedit" style="display: none; color: orange;">
+                                                                        <i class="fa fa-exclamation-triangle"></i>Debe seleccionar un equipo</span>
+
+                                                                        <input type="hidden" name="fullequipoedit" id="fullequipoedit">
                                                                     </div>
 
 
                                                                     <div class="form-group">
                                                                         <label for="numero_camisa" class="col-form-label col-md-10 col-sm-6">Número  de camisa<span class="required">*</span></label>
-                                                                        <input  enabled id="numerocamisaedit" onblur="validarnumeroEdit()" id="numerocamisaedit" name="numerocamisaedit" Type="number" value="" class="form-control"  required="required">                                                                    
-                                                                        <div class="mensajenumeroedit" style="display: none; color: orange;">
+                                                                        <input  enabled id="numerocamisaedit" onblur="validarnumeroEdit()" id="numerocamisaedit" name="numerocamisaedit" Type="number" value="" class="form-control"  required="required" min="1" max="30">                                                                    
+                                                                        <span class="mensajenumerocamisaedit" style="display: none; color: orange;">
                                                                             <i class="fa fa-exclamation-triangle">
                                                                               El numero de camisa ya existe!
                                                                             </i>
-                                                                        </div>
+                                                                        </span>
+                                                                        <input type="hidden" name="fullnumerocamisaedit" id="fullnumerocamisaedit">
                                                                     </div>
 
                                                                     <div class="form-group">
                                                                             <label for="posicion" class="col-form-label col-md-3 col-sm-9">Posición<span class="required">*</span></label>
-                                                                        <select id="posicionedit" name="posicionedit" class="form-control" required="required">
+                                                                        <select id="posicionedit" name="posicionedit" class="form-control" required="required" onblur="validarposicionEdit()">
                                                                             <option value="">seleccione una opcion</option>
                                                                             <option>Delantero</option>
                                                                             <option>Defensa</option>
                                                                             <option>Media</option>
                                                                             <option>Portero</option>
                                                                         </select>
+                                                                        <span class="mensajeposicionedit" style="display: none; color: orange;">
+                                                                            <i class="fa fa-exclamation-triangle">
+                                                                              Debe seleccionar posicion del jugador
+                                                                            </i>
+                                                                        </span>
+                                                                        <input type="hidden" name="fullposicionedit" id="fullposicionedit">
                                                                     </div>
 
                                                                     
@@ -292,7 +338,7 @@
                                                         <button type="button" class="btn btn btn-round  btn-cancelar" data-dismiss="modal">
                                                             <li class="fa fa-close cancelar"></li>Cancelar
                                                         </button>
-                                                        <button type="submit" class="btn btn-round btn-guardar">
+                                                        <button type="submit" class="btn btn-round btn-guardar" >
                                                             <li class="fa fa-edit"></li>Editar
                                                         </button>                                                       
                                                     </div>

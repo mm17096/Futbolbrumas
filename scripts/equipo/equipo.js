@@ -1,4 +1,18 @@
 ActualizarEquipo();
+
+//--------------- Metodos de mensaje ---------------//
+/*function msj() {
+
+    setTimeout(function () {
+      document.getElementById("msjsuccess").style.display = 'none';
+    }, 3500);
+  
+    setTimeout(function () {
+      document.getElementById("msjerror").style.display = 'none';
+    }, 3500);
+  
+  };*/
+  //--------------- Metodos de mensaje ---------------//
 //Guardar Equipo
 $("#addEquipo").submit(function (event) {
     var parametros = $(this).serialize();

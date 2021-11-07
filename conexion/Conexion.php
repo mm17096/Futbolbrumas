@@ -11,10 +11,15 @@
         var $Error="";
 
         function __construct(){
-            $this->BaseDatos="bdfutbol";
+            $this->BaseDatos="salakevin";
+            $this->Servidor="localhost";
+            $this->Usuario="root";
+            $this->Clave="";
+
+            /*$this->BaseDatos="bdfutbol";
             $this->Servidor="localhost";
             $this->Usuario="mm17096";
-            $this->Clave="rootmm17096";
+            $this->Clave="rootmm17096";*/
             $this->conectar($this->Servidor,$this->Usuario,$this->Clave,$this->BaseDatos);
         }
 
