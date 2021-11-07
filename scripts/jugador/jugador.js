@@ -1,6 +1,6 @@
 ActualizarJugador();
 //Guardar jugador
-$("#addJugador").submit(function (event) {
+/*$("#addJugador").submit(function (event) {
   var parametros = $(this).serialize();
   $.ajax({
     type: "POST",
@@ -22,8 +22,111 @@ $("#addJugador").submit(function (event) {
   });
 
   event.preventDefault();
-});
-//validar fecha modal modificar
+});*/
+
+/////////////////////////PARA EL FORMULARIO EDITAR/////////VALIDACIONES///////
+
+function verificarbotonEdit() {
+  $nombreedi = document.getElementById("fullnombreedit").value;
+  $apellidoedi = document.getElementById("fullapellidoedit").value;
+  $fechaedit = document.getElementById("fullfechaedit").value;
+   $equipoedi = document.getElementById("fullequipoedit").value;
+  $numerocamisaedi = document.getElementById("fullnumerocamisaedit").value;
+  $posicionedi = document.getElementById("fullposicionedit").value;
+  
+
+  if ($nombreedi == 'validado' && $apellidoedi == 'validado' && $fechaedi == 'validado' && 
+  $numerocamisaedi == 'validado' && $equipoedi == 'validado'&& $posicionedi == 'valido' ) {
+    $("#btngedit").removeAttr("disabled");
+  } else {
+    $("#btngedit").attr("disabled", "disabled");
+  }
+
+};
+//------ inicia Validacion de habilitar y validacion camisa edit ------//
+function abilitarcamisaEdit() {
+  $idequipo = document.getElementById("equipoedit").value;
+  if ($idequipo != "") {
+    $("#numerocamisaedit").removeAttr("disabled");
+  } else {
+    $("#numerocamisaedit").attr("disabled", "disabled");
+  }
+}
+
+function validarnumeroEdit() {
+  $equipo = document.getElementById("equipoedit").value;
+  $camisa = document.getElementById("numerocamisaedit").value;
+
+  var datos = { action: "verificarcamisaEdit", numero: $camisa, equipoedit: $equipo };
+  $respuesta = $.ajax({
+    dataType: "json",
+    method: "POST",
+    url: "../controller/jugador_controller.php",
+    data: datos,
+  })
+    .done(function (json) {
+      console.log("EL consultar especifico", json);
+      if (json[0] == "Exito") {
+        $("#fullnumerocamisaedit").val("validado");
+        verificarbotonEdit();
+      } else if (json[0] == "Error") {
+        $("#fullnumerocamisaedit").val("");
+        document.getElementById("numerocamisaedit").value = "";
+        verificarbotonEdit();
+        setTimeout(function () {
+          $(".mensajenumerocamisaedit").fadeIn(1500);
+        }, 100);
+
+        setTimeout(function () {
+          $(".mensajenumerocamisaedit").fadeOut(1500);
+        }, 3500);
+      }
+    })
+    .fail(function (json) {})
+    .always(function (json) {});
+}
+//------ termina Validacion de habilitar y validacion camisa edit ------//
+//------ inicia Validacion de posicion edit ------//
+function validarposicionEdit() {
+  $posicionedit = document.getElementById("posicionedit").value;
+
+  if ($posicionedit != '') {
+    $("#fullposicionedit").val("validado");
+    verificarbotonEdit();
+  } else {
+    $("#fullposicionedit").val("");
+    setTimeout(function () {
+      $(".mensajeposicionedit").fadeIn(1500);
+    }, 100);
+
+    setTimeout(function () {
+      $(".mensajeposicionedit").fadeOut(1500);
+    }, 3500);
+    verificarbotonEdit();
+  }
+};
+//------ termina Validacion de posicion edit ------//
+//------ inicia Validacion equipo edit ------//
+function validarequipoEdit() {
+  $equipoedit = document.getElementById("equipoedit").value;
+
+  if ($equipoedit!="") {
+    $("#fullequipoedit").val("validado");
+    verificarbotonEdit();
+  } else {
+    $("#fullequipoedit").val("");
+    setTimeout(function () {
+      $(".mensajeequipoedit").fadeIn(1500);
+    }, 100);
+
+    setTimeout(function () {
+      $(".mensajeequipoedit").fadeOut(1500);
+    }, 3500);
+    verificarbotonEdit();
+  }
+};
+//------  fin Validacion equipo edit ------//
+//------  Validacion del fecha edit ------//
 function validarfechaEdit() {
   $today = new Date();
   $fecha = document.getElementById("fechanacimientoedit").value;
@@ -38,11 +141,11 @@ function validarfechaEdit() {
   $edad = $today.getFullYear() - $year;
 
   if ($edad >= 13) {
-    $("#fulldate").val("validado");
-    verificarboton();
+    $("#fullfechaedit").val("validado");
+    verificarbotonEdit();
   } else {
     document.getElementById("fechanacimientoedit").value = "";
-    $("#fulldate").val("");
+    $("#fullfechaedit").val("");
     setTimeout(function () {
       $(".mensajefechaEdit").fadeIn(1500);
     }, 100);
@@ -50,9 +153,177 @@ function validarfechaEdit() {
     setTimeout(function () {
       $(".mensajefechaEdit").fadeOut(1500);
     }, 3500);
+    verificarbotonEdit();
+  }
+};
+//------  Validacion del fecha edit ------//
+//------  Validacion del apellido edit ------//
+function validarapellidoEdit() {
+  $apellido = document.getElementById("apellidoedit").value;
+
+  if ($apellido != '') {
+    $("#fullapellidoedit").val("validado");
+    verificarbotonEdit();
+  } else {
+    $("#fullapellidoedit").val("");
+    setTimeout(function () {
+      $(".mensajeapellidoedit").fadeIn(1500);
+    }, 100);
+
+    setTimeout(function () {
+      $(".mensajeapellidoedit").fadeOut(1500);
+    }, 3500);
+    verificarbotonEdit();
+  }
+};
+//------  Validacion del Nombre edit ------//
+function validarnombreEdit() {
+  $nombre = document.getElementById("nombreedit").value;
+
+  if ($nombre != '') {
+    $("#fullnombreedit").val("validado");
+    verificarbotonEdit();
+  } else {
+    $("#fullnombreedit").val("");
+    setTimeout(function () {
+      $(".mensajenombreedit").fadeIn(1500);
+    }, 100);
+
+    setTimeout(function () {
+      $(".mensajenombreedit").fadeOut(1500);
+    }, 3500);
+    verificarbotonEdit();
+  }
+};
+//------  Validacion del Nombre edit------//
+
+/////////////////////////PARA EL FORMULARIO GUARDAR/////////VALIDACIONES///////
+function agregarJugador() {
+  var parametros = $("#addJugador").serialize();
+  $.ajax({
+    type: "POST",
+    url: "../controller/jugador_controller.php?action=guardar",
+    data: parametros,
+    success: function (datos) {
+      //$("#resultados").html(datos);
+      $('#modalJ').modal('hide');
+    }
+  });
+
+};
+function verificarboton() {
+  $nombre = document.getElementById("fullnombre").value;
+  $apellido = document.getElementById("fullapellido").value;
+  $fecha = document.getElementById("fullfechanacimiento").value;
+  $camisa = document.getElementById("fullnumerocamisa").value;
+  $posicion= document.getElementById("fullposicion").value;
+  $equipo = document.getElementById("fullequipo").value;
+  
+
+  if ($nombre == 'validado' && $apellido == 'validado' && $fecha == 'validado' && $camisa == 'validado' && 
+  $posicion == 'validado' && $equipo == 'validado') {
+    $("#btnn").removeAttr("disabled");
+  } else {
+    $("#btnn").attr("disabled", "disabled");
+  }
+
+};
+//validar campo posicion
+function validarposicion() {
+  $posicion = document.getElementById("posicion").value;
+
+  if ($posicion!="") {
+    $("#fullposicion").val("validado");
+    verificarboton();
+  } else {
+    $("#fullposicion").val("");
+    setTimeout(function () {
+      $(".mensajeposicion").fadeIn(1500);
+    }, 100);
+
+    setTimeout(function () {
+      $(".mensajeposicion").fadeOut(1500);
+    }, 3500);
     verificarboton();
   }
 };
+//validar campo equipo
+function validarequipo() {
+  $equipo = document.getElementById("idequipo").value;
+
+  if ($equipo!="") {
+    $("#fullequipo").val("validado");
+    verificarboton();
+  } else {
+    $("#fullequipo").val("");
+    setTimeout(function () {
+      $(".mensajequipo").fadeIn(1500);
+    }, 100);
+
+    setTimeout(function () {
+      $(".mensajequipo").fadeOut(1500);
+    }, 3500);
+    verificarboton();
+  }
+};
+//validar campo apellido
+function validarapellido() {
+  $apellido = document.getElementById("apellido").value;
+
+  if ($apellido != '' && $apellido.length >= 4) {
+    $("#fullapellido").val("validado");
+    verificarboton();
+  } else {
+    $("#fullapellido").val("");
+    setTimeout(function () {
+      $(".mensajeapellido").fadeIn(1500);
+    }, 100);
+
+    setTimeout(function () {
+      $(".mensajeapellido").fadeOut(1500);
+    }, 3500);
+    verificarboton();
+  }
+};
+//validacion campo solo letras
+function soloLetras(e) {
+  var key = e.keyCode || e.which,
+    tecla = String.fromCharCode(key).toLowerCase(),
+    letras = " áéíóúabcdefghijklmnñopqrstuvwxyz",
+    especiales = [8, 37, 39, 46],
+    tecla_especial = false;
+
+  for (var i in especiales) {
+    if (key == especiales[i]) {
+      tecla_especial = true;
+      break;
+    }
+  }
+
+  if (letras.indexOf(tecla) == -1 && !tecla_especial) {
+    return false;
+  }
+};
+//validar nombre del jugador
+function validarnombre() {
+  $nombre = document.getElementById("nombre").value;
+
+  if ($nombre != '') {
+    $("#fullnombre").val("validado");
+    verificarboton();
+  } else {
+    $("#fullnombre").val("");
+    setTimeout(function () {
+      $(".mensajenombre").fadeIn(1500);
+    }, 100);
+
+    setTimeout(function () {
+      $(".mensajenombre").fadeOut(1500);
+    }, 3500);
+    verificarboton();
+  }
+};
+
 //validar fecha modal guardar
 function validarfecha() {
   $today = new Date();
@@ -68,11 +339,11 @@ function validarfecha() {
   $edad = $today.getFullYear() - $year;
 
   if ($edad >= 13) {
-    $("#fulldate").val("validado");
+    $("#fullfechanacimiento").val("validado");
     verificarboton();
   } else {
     document.getElementById("fechanacimiento").value = "";
-    $("#fulldate").val("");
+    $("#fullfechanacimiento").val("");
     setTimeout(function () {
       $(".mensajefecha").fadeIn(1500);
     }, 100);
@@ -107,9 +378,12 @@ function validarnumero() {
     .done(function (json) {
       console.log("EL consultar especifico", json);
       if (json[0] == "Exito") {
-          
+        $("#fullnumerocamisa").val("validado");
+        verificarboton();
       } else if (json[0] == "Error") {
+        $("#fullnumerocamisa").val("");
         document.getElementById("numero_camisa").value = "";
+        verificarboton();
         setTimeout(function () {
           $(".mensajenuemro").fadeIn(1500);
         }, 100);
@@ -122,45 +396,7 @@ function validarnumero() {
     .fail(function (json) {})
     .always(function (json) {});
 }
-//VALIDAR CAMISA DEL FORMULARIO EDITAR JUGADOR
-function abilitarcamisaEdit() {
-  $idequipo = document.getElementById("equipoedit").value;
-  if ($idequipo != "") {
-    $("#numerocamisaedit").removeAttr("disabled");
-  } else {
-    $("#numerocamisaedit").attr("disabled", "disabled");
-  }
-}
 
-function validarnumeroEdit() {
-  $equipo = document.getElementById("equipoedit").value;
-  $camisa = document.getElementById("numerocamisaedit").value;
-
-  var datos = { action: "verificarcamisaEdit", numero: $camisa, equipoedit: $equipo };
-  $respuesta = $.ajax({
-    dataType: "json",
-    method: "POST",
-    url: "../controller/jugador_controller.php",
-    data: datos,
-  })
-    .done(function (json) {
-      console.log("EL consultar especifico", json);
-      if (json[0] == "Exito") {
-          
-      } else if (json[0] == "Error") {
-        document.getElementById("numerocamisaedit").value = "";
-        setTimeout(function () {
-          $(".mensajenumeroedit").fadeIn(1500);
-        }, 100);
-
-        setTimeout(function () {
-          $(".mensajenumeroedit").fadeOut(1500);
-        }, 3500);
-      }
-    })
-    .fail(function (json) {})
-    .always(function (json) {});
-}
 
 //Abrir Modal Editar Jugador
 $("#editJugadorModal").on("show.bs.modal", function (event) {
@@ -184,6 +420,7 @@ $("#editJugadorModal").on("show.bs.modal", function (event) {
   $("#equipoedit").val(equipo);
 });
 //Modificar Jugador
+
 $("#editJugador").submit(function (event) {
   var parametros = $(this).serialize();
   $.ajax({
@@ -199,6 +436,59 @@ $("#editJugador").submit(function (event) {
 
   event.preventDefault();
 });
+/*function modificarRepresentante() {
+  var parametros = $("#editJugador").serialize();
+  $.ajax({
+    type: "POST",
+    url: "../controller/jugador_controller.php?action=actualizar",
+    data: parametros,
+    success: function (datos) {
+      //$("#resultados").html(datos);
+      $("#id_edit").val("");
+      $("#nombreedit").val("");
+      $("#apellidoedit").val("");
+      $("#fechanacimientoedit").val("");
+      $("#numerocamisaedit").val("");
+      $("#posicionedit").val("");
+      $("#equipoedit").val("");
+      $('#editJugadorModal').modal('hide');
+    }
+  });
+
+};
+function abrirmodalEdi() {
+  $('#editJugadorModal').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget)
+
+    var id = button.data('idjugador')
+    $('#id_edit').val(id)
+
+    var nombre = button.data('nombre')
+    $('#nombreedit').val(nombre)
+    $('#fullnombreedit').val("validado")
+    
+    var apellido = button.data('apellido')
+    $('#apellidoedit').val(apellido)
+    $('#fullapellidoedit').val("validado")
+
+    var fechanacimiento = button.data('fechanacimiento')
+    $('#fechanacimientoedit').val(fechanacimiento) 
+    $('#fullfechaedit').val("validado")
+
+    var equipo = button.data('idequipo')
+    $('#equipoedit').val(equipo);
+    $('#fullequipoedit').val("validado")
+
+    var numerocamisa = button.data('numero_camisa')
+    $('#numerocamisaedit').val(numerocamisa)
+    $('#fullnumerocamisaedit').val("validado")
+
+    var posicion = button.data('posicion')
+    $('#posicionedit').val(posicion)
+    $('#fullposicionedit').val("validado")
+    verificarbotonEdit();
+  });
+};*/
 //Abrir Modal dar de baja al  jugador
 $("#dar_baja").on("show.bs.modal", function (event) {
   var button = $(event.relatedTarget); // Button that triggered the modal

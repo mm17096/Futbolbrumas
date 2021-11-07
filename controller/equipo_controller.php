@@ -1,5 +1,5 @@
 <?php
-
+session_start();
  require_once "../clases/Equipo.php";
  require_once "../dao/DaoEquipo.php";
  require_once "../dao/DaoRepresentante.php";
@@ -64,23 +64,37 @@ $act_idrepresentante= (isset($_REQUEST["act_idrepresentante"])) ? $_REQUEST["act
                     
                    if($nombre!=""  && $representante!="" && $imagen != ""){
                     if($daoE->registroEquipo(new Equipo(null,$nombre,$imagen,$representante,1))==1){
-                         echo '<script>window.location="'. base_url . 'views/vis_equipos.php"</script>';
+                        $messages[] = "El registro se ha almacenado con éxito";
+                        ?>
+                            <div id="msjsuccess" class="alert alert-success" role="alert" style=" position:relative ; left : 350% ;top:-300px">
+                                <i class="fa fa-check"></i>
+                                <strong>Registro Almacenado</strong>
+                                <p>
+                                    <?php
+                                    foreach ($messages as $message) {
+                                        echo $message;
+                                    }
+                                    ?>
+                            </div>
+                            
+                        <?php
+                       
+                        echo '<script>window.location="' . base_url . 'views/vis_equipos.php"</script>';
                     
                 }else{
-                    $errors[] = "Error en alguno de los campos, intenta nuevamente";
-                     ?>
-                     
-                            <div class="alert alert-danger" role="alert">
-                                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                                    <strong>Error!</strong> 
-                                    <?php
-                                        foreach ($errors as $error) {
-                                                echo $error;
-                                            }
-                                        ?>
-                            </div>
-                        
-                     <?php
+                    $errors[] = "Error en algún proceso, no se completó la acción";
+                    ?>
+                    <div id="msjerror" class="alert alert-danger" role="alert" style=" position:relative ; left : 275% ;top:-300px">
+                        <i class="fa fa-close"></i>
+                        <strong>Error en el proceso</strong>
+                        <p>
+                            <?php
+                            foreach ($errors as $error) {
+                                echo $error;
+                            }
+                            ?>
+                    </div>
+                    <?php
                    
             } 
         }
@@ -203,6 +217,23 @@ $act_idrepresentante= (isset($_REQUEST["act_idrepresentante"])) ? $_REQUEST["act
         }
 
     }
+
+    
     
 
 ?>
+<script type="text/javascript">
+    msj();
+
+    function msj() {
+
+        setTimeout(function() {
+            document.getElementById("msjsuccess").style.display = 'none';
+        }, 3500);
+
+        setTimeout(function() {
+            document.getElementById("msjerror").style.display = 'none';
+        }, 3500);
+
+    };
+</script>

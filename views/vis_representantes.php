@@ -371,7 +371,7 @@
                                                 </div>
 
                                                 <div class="modal-footer">
-                                                    <button type="reset" class="btn btn btn-round  btn-cancelar"
+                                                    <button type="submit" class="btn btn btn-round  btn-cancelar"
                                                         data-dismiss="modal">
                                                         <li class="fa fa-close cancelar"></li> Cancelar
                                                     </button>
