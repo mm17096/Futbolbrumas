@@ -416,7 +416,7 @@
     <script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
     <script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
 
-    <script src="../scripts/equipo/equipo.js"></script>
+    <script src="../scripts/equipo/equipo.js"  type="text/javascript" charset="utf-8"></script>
     
 </body>
 
