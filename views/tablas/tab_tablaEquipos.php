@@ -17,9 +17,18 @@
             $Conexion_ID = new Conexion();
             $Conexion_ID = $Conexion_ID->getConexion();
 
-            $result = $Conexion_ID->query("SELECT e.idequipo as 'idequipo', e.nombre as 'nombre',(SELECT COUNT(j.idjugador) 
-            WHERE j.idequipo = e.idequipo) as 'jugadores', e.idrepresentante as 'idrepresentante', e.estado as 'estado' 
-            FROM `equipo` as e, jugador as j WHERE e.idrepresentante ='$ID' GROUP BY e.idequipo");
+            $result = $Conexion_ID->query("SELECT 
+            e.idequipo as 'idequipo', 
+            e.nombre as 'nombre',
+            (SELECT COUNT(j.idjugador) WHERE j.idequipo = e.idequipo AND r.dui = e.idrepresentante) as 'jugadores', 
+            e.idrepresentante as 'idrepresentante', 
+            e.estado as 'estado' 
+                        
+            FROM `equipo` as e, jugador as j, representante as r 
+            WHERE e.idrepresentante = r.dui
+            AND e.idrepresentante = '$ID'
+            AND j.idequipo = e.idequipo 
+            GROUP BY  e.idequipo ORDER BY j.idjugador");
             
             $listado = array();
             if ($result) :

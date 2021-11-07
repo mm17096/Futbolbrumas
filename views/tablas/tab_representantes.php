@@ -9,7 +9,7 @@ $result = $Conexion_ID->query("SELECT * FROM `representante`");
 $listado = null;
 if ($result) {
     while ($fila = $result->fetch_object()) {
-        $listado[] = new Representante($fila->dui, $fila->nombre, $fila->apellido, $fila->sexo, $fila->fecha_nacimiento, $fila->telefono, " ", $fila->estado);
+        $listado[] = new Representante($fila->dui, $fila->nombre, $fila->apellido, $fila->sexo, $fila->fecha_nacimiento, $fila->telefono, $fila->estado);
     }
 }
 ?>
