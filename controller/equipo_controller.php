@@ -4,6 +4,7 @@ session_start();
  require_once "../dao/DaoEquipo.php";
  require_once "../dao/DaoRepresentante.php";
  require_once ("../conexion/Conexion.php");
+ require_once "../helpers/utils.php";
 
 //VARIABLES PARA AGREGAR UN NUEVO EQUIPO
 $nombre = isset($_POST['nombre']) ? $_POST['nombre'] : "";
