@@ -42,7 +42,7 @@
 
 </head>
 
-<body class="nav-md" onload="msj()">
+<body class="nav-md">
 
 
     <div class="container body">
@@ -87,9 +87,8 @@
                                 <button type="button" class="btn btn-round btn-guardar" data-toggle="modal"
                                     data-target=".bs-example-modal-lg"> Agregar Representante</button>
 
-
-                                <!-- MENSAJE DE ACCIONES -->
-                                <?php
+                                 <!-- MENSAJE DE ACCIONES -->
+                                 <?php
                                 //$action = (isset($_REQUEST["action"])) ? $_REQUEST["action"] : "";
 
                                 if (isset($_SESSION['action_success']) && $_SESSION['action_success'] == 'completo') {
@@ -98,18 +97,17 @@
                                     unset($_SESSION['action_success']);
                                     $messages[] = "El registro se ha almacenado con éxito";
                                 ?>
-                                <div id="msjsuccess" class="alert alert-success" role="alert" style=" position: absolute;
-                                                   right: 25%;
-                                                      top: 0px;">
-                                    <i class="fa fa-check"></i>
-                                    <strong>Registro Almacenado</strong>
-                                    <p>
+                                    <div class="alert alert-success" role="alert"  style="top: 0px;
+                                                                                  margin-right: 64%;">
+                                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                        <i class="fa fa-check"></i>
+                                        <strong>Registro Almacenado!</strong>
                                         <?php
                                         foreach ($messages as $message) {
                                             echo $message;
                                         }
                                         ?>
-                                </div>
+                                    </div>
                                 <?php
                                 } else if (isset($_SESSION['action_success']) && $_SESSION['action_success'] == 'modificado') {
 
@@ -117,75 +115,73 @@
                                     unset($_SESSION['action_success']);
                                     $errors[] = "El registro se ha modificado con éxito";
                                 ?>
-                                <div id="msjerror" class="alert alert-info" role="alert" style=" position: absolute;
-                                                       right: 25%;
-                                                          top: 0px;">
-                                    <i class="fa fa-info-circle"></i>
-                                    <strong>Registro Modificado</strong>
-                                    <p>
+                                    <div class="alert alert-info" role="alert"  style="top: 0px;
+                                                                                  margin-right: 66%;">
+                                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                        <i class="fa fa-info-circle"></i>
+                                        <strong>Registro Modificado!</strong>
+
                                         <?php
                                         foreach ($errors as $error) {
                                             echo $error;
                                         }
                                         ?>
-                                </div>
+                                    </div>
                                 <?php
-                                }else if (isset($_SESSION['action_success']) && $_SESSION['action_success'] == 'modificadobaja') {
+                                } else if (isset($_SESSION['action_success']) && $_SESSION['action_success'] == 'modificadobaja') {
 
                                     $_SESSION['action_success'] = null;
                                     unset($_SESSION['action_success']);
                                     $errors[] = "El registro se ha dado de baja con éxito";
                                 ?>
-                                <div id="msjerror" class="alert alert-info" role="alert" style=" position: absolute;
-                                                       right: 25%;
-                                                          top: 0px;">
-                                    <i class="fa fa-exclamation-circle"></i>
-                                    <strong>Registro Dado de Baja</strong>
-                                    <p>
+                                    <div class="alert alert-info" role="alert" style="top: 0px;
+                                                                                  margin-right: 60%;">
+                                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                        <i class="fa fa-exclamation-circle"></i>
+                                        <strong>Registro Dado de Baja!</strong>
                                         <?php
                                         foreach ($errors as $error) {
                                             echo $error;
                                         }
                                         ?>
-                                </div>
+                                    </div>
                                 <?php
-                                }else if (isset($_SESSION['action_success']) && $_SESSION['action_success'] == 'modificadoalta') {
+                                } else if (isset($_SESSION['action_success']) && $_SESSION['action_success'] == 'modificadoalta') {
 
                                     $_SESSION['action_success'] = null;
                                     unset($_SESSION['action_success']);
                                     $errors[] = "El registro se ha dado de alta con éxito";
                                 ?>
-                                <div id="msjerror" class="alert alert-info" role="alert" style=" position: absolute;
-                                                       right: 25%;
-                                                          top: 0px;">
-                                    <i class="fa fa-exclamation-circle"></i>
-                                    <strong>Registro Dado de Alta</strong>
-                                    <p>
+                                    <div class="alert alert-info" role="alert" style="top: 0px;
+                                                                                  margin-right: 65%;">
+                                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                        <i class="fa fa-exclamation-circle"></i>
+                                        <strong>Registro Dado de Alta!</strong>
+
                                         <?php
                                         foreach ($errors as $error) {
                                             echo $error;
                                         }
                                         ?>
-                                </div>
+                                    </div>
                                 <?php
-                                }   else if (isset($_SESSION['action_success']) && $_SESSION['action_success'] == 'error') {
+                                } else if (isset($_SESSION['action_success']) && $_SESSION['action_success'] == 'error') {
 
                                     $_SESSION['action_success'] = null;
                                     unset($_SESSION['action_success']);
                                     $errors[] = "Error en algún proceso, no se completó la acción";
                                 ?>
-                                <div id="msjerror" class="alert alert-danger" role="alert" style=" position: absolute;
-                                                       right: 25%;
-                                                          top: 0px;">
-                                    <i class="fa fa-close"></i>
-                                    <strong>Error en el proceso</strong>
-                                    <p>
+                                    <div class="alert alert-danger" role="alert"  style="top: 0px;
+                                                                                  margin-right: 60%;">
+                                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                        <i class="fa fa-close"></i>
+                                        <strong>Error en el proceso!</strong>
                                         <?php
                                         foreach ($errors as $error) {
                                             echo $error;
                                         }
                                         ?>
-                                </div>
+                                    </div>
                                 <?php
                                 }
                                 ?>

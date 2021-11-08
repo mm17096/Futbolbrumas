@@ -1,16 +1,3 @@
-// ------ Validacion del mensaje -------//
-function msj() {
-    $nuevo = document.getElementById("nuevo").value;
-    setTimeout(function () {
-        document.getElementById("msjsuccess").style.display = 'none';
-    }, 3500);
-
-    valcontrasenia();
-    if ($nuevo == 1) {
-        abrirmodal();
-    }
-}
-
 function abrirmodal() {
     $id = document.getElementById("id").value;
 

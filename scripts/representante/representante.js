@@ -1,20 +1,5 @@
 cargartabla();
 
-//--------------- Metodos de mensaje ---------------//
-function msj() {
-
-  setTimeout(function () {
-    document.getElementById("msjsuccess").style.display = 'none';
-  }, 3500);
-
-  setTimeout(function () {
-    document.getElementById("msjerror").style.display = 'none';
-  }, 3500);
-
-};
-//--------------- Metodos de mensaje ---------------//
-
-
 //--------------- Cargar tabla --------------------//
 
 function cargartabla() {
@@ -254,12 +239,10 @@ function validarTelfinal() {
   } else {
     $("#fulltel").val("");
     setTimeout(function () {
-      document.getElementById('telefono').classList.add("color_campos_incompletos");
       $(".mensajetel").fadeIn(1500);
     }, 100);
 
     setTimeout(function () {
-      document.getElementById('telefono').classList.remove("color_campos_incompletos");
       $(".mensajetel").fadeOut(1500);
     }, 3000);
     verificarboton();
@@ -295,12 +278,10 @@ function validarDuifinal() {
   } else {
     $("#fulldui").val("");
     setTimeout(function () {
-      document.getElementById('dui').classList.add("color_campos_incompletos");
       $(".mensajedui").fadeIn(1500);
     }, 100);
 
     setTimeout(function () {
-      document.getElementById('dui').classList.remove("color_campos_incompletos");
       $(".mensajedui").fadeOut(1500);
     }, 3500);
     verificarboton();
@@ -328,12 +309,10 @@ function validarduibase() {
       $("#fulldui").val("");
       document.getElementById("dui").value = "";
       setTimeout(function () {
-        document.getElementById('dui').classList.add("color_campos_ocupados");
         $(".mensajeduiexiste").fadeIn(1500);
       }, 100);
 
       setTimeout(function () {
-        document.getElementById('dui').classList.remove("color_campos_ocupados");
         $(".mensajeduiexiste").fadeOut(1500);
       }, 3500);
       verificarboton();
@@ -356,12 +335,10 @@ function validarcorreo() {
   } else {
     $("#fullcorreo").val("");
     setTimeout(function () {
-      document.getElementById('correo').classList.add("color_campos_incompletos");
       $(".mensajecorreo").fadeIn(1500);
     }, 100);
 
     setTimeout(function () {
-      document.getElementById('correo').classList.remove("color_campos_incompletos");
       $(".mensajecorreo").fadeOut(1500);
     }, 3500);
     verificarboton();
@@ -390,12 +367,10 @@ function validarcorreobase() {
       document.getElementById("correo").value = "";
       verificarboton();
       setTimeout(function () {
-        document.getElementById('correo').classList.add("color_campos_ocupados");
         $(".mensajecorreoexiste").fadeIn(1500);
       }, 100);
 
       setTimeout(function () {
-        document.getElementById('correo').classList.remove("color_campos_ocupados");
         $(".mensajecorreoexiste").fadeOut(1500);
       }, 3500);
     }
@@ -429,12 +404,10 @@ function validarfecha() {
     document.getElementById("date").value = "";
     $("#fulldate").val("");
     setTimeout(function () {
-      document.getElementById('date').classList.add("color_campos_incompletos");
       $(".mensajefecha").fadeIn(1500);
     }, 100);
 
     setTimeout(function () {
-      document.getElementById('date').classList.remove("color_campos_incompletos");
       $(".mensajefecha").fadeOut(1500);
     }, 3500);
     verificarboton();
@@ -453,12 +426,10 @@ function validarsexo() {
   } else {
     $("#fullsexo").val("");
     setTimeout(function () {
-      document.getElementById('sexo').classList.add("color_campos_incompletos");
       $(".mensajesexo").fadeIn(1500);
     }, 100);
 
     setTimeout(function () {
-      document.getElementById('sexo').classList.remove("color_campos_incompletos");
       $(".mensajesexo").fadeOut(1500);
     }, 3500);
     verificarboton();
@@ -477,12 +448,10 @@ function validarnombre() {
   } else {
     $("#fullnombre").val("");
     setTimeout(function () {
-      document.getElementById('nombre').classList.add("color_campos_incompletos");
       $(".mensajenombre").fadeIn(1500);
     }, 100);
 
     setTimeout(function () {
-      document.getElementById('nombre').classList.remove("color_campos_incompletos");
       $(".mensajenombre").fadeOut(1500);
     }, 3500);
     verificarboton();
@@ -501,12 +470,10 @@ function validarapellido() {
   } else {
     $("#fullapellido").val("");
     setTimeout(function () {
-      document.getElementById('apellido').classList.add("color_campos_incompletos");
       $(".mensajeapellido").fadeIn(1500);
     }, 100);
 
     setTimeout(function () {
-      document.getElementById('apellido').classList.remove("color_campos_incompletos");
       $(".mensajeapellido").fadeOut(1500);
     }, 3500);
     verificarboton();
@@ -548,12 +515,10 @@ function validarnombreEdit() {
   } else {
     $("#fullnombreedit").val("");
     setTimeout(function () {
-      document.getElementById('nombre_update').classList.add("color_campos_incompletos");
       $(".mensajenombreedit").fadeIn(1500);
     }, 100);
 
     setTimeout(function () {
-      document.getElementById('nombre_update').classList.remove("color_campos_incompletos");
       $(".mensajenombreedit").fadeOut(1500);
     }, 3500);
     verificarbotonEdit();
@@ -572,12 +537,10 @@ function validarapellidoEdit() {
   } else {
     $("#fullapellidoedit").val("");
     setTimeout(function () {
-      document.getElementById('apellido_update').classList.add("color_campos_incompletos");
       $(".mensajeapellidoedit").fadeIn(1500);
     }, 100);
 
     setTimeout(function () {
-      document.getElementById('apellido_update').classList.remove("color_campos_incompletos");
       $(".mensajeapellidoedit").fadeOut(1500);
     }, 3500);
     verificarbotonEdit();
@@ -613,12 +576,10 @@ function validarDuifinalEdit() {
   } else {
     $("#fullduiedit").val("");
     setTimeout(function () {
-      document.getElementById('dui_update').classList.add("color_campos_incompletos");
       $(".mensajeduiedit").fadeIn(1500);
     }, 100);
 
     setTimeout(function () {
-      document.getElementById('dui_update').classList.remove("color_campos_incompletos");
       $(".mensajeduiedit").fadeOut(1500);
     }, 3500);
     verificarbotonEdit();
@@ -646,12 +607,10 @@ function validarduibaseEdit() {
       $("#fullduiedit").val("");
       document.getElementById("dui_update").value = "";
       setTimeout(function () {
-        document.getElementById('dui_update').classList.add("color_campos_ocupados");
         $(".mensajeduiexisteedit").fadeIn(1500);
       }, 100);
 
       setTimeout(function () {
-        document.getElementById('dui_update').classList.remove("color_campos_ocupados");
         $(".mensajeduiexisteedit").fadeOut(1500);
       }, 3500);
       verificarbotonEdit();
@@ -675,12 +634,10 @@ function validarsexoEdit() {
   } else {
     $("#fullsexoedit").val("");
     setTimeout(function () {
-      document.getElementById('sexo_update').classList.add("color_campos_incompletos");
       $(".mensajesexoedit").fadeIn(1500);
     }, 100);
 
     setTimeout(function () {
-      document.getElementById('sexo_update').classList.remove("color_campos_incompletos");
       $(".mensajesexoedit").fadeOut(1500);
     }, 3500);
     verificarbotonEdit();
@@ -710,12 +667,10 @@ function validarfechaEdit() {
     document.getElementById("date_update").value = "";
     $("#fulldateedit").val("");
     setTimeout(function () {
-      document.getElementById('date_update').classList.add("color_campos_incompletos");
       $(".mensajefechaedit").fadeIn(1500);
     }, 100);
 
     setTimeout(function () {
-      document.getElementById('date_update').classList.remove("color_campos_incompletos");
       $(".mensajefechaedit").fadeOut(1500);
     }, 3500);
     verificarbotonEdit();
@@ -752,12 +707,10 @@ function validarTelfinalEdit() {
   } else {
     $("#fullteledit").val("");
     setTimeout(function () {
-      document.getElementById('telefono_update').classList.add("color_campos_incompletos");
       $(".mensajeteledit").fadeIn(1500);
     }, 100);
 
     setTimeout(function () {
-      document.getElementById('telefono_update').classList.remove("color_campos_incompletos");
       $(".mensajeteledit").fadeOut(1500);
     }, 3000);
     verificarbotonEdit();
