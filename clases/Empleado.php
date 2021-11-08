@@ -2,59 +2,48 @@
 
 class Empleado{
     private $Dui;
-    private $nombre;
-    private $apellido;
-    private $sexo;
-    private $correo;
-    private $fecha_nac;
-    private $telefono;
-    private $estado;
+    private $Nombre;
+    private $Apellido;
+    private $Sexo;
+    private $FechaNacimiento;
+    private $Telefono;
+    private $Estado;
 
-    
-    function __construct($Dui, $nombre, $apellido, $sexo, $fecha_nac, $telefono, $correo, $estado){
+    function __construct($Dui,$Nombre,$Apellido,$Sexo,$FechaNacimiento,$Telefono,$Estado){
         $this->Dui=$Dui;
-        $this->nombre=$nombre;
-        $this->apellido=$apellido;
-        $this->sexo=$sexo;
-        $this->fecha_nac=$fecha_nac;
-        $this->telefono=$telefono;
-        $this->$correo = $correo;
-        $this->estado=$estado;
+        $this->Nombre=$Nombre;
+        $this->Apellido=$Apellido;
+        $this->Sexo=$Sexo;
+        $this->FechaNacimiento=$FechaNacimiento;
+        $this->Telefono=$Telefono;
+        $this->Estado=$Estado;
     }
-    
+
     function getDui(){
         return $this->Dui;
     }
 
     function getNombre(){
-        return $this->nombre;
+        return $this->Nombre;
     }
-
     function getApellido(){
-        return $this->apellido;
-    }
-
-    function getCorreo(){
-        return $this->correo;
+        return $this->Apellido;
     }
 
     function getSexo(){
-        return $this->sexo;
+        return $this->Sexo;
     }
 
-    
-    function getFecha_nac(){
-        return $this->fecha_nac;
+    function getFechaNacimiento(){
+        return $this->FechaNacimiento;
     }
 
-    
     function getTelefono(){
-        return $this->telefono;
+        return $this->Telefono;
     }
 
     function getEstado(){
-        return $this->estado;
+        return $this->Estado;
     }
 }
-
 ?>

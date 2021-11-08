@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Representante</title>
+    <title>Empleado</title>
 
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -58,6 +58,7 @@
             } else {
                 header("Location: ../views/index.php");
             }
+
             ?>
             <style type="text/css">
             .required {
@@ -77,7 +78,7 @@
                     <div class="col-md-12 col-sm-6  ">
                         <div class="x_panel">
                             <div class="x_title">
-                                <h2><i class="fa fa-group"></i> Datos Representantes</h2>
+                                <h2><i class="fa fa-group"></i> Datos Empleados</h2>
 
                                 <div class="clearfix"></div>
                             </div>
@@ -85,7 +86,7 @@
                             <div class="x_content">
 
                                 <button type="button" class="btn btn-round btn-guardar" data-toggle="modal"
-                                    data-target=".bs-example-modal-lg"> Agregar Representante</button>
+                                    data-target=".bs-example-modal-lg"> Agregar Empleados</button>
 
 
                                 <!-- MENSAJE DE ACCIONES -->
@@ -192,13 +193,13 @@
                                 <!-- MENSAJE DE ACCIONES -->
 
                                 <!-- MODAL AGREGAR-->
-                                <div class="modal fade bs-example-modal-lg" tabindex="-1" id="modalguardarR"
+                                <div class="modal fade bs-example-modal-lg" tabindex="-1" id="modalguardarE"
                                     role="dialog" aria-hidden="true">
                                     <div class="modal-dialog modal-lg">
                                         <div class="modal-content">
-                                            <form method="POST" id="addRepresentante" name="addRepresentante">
+                                            <form method="POST" id="addEmpleado" name="addEmpleado">
                                                 <div class="modal-header">
-                                                    <h4 class="modal-title" id="myModalLabel">Agregar Representante</h4>
+                                                    <h4 class="modal-title" id="myModalLabel">Agregar Empleado</h4>
                                                     <button type="button" class="close" data-dismiss="modal"><span
                                                             aria-hidden="true">×</span>
                                                     </button>
@@ -374,9 +375,9 @@
                                                         data-dismiss="modal">
                                                         <li class="fa fa-close cancelar"></li> Cancelar
                                                     </button>
-                                                    <button type="submit" disabled onclick="agregarRepresentante()"
+                                                    <button type="submit" disabled onclick="agregarEmpleado()"
                                                         class="btn btn-round btn-guardar" id="btng" name="btng">
-                                                        <li onclick="agregarRepresentante()" class="fa fa-save"></li>
+                                                        <li onclick="agregarEmpleado()" class="fa fa-save"></li>
                                                         Guardar
                                                     </button>
                                                 </div>
@@ -388,12 +389,12 @@
                                 <!-- MODAL AGREGAR-->
 
                                 <!-- MODAL EDITAR-->
-                                <div id="modalmodificarR" class="modal fade">
+                                <div id="modalmodificarE" class="modal fade">
                                     <div class="modal-dialog modal-lg">
                                         <div class="modal-content">
-                                            <form method="POST" id="updateRepresentante" name="updateRepresentante">
+                                            <form method="POST" id="updateEmpleado" name="updateEmpleado">
                                                 <div class="modal-header">
-                                                    <h4 class="modal-title" id="myModalLabel">Modificar Representante
+                                                    <h4 class="modal-title" id="myModalLabel">Modificar Empleado
                                                     </h4>
                                                     <button type="button" class="close" data-dismiss="modal"><span
                                                             aria-hidden="true">×</span>
@@ -559,9 +560,9 @@
                                                         data-dismiss="modal">
                                                         <li class="fa fa-close cancelar"></li> Cancelar
                                                     </button>
-                                                    <button type="submit" disabled onclick="modificarRepresentante()"
+                                                    <button type="submit" disabled onclick="modificarEmpleado()"
                                                         class="btn btn-round btn-guardar" id="btngedit" name="btngedit">
-                                                        <li onclick="modificarRepresentante()" class="fa fa-edit"></li>
+                                                        <li onclick="modificarEmpleado()" class="fa fa-edit"></li>
                                                         Actualizar Datos
                                                     </button>
                                                 </div>
@@ -574,12 +575,12 @@
 
                                 <!-- MODAL DE BAJA-->
 
-                                <div id="DeBajaRepresentante" class="modal fade">
+                                <div id="DeBajaEmpleado" class="modal fade">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
-                                            <form name="bajaRepresentante" id="bajaRepresentante">
+                                            <form name="bajaEmpleado" id="bajaEmpleado">
                                                 <div class="modal-header">
-                                                    <h4 class="modal-title">Dar de Baja a Representante</h4>
+                                                    <h4 class="modal-title">Dar de Baja a Empleado</h4>
 
                                                     <button type="button" class="close" data-dismiss="modal"
                                                         aria-hidden="true">&times;</button>
@@ -601,7 +602,7 @@
                                                                 Cancelar</button>
                                                         </div>
                                                         <div class="col-sm-6">
-                                                            <button type="submit" onclick="debajaRepresentante()"
+                                                            <button type="submit" onclick="debajaEmpleado()"
                                                                 class="btn btn-round btn-guardar"><span
                                                                     class="fa fa-thumbs-o-down"></span>
                                                                 Dar de Baja</button>
@@ -617,12 +618,12 @@
 
                                 <!-- MODAL DE ALTA-->
 
-                                <div id="DeAltaRepresentante" class="modal fade">
+                                <div id="DeAltaEmpleado" class="modal fade">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
-                                            <form name="altaRepresentante" id="altaRepresentante">
+                                            <form name="altaEmpleado" id="altaEmpleado">
                                                 <div class="modal-header">
-                                                    <h4 class="modal-title">Dar de Alta a Representante</h4>
+                                                    <h4 class="modal-title">Dar de Alta a Empleado</h4>
 
                                                     <button type="button" class="close" data-dismiss="modal"
                                                         aria-hidden="true">&times;</button>
@@ -644,7 +645,7 @@
                                                                 Cancelar</button>
                                                         </div>
                                                         <div class="col-sm-6">
-                                                            <button type="submit" onclick="dealtaRepresentante()"
+                                                            <button type="submit" onclick="dealtaEmpleado()"
                                                                 class="btn btn-round btn-guardar"><span
                                                                     class="fa fa-thumbs-o-up"></span>
                                                                 Dar de Alta</button>
@@ -665,7 +666,7 @@
                                         <div class="col-sm-12">
                                             <div class="card-box table-responsive">
 
-                                                <div id="tablarepresentante">
+                                                <div id="tablaempleado">
 
                                                 </div>
 
@@ -673,48 +674,6 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                <!-- MODAL DE EQUIPOS-->
-
-                                <div id="modalEquipos" class="modal fade">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-
-                                            <div class="modal-header">
-                                                <h4 class="modal-title fa fa-eye"> Equipos</h4>
-                                                <button type="button" class="close" data-dismiss="modal"><span
-                                                        aria-hidden="true">×</span>
-                                                </button>
-                                            </div>
-
-                                            <!--
-                                            <div class="form-group">
-                                                <label class="col-form-label col-md-6 col-sm-6">Representante: </label>
-                                                <input type="text" name="representantever" id="representantever"
-                                                    class="form-control" autocomplete="off"  readonly="readonly" style="left: 100px;">
-                                            </div>
-                                            -->
-
-                                            <div class="x_content">
-                                                <div class="row">
-                                                    <div class="col-sm-12">
-                                                        <div class="card-box table-responsive">
-
-                                                            <div id="tablaEquipos">
-
-                                                            </div>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- MODAL DE EQUIPOS-->
-
                             </div>
                         </div>
                     </div>
@@ -727,7 +686,7 @@
     </div>
 
     <!-- Validaciones y Metodos-->
-    <script src="../scripts/representante//representante.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../scripts/empleado/empleado.js" type="text/javascript" charset="utf-8"></script>
     <!-- jQuery -->
     <script src="../vendors/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap -->

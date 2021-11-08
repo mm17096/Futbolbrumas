@@ -53,3 +53,11 @@
   text-align:absolute;
 
 }
+
+.color_campos_incompletos{
+   border-color: orange;
+}
+
+.color_campos_ocupados{
+    border-color: red;
+}

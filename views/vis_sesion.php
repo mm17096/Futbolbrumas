@@ -26,33 +26,33 @@
     <link href="../resources/bootstrap/css/diseño.css" rel="stylesheet" type="text/css" />
 
     <script type="text/javascript">
-    function msj() {
+        function msj() {
 
-        setTimeout(function() {
-            document.getElementById("msjreset").style.display = 'none';
-        }, 3000);
+            setTimeout(function() {
+                document.getElementById("msjreset").style.display = 'none';
+            }, 3000);
 
-        setTimeout(function() {
-            document.getElementById("msjerror").style.display = 'none';
-        }, 3000);
+            setTimeout(function() {
+                document.getElementById("msjerror").style.display = 'none';
+            }, 3000);
 
-        setTimeout(function() {
-            document.getElementById("attempts").style.display = 'none';
-        }, 3000);
+            setTimeout(function() {
+                document.getElementById("attempts").style.display = 'none';
+            }, 3000);
 
-        setTimeout(function() {
-            document.getElementById("bloqueo").style.display = 'none';
-        }, 9500);
+            setTimeout(function() {
+                document.getElementById("bloqueo").style.display = 'none';
+            }, 9500);
 
-        setTimeout(function() {
-            document.getElementById("bloqueo2").style.display = 'none';
-        }, 9500);
+            setTimeout(function() {
+                document.getElementById("bloqueo2").style.display = 'none';
+            }, 9500);
 
-        setTimeout(function() {
-            document.getElementById("bloqueo3").style.display = 'none';
-        }, 9500);
+            setTimeout(function() {
+                document.getElementById("bloqueo3").style.display = 'none';
+            }, 9500);
 
-    }
+        }
     </script>
 </head>
 
@@ -95,18 +95,18 @@
             $mensaje[] = "Contraseña modificada con éxito";
 
         ?>
-        <div id="msjreset" class="alert alert-info" role="alert" style=" position: absolute;
+            <div id="msjreset" class="alert alert-info" role="alert" style=" position: absolute;
                                                        right: 30px;
                                                           top: 5px;">
-            <i class="fa fa-edit"></i>
-            <strong>Modificación</strong>
-            <p>
-                <?php
+                <i class="fa fa-edit"></i>
+                <strong>Modificación</strong>
+                <p>
+                    <?php
                     foreach ($mensaje as $message) {
                         echo $message;
                     }
                     ?>
-        </div>
+            </div>
         <?php
         }
 
@@ -125,34 +125,54 @@
             $Attempts[] = "Intentos restantes: " . $_SESSION['Attempts'];
 
         ?>
-        <div id="msjerror" class="alert alert-danger" role="alert" style=" position: absolute;
+            <div id="msjerror" class="alert alert-danger" role="alert" style=" position: absolute;
                                                                 right: 30px;
                                                                     top: 5px;
                                                                     size: 5px;">
-            <i class="fa fa-search"></i>
-            <strong>Validación</strong>
-            <p>
-                <?php
+                <i class="fa fa-search"></i>
+                <strong>Validación</strong>
+                <p>
+                    <?php
                     foreach ($errors as $error) {
                         echo $error;
                     }
                     ?>
-        </div>
+            </div>
 
-        <p>
+            <p>
 
-        <div id="attempts" class="alert alert-danger" role="alert" style=" position: absolute;
+            <div id="attempts" class="alert alert-danger" role="alert" style=" position: absolute;
                                                                 right: 30px;
                                                                     top: 105px;
                                                                     size: 5px;">
-            <i class="fa fa-exclamation-triangle"></i>
-            <?php
+                <i class="fa fa-exclamation-triangle"></i>
+                <?php
                 foreach ($Attempts as $attempts) {
                     echo $attempts;
                 }
                 ?>
-        </div>
+            </div>
 
+        <?php
+        } else if (isset($_SESSION['action_login']) && $_SESSION['action_login'] == 'debaja') {
+            $_SESSION['action_login'] = null;
+            unset($_SESSION['action_login']);
+            $msj[] = "Su usuario está de baja, no puede acceder";
+
+        ?>
+            <div id="msjerror" class="alert alert-danger" role="alert" style=" position: absolute;
+                                                                right: 30px;
+                                                                    top: 5px;
+                                                                    size: 5px;">
+                <i class="fa fa-close"></i>
+                <strong>Validación</strong>
+                <p>
+                    <?php
+                    foreach ($msj as $error) {
+                        echo $error;
+                    }
+                    ?>
+            </div>
         <?php
         }
         ?>
@@ -188,90 +208,84 @@
                             }
                         ?>
 
-                        <center>
-                            <div id="bloqueo" class="alert alert-danger" role="alert" style=" position: absolute;
+                            <center>
+                                <div id="bloqueo" class="alert alert-danger" role="alert" style=" position: absolute;
                                                             top: 40px;
                                                             size: 5px;">
-                                <i class="fa fa-lock"></i>
-                                <strong>Bloqueado</strong>
-                                <i class="fa fa-lock"></i>
-                                <p>
-                                    <?php
+                                    <i class="fa fa-lock"></i>
+                                    <strong>Bloqueado</strong>
+                                    <i class="fa fa-lock"></i>
+                                    <p>
+                                        <?php
                                         foreach ($mensaje as $msj) {
                                             echo $msj;
                                         }
                                         ?>
-                            </div>
+                                </div>
 
-                            <p>
+                                <p>
 
 
-                            <div id="bloqueo2" class="alert alert-danger" role="alert" style=" position: absolute;
+                                <div id="bloqueo2" class="alert alert-danger" role="alert" style=" position: absolute;
                                                             top: 170px;
                                                             size: 5px;">
-                                <?php
+                                    <?php
 
                                     foreach ($mensaje2 as $msj2) {
                                         echo $msj2;
                                     }
                                     ?>
-                            </div>
+                                </div>
 
-                            <p>
+                                <p>
 
-                            <div id="bloqueo3" class="alert alert-danger" role="alert" style=" position: absolute;
+                                <div id="bloqueo3" class="alert alert-danger" role="alert" style=" position: absolute;
                                                        
                                                             top: 255px;
                                                             size: 5px;">
-                                <i class="fa fa-calendar"></i>
-                                <?php
+                                    <i class="fa fa-calendar"></i>
+                                    <?php
                                     foreach ($mensaje3 as $msj3) {
                                         echo $msj3;
                                     }
                                     ?>
-                                <i class="fa fa-dashboard"></i>
-                            </div>
-                        </center>
+                                    <i class="fa fa-dashboard"></i>
+                                </div>
+                            </center>
                         <?php
                         } else {
                         ?>
 
-                        <div class="form-group">
-                            <label form="user" class="col-md-4 col-sm-12">Usuario<span class="required"
-                                    style="color: red;">*</span></label>
-                            <input type="text" class="form-control" id="user" name="user" placeholder="Ingrese usuario"
-                                title="Puede agregar su correo o nombre de usuario" minlength="7" maxlength="30" autocomplete="off" required>
-                        </div>
+                            <div class="form-group">
+                                <label form="user" class="col-md-4 col-sm-12">Usuario<span class="required" style="color: red;">*</span></label>
+                                <input type="text" class="form-control" id="user" name="user" placeholder="Ingrese usuario" title="Puede agregar su correo o nombre de usuario" minlength="7" maxlength="30" autocomplete="off" required>
+                            </div>
 
-                        <div class="form-group">
-                            <label form="pass" class="col-md-4 col-sm-12">Contraseña<span class="required"
-                                    style="color: red;">*</span></label>
-                            <input type="password" class="form-control" id="password" name="password"
-                                placeholder="Ingrese contraseña"
-                                title="Utilice la contraseña que se le proporciono o usted modifico" autocomplete="off"
-                                minlength="8" maxlength="25" required>
-                        </div>
+                            <div class="form-group">
+                                <label form="pass" class="col-md-4 col-sm-12">Contraseña<span class="required" style="color: red;">*</span></label>
+                                <input type="password" class="form-control" id="password" name="password" placeholder="Ingrese contraseña" title="Utilice la contraseña que se le proporciono o usted modifico" autocomplete="off" minlength="8" maxlength="25" required>
+                            </div>
 
-                        <button type="submit" class="btn btn-round btn-guardar" name="btnsesion" id="btnsesion">
-                            <li class="fa fa-sign-in"></li> Iniciar Sesión
-                        </button>
+                            <button type="submit" class="btn btn-round btn-guardar" name="btnsesion" id="btnsesion">
+                                <li class="fa fa-sign-in"></li> Iniciar Sesión
+                            </button>
 
-                        <a href="vis_recuperardatos.php" class="btn btn btn-round  btn-link">¿Ha perdido su
-                            contraseña?</a>
-
-                        <div class="clearfix"></div>
-
-                        <div class="separator">
-
+                            <a href="vis_recuperardatos.php" class="btn btn btn-round  btn-link">¿Ha perdido su
+                                contraseña?</a>
 
                             <div class="clearfix"></div>
-                            <br />
 
-                            <div>
-                                <h1><i class="fa fa-futbol-o" aria-hidden="true"></i> Las Brumas</h1>
-                                <p>©Todos los derechos reservados UES FMP 2021</p>
+                            <div class="separator">
+
+
+                                <div class="clearfix"></div>
+                                <br />
+
+                                <div>
+                                    <h1><i class="fa fa-futbol-o" aria-hidden="true"></i> Las Brumas</h1>
+                                    <p>©Todos los derechos reservados UES FMP 2021</p>
+                                </div>
                             </div>
-                        </div>
 
                         <?php } ?>
                     </form>

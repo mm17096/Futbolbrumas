@@ -26,12 +26,12 @@
     <link href="../resources/bootstrap/css/diseño.css" rel="stylesheet" type="text/css" />
 
     <script type="text/javascript">
-    function msj() {
+        function msj() {
 
-        setTimeout(function() {
-            document.getElementById("msjerror").style.display = 'none';
-        }, 3000);
-    };
+            setTimeout(function() {
+                document.getElementById("msjcodigo").style.display = 'none';
+            }, 3000);
+        };
     </script>
 
 </head>
@@ -76,19 +76,63 @@
         $mensaje[] = "Código de verificación incorrecto";
     ?>
 
-    <div id="msjerror" class="alert alert-danger" role="alert" style=" position: absolute;
+        <div id="msjcodigo" class="alert alert-danger" role="alert" style=" position: absolute;
                                                         right: 30px;
                                                             top: 5px;
                                                             size: 5px;">
-        <i class="fa fa-search"></i>
-        <strong>Validación</strong>
-        <p>
-            <?php
+            <i class="fa fa-search"></i>
+            <strong>Validación</strong>
+            <p>
+                <?php
                 foreach ($mensaje as $error) {
                     echo $error;
                 }
                 ?>
-    </div>
+        </div>
+
+    <?php
+    } else if (isset($_SESSION['resetcodigo']) && $_SESSION['resetcodigo'] = 'completo') {
+        $_SESSION['resetcodigo'] = null;
+        unset($_SESSION['resetcodigo']);
+
+        $mensaje[] = "Código de verificación reenviado";
+    ?>
+
+        <div id="msjcodigo" class="alert alert-info" role="alert" style=" position: absolute;
+                                                        right: 30px;
+                                                            top: 5px;
+                                                            size: 5px;">
+            <i class="fa fa-mail-forward"></i>
+            <strong>Procedimiento</strong>
+            <p>
+                <?php
+                foreach ($mensaje as $codigo) {
+                    echo $codigo;
+                }
+                ?>
+        </div>
+
+    <?php
+    } else if (isset($_SESSION['resetcodigo']) && $_SESSION['resetcodigo'] = 'error') {
+        $_SESSION['resetcodigo'] = null;
+        unset($_SESSION['resetcodigo']);
+
+        $mensaje[] = "Error al reenviar el código de verificación";
+    ?>
+
+        <div id="msjcodigo" class="alert alert-danger" role="alert" style=" position: absolute;
+                                                        right: 30px;
+                                                            top: 5px;
+                                                            size: 5px;">
+            <i class="fa fa-close"></i>
+            <strong>Procedimiento</strong>
+            <p>
+                <?php
+                foreach ($mensaje as $codigo) {
+                    echo $codigo;
+                }
+                ?>
+        </div>
 
     <?php
     }
@@ -103,25 +147,23 @@
                         width: 110x;
                         height: 110px;">
                     </center>
-                    <form action="../controller/usuario_controller.php?action=verificarcodigo" method="POST"
-                        autocomplete="off">
+                    <form action="../controller/usuario_controller.php?action=verificarcodigo" method="POST" autocomplete="off">
                         <h1>Validar Código</h1>
                         <div class="form-group">
                             <label class="col-md-4 col-sm-12">Código <span class="required" style="color: red;">
                                     *</span></label>
-                            <input type="text" class="form-control" id="codigo" name="codigo"
-                                placeholder="Código de confirmación"
-                                maxlength="15" minlength="8" required>
+                            <input type="text" class="form-control" id="codigo" name="codigo" placeholder="Código de confirmación" maxlength="15" minlength="8" required>
                         </div>
 
                         <div class="form-group">
-                            <input type="hidden" class="form-control" id="id" name="id" value="<?= $_SESSION['id'] ?>"
-                                required>
+                            <input type="hidden" class="form-control" id="id" name="id" value="<?= $_SESSION['id'] ?>" required>
                         </div>
 
                         <button type="submit" class="btn btn-round btn-guardar">
                             <li class="fa fa-lock"></li> Validar Código
                         </button>
+
+                        <a href="../controller/usuario_controller.php?action=reenviarcodigo" class="btn btn btn-round  btn-link">¿Desea reenviar el código?</a>
 
                         <div class="clearfix"></div>
 

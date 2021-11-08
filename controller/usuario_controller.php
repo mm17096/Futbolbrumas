@@ -54,36 +54,41 @@ if ($action != "") {
                 $user = $daoU->loging($usuario, $password);
 
                 if ($user != false) {
+                    if ($daoU->verificardebaja($user->tipo, $user->idempleado, $user->idrepresentante) == 0) {
+                        if ($user->tipo == "administrador" || $user->tipo == "empleado") {
+                            $identidad = $daoE->BuscarEmpleado($user->idempleado, $user->tipo);
 
-                    if ($user->tipo == "administrador") {
-                        $identidad = $daoE->BuscarEmpleado($user->idempleado);
+                            if ($identidad != null) {
 
-                        if ($identidad != null) {
+                                $_SESSION['usuario'] = $user;
+                                $_SESSION['identidad'] = $identidad;
+                                $_SESSION['action_login'] = 'completo';
+                                echo '<script>window.location="' . base_url . 'views/index.php"</script>';
+                            } else {
 
-                            $_SESSION['usuario'] = $user;
-                            $_SESSION['identidad'] = $identidad;
-                            $_SESSION['action_login'] = 'completo';
-                            echo '<script>window.location="' . base_url . 'views/index.php"</script>';
-                        } else {
+                                $_SESSION['action_login'] = 'error';
+                                echo '<script>window.location="' . base_url . 'views/vis_sesion.php"</script>';
+                            }
+                        } else if ($user->tipo == "usuario") {
+                            $identidad = $daoR->BuscarRepresentante($user->idrepresentante);
 
-                            $_SESSION['action_login'] = 'error';
-                            echo '<script>window.location="' . base_url . 'views/vis_sesion.php"</script>';
+                            if ($identidad != null) {
+
+                                $_SESSION['usuario'] = $user;
+                                $_SESSION['identidad'] = $identidad;
+                                $_SESSION['action_login'] = 'completo';
+                                echo '<script>window.location="' . base_url . 'views/index.php"</script>';
+                            } else {
+
+                                $_SESSION['action_login'] = 'error';
+                                $_SESSION['Attempts']--;
+                                echo '<script>window.location="' . base_url . 'views/vis_sesion.php"</script>';
+                            }
                         }
-                    } else if ($user->tipo == "usuario") {
-                        $identidad = $daoR->BuscarRepresentante($user->idrepresentante);
-
-                        if ($identidad != null) {
-
-                            $_SESSION['usuario'] = $user;
-                            $_SESSION['identidad'] = $identidad;
-                            $_SESSION['action_login'] = 'completo';
-                            echo '<script>window.location="' . base_url . 'views/index.php"</script>';
-                        } else {
-
-                            $_SESSION['action_login'] = 'error';
-                            $_SESSION['Attempts']--;
-                            echo '<script>window.location="' . base_url . 'views/vis_sesion.php"</script>';
-                        }
+                    }else{
+                        $_SESSION['action_login'] = 'debaja';
+                        $_SESSION['Attempts']--;
+                        echo '<script>window.location="' . base_url . 'views/vis_sesion.php"</script>';
                     }
                 } else {
 
@@ -111,7 +116,7 @@ if ($action != "") {
                     if ($daoU->UpdateUsuario(new Usuario($id_edit, null, null, $_SESSION['identidad']->tipo, $correo_edit, $usuario_edit, Utils::encriptacion($clave_edit)), $imagen) == 1) {
                         $user = $daoU->BuscarUser($id_edit);
                         if ($user != false) {
-                         /*
+                            /*
                             if ($claveact != $clave_edit || $usuarioact != $usuario_edit) {
                                 if ($daoU->confirmarcambiosUsuario($correo_edit, $_SESSION['identidad']->nombre, $_SESSION['identidad']->apellido, $usuario_edit, $clave_edit) == true) {
                                     $_SESSION['perfil_success'] = 'completo';
@@ -138,7 +143,7 @@ if ($action != "") {
                     if ($daoU->UpdateUsuariosinIMG(new Usuario($id_edit, null, null, $_SESSION['identidad']->tipo, $correo_edit, $usuario_edit, Utils::encriptacion($clave_edit)), $imagen) == 1) {
                         $user = $daoU->BuscarUser($id_edit);
                         if ($user != false) {
-                        /*
+                            /*
                             if ($claveact != $clave_edit || $usuarioact != $usuario_edit) {
                                 if ($daoU->confirmarcambiosUsuario($correo_edit, $_SESSION['identidad']->nombre, $_SESSION['identidad']->apellido, $usuario_edit, $clave_edit) == true) {
                                     $_SESSION['perfil_success'] = 'completo';
@@ -223,6 +228,7 @@ if ($action != "") {
                     if ($daoU->cambiarcodigo($correores, $codigo) == 1) {
                         if ($daoU->codigoverificacion($correores, $codigo) == true) {
                             $_SESSION['id'] = $duires;
+                            $_SESSION['correo'] = $correores;
                             echo '<script>window.location="' . base_url . 'views/vis_verificarcodigo.php"</script>';
                         } else {
                             $_SESSION['falloverificacion'] = true;
@@ -239,6 +245,25 @@ if ($action != "") {
             } else {
                 $_SESSION['falloverificacion'] = true;
                 echo '<script>window.location="' . base_url . 'views/vis_recuperardatos.php"</script>';
+            }
+
+            break;
+
+        case 'reenviarcodigo':
+            if (isset($_SESSION['id']) && isset($_SESSION['correo'])) {
+                $codigo = Utils::codigoseguridad();
+                if ($daoU->cambiarcodigo($_SESSION['correo'], $codigo) == 1) {
+                    if ($daoU->codigoverificacion($_SESSION['correo'], $codigo) == true) {
+                        $_SESSION['resetcodigo'] = 'completo';
+                        echo '<script>window.location="' . base_url . 'views/vis_verificarcodigo.php"</script>';
+                    } else {
+                        $_SESSION['resetcodigo'] = 'error';
+                        echo '<script>window.location="' . base_url . 'views/vis_recuperardatos.php"</script>';
+                    }
+                } else {
+                    $_SESSION['resetcodigo'] = 'error';
+                    echo '<script>window.location="' . base_url . 'views/vis_recuperardatos.php"</script>';
+                }
             }
 
             break;

@@ -12,7 +12,6 @@ require_once '../PHPMailer/src/SMTP.php';
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\PHPMailer;
 
-
 class DaoEmpleado
 {
     var $Conexion_ID;
@@ -27,13 +26,13 @@ class DaoEmpleado
 
     function registroEmpleado(Empleado $re)
     {
-        if (!($re instanceof Representante)) {
-            $this->Error = "Error de instanciado,\n el objeto no es de tipo Clase Representante";
+        if (!($re instanceof Empleado)) {
+            $this->Error = "Error de instanciado,\n el objeto no es de tipo Clase Empleado";
             return 0;
         }
 
         //(`dui`, `nombre`, `apellido`, `sexo`, `fecha_nacimiento`, `telefono`, `estado`)
-        $result = $this->Conexion_ID->query("INSERT INTO `representante` VALUES('" . $re->getDui() . "','" . $re->getNombre() . "','" . $re->getApellido() . "','" . $re->getSexo() . "','" . $re->getFecha_nac() . "','" . $re->getTelefono() . "','" . $re->getEstado() . "')");
+        $result = $this->Conexion_ID->query("INSERT INTO `empleado` VALUES('" . $re->getDui() . "','" . $re->getNombre() . "','" . $re->getApellido() . "','" . $re->getSexo() . "','" . $re->getFechaNacimiento() . "','" . $re->getTelefono() . "','" . $re->getEstado() . "')");
 
         if (!$result) {
             return 0;
@@ -42,7 +41,7 @@ class DaoEmpleado
         }
     }
 
-    function enviarcorreo($correo, $nombre, $apellido, $dui)
+	function enviarcorreo($correo, $nombre, $apellido, $dui)
     {
 
         $cabeceras  = 'MIME-Version: 1.0' . "\r\n";
@@ -50,15 +49,15 @@ class DaoEmpleado
 
         $mail = new PHPMailer();
         $mail->isHTML(true);
-        $mail->msgHTML(file_get_contents('message.html'), __DIR__);
+        //$mail->msgHTML(file_get_contents('message.html'), __DIR__);
         $mail->addAttachment('Content-type: text/html; charset=iso-8859-1');
         $mail->isSMTP();
         $mail->SMTPAuth = true;
         $mail->SMTPSecure = 'tls';
         $mail->Host = 'smtp.gmail.com';
         $mail->Port = '587';
-        $mail->Username = 'restaurantequevaquerer@gmail.com';
-        $mail->Password = 'quevaquerer123';
+        $mail->Username = 'torneofutsalbrumas@gmail.com';
+        $mail->Password = 'futsalbrumas';
 
         $mail->setFrom('futsalbrumas@gmail.com', 'Torneo Futbol Sala las Brumas');
         $mail->addAddress($correo, 'Cuenta de Usuario');
@@ -258,7 +257,7 @@ class DaoEmpleado
 											<div style="color:#ffffff;font-family:Varela Round, Trebuchet MS, Helvetica, sans-serif;line-height:1.5;padding-top:5px;padding-right:5px;padding-bottom:5px;padding-left:5px;">
 												<div class="txtTinyMce-wrapper" style="font-size: 14px; line-height: 1.5; text-align: center; color: #ffffff; font-family: Varela Round, Trebuchet MS, Helvetica, sans-serif; mso-line-height-alt: 21px;">&nbsp;&nbsp;&nbsp;&nbsp;Con estos datos de usuario ya podrá acceder a el sitio oficial de Torneo de Futbol Sala las Brumas Cojutepeque.</div>
                                                 <br/>
-                                                <div class="txtTinyMce-wrapper" style="font-size: 14px; line-height: 1.5; text-align: center; color: #ffffff; font-family: Varela Round, Trebuchet MS, Helvetica, sans-serif; mso-line-height-alt: 21px;">&nbsp;&nbsp;&nbsp;&nbsp; !Bienvenido Representante¡</div>
+                                                <div class="txtTinyMce-wrapper" style="font-size: 14px; line-height: 1.5; text-align: center; color: #ffffff; font-family: Varela Round, Trebuchet MS, Helvetica, sans-serif; mso-line-height-alt: 21px;">&nbsp;&nbsp;&nbsp;&nbsp; !Bienvenido Empleado</div>
                                                 <div class="txtTinyMce-wrapper" style="font-size: 14px; line-height: 1.5; text-align: center; color: #ffffff; font-family: Varela Round, Trebuchet MS, Helvetica, sans-serif; mso-line-height-alt: 21px;">&nbsp;&nbsp;&nbsp;&nbsp; '.$nombre .' '.$apellido.'</div>
                                                 </div>
 											<!--[if mso]></td></tr></table><![endif]-->
@@ -394,14 +393,15 @@ class DaoEmpleado
         return $resultado;
     }
 
+   
     function modificarEmpleado(Empleado $re)
     {
         if (!($re instanceof Empleado)) {
-            $this->Error = "Error de instanciado,\n el objeto no es de tipo Clase Representante";
+            $this->Error = "Error de instanciado,\n el objeto no es de tipo Clase Empleado";
             return 0;
         }
         //(`dui`, `nombre`, `apellido`, `sexo`, `fecha_nacimiento`, `telefono`, `estado`)
-        $result = $this->Conexion_ID->query("UPDATE `representante` SET `nombre`='" . $re->getNombre() . "',`apellido`='" . $re->getApellido() . "',`sexo`='" . $re->getSexo() . "',`fecha_nacimiento`='" . $re->getFecha_nac() . "',`telefono`='" . $re->getTelefono() . "',`estado`='" . $re->getEstado() . "' WHERE `dui`='" . $re->getDui() . "'");
+        $result = $this->Conexion_ID->query("UPDATE `empleado` SET `nombre`='" . $re->getNombre() . "',`apellido`='" . $re->getApellido() . "',`sexo`='" . $re->getSexo() . "',`fecha_nacimiento`='" . $re->getFechaNacimiento() . "',`telefono`='" . $re->getTelefono() . "',`estado`='" . $re->getEstado() . "' WHERE `dui`='" . $re->getDui() . "'");
         if (!$result) {
 
             return 0;
@@ -410,9 +410,31 @@ class DaoEmpleado
         }
     }
 
+	function BuscarcorreoEmpleado($correo)
+    {
+        $consulta = $this->Conexion_ID->query("SELECT u.correo FROM `empleado` as e, usuario as u WHERE u.idempleado = e.dui AND u.correo = '$correo'");
+        
+		if ($consulta && $consulta->num_rows == 1) {
+           return 1;
+        }
+		
+        return 0;
+    }
+
+	
+	function BuscarduiEmpleado($dui)
+    {
+        $consulta = $this->Conexion_ID->query("SELECT u.idempleado FROM `empleado` as e, usuario as u WHERE u.idempleado = e.dui AND e.dui = '$dui'");
+        
+		if ($consulta && $consulta->num_rows == 1) {
+           return 1;
+        }
+        return 0;
+    }
+
     function dardebajaEmpleado($dui)
     {
-        $result = $this->Conexion_ID->query("UPDATE `representante` SET `estado`= 0 WHERE dui = '$dui'");
+        $result = $this->Conexion_ID->query("UPDATE `empleado` SET `estado`= 0 WHERE dui = '$dui'");
         if (!$result) {
 
             return 0;
@@ -423,7 +445,7 @@ class DaoEmpleado
 
     function dardealtaEmpleado($dui)
     {
-        $result = $this->Conexion_ID->query("UPDATE `representante` SET `estado`= 1 WHERE dui = '$dui'");
+        $result = $this->Conexion_ID->query("UPDATE `empleado` SET `estado`= 1 WHERE dui = '$dui'");
         if (!$result) {
 
             return 0;
@@ -432,27 +454,41 @@ class DaoEmpleado
         }
     }
 
-    function BuscarEmpleado($dui)
+    function BuscarEmpleado($dui, $tipo)
     {
-        $empleado = null;
-        $consulta = $this->Conexion_ID->query("SELECT dui as 'dui', nombre as 'nombre', apellido as 'apellido', estado as 'estado', 'administrador' as 'tipo' FROM `empleado` WHERE dui = '$dui'");
-
-        if ($consulta) {
-            if (is_object($consulta)) {
-                $empleado = $consulta->fetch_object();
-               return $empleado;
-            }
-        }
-        return $empleado;
+		if($tipo == 'administrador'){
+			$empleado = null;
+			$consulta = $this->Conexion_ID->query("SELECT dui as 'dui', nombre as 'nombre', apellido as 'apellido', estado as 'estado', 'administrador' as 'tipo' FROM `empleado` WHERE dui = '$dui'");
+	
+			if ($consulta) {
+				if (is_object($consulta)) {
+					$empleado = $consulta->fetch_object();
+				   return $empleado;
+				}
+			}
+			return $empleado;
+		}else{
+			$empleado = null;
+			$consulta = $this->Conexion_ID->query("SELECT dui as 'dui', nombre as 'nombre', apellido as 'apellido', estado as 'estado', 'empleado' as 'tipo' FROM `empleado` WHERE dui = '$dui'");
+	
+			if ($consulta) {
+				if (is_object($consulta)) {
+					$empleado = $consulta->fetch_object();
+				   return $empleado;
+				}
+			}
+			return $empleado;
+		}
+        
     }
 
-    function listaRepresentantes()
+    function listaEmpleado()
     {
-        $result = $this->Conexion_ID->query("SELECT * FROM `representante`");
+        $result = $this->Conexion_ID->query("SELECT * FROM `empleado`");
         $listado = null; // contendra todos nuestros datos de la base de datos
         if ($result) {
             while ($fila = $result->fetch_object()) {
-                $listado[] = new Representante($fila->dui, $fila->nombre, $fila->apellido, $fila->sexo, $fila->fecha_nacimiento, $fila->telefono, " ", $fila->estado);
+                $listado[] = new Empleado($fila->dui, $fila->nombre, $fila->apellido, $fila->sexo, $fila->fecha_nacimiento, $fila->telefono, " ", $fila->estado);
             }
         }
         if (!$result) {

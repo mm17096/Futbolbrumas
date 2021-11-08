@@ -57,7 +57,7 @@
                             </ul>
                         </li>
 
-                        <?php if ($_SESSION['identidad']->tipo == 'administrador') : ?>
+                        <?php if ($_SESSION['identidad']->tipo == 'administrador' || $_SESSION['identidad']->tipo == 'empleado') : ?>
                             <li><a><i class="fa fa-estadio"><img class="fa fa-estadio" src="imagen/representante.png" /></i>
                                     Representantes<span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
@@ -72,7 +72,7 @@
                             </ul>
                         </li>
 
-                        <?php if ($_SESSION['identidad']->tipo == 'administrador') : ?>
+                        <?php if ($_SESSION['identidad']->tipo == 'administrador' || $_SESSION['identidad']->tipo == 'empleado') : ?>
                             <li><a><i class="fa fa-estadio"><img src="imagen/arbitro.png" /></i> Árbitros<span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
                                     <li><a href="#">Registros</a></li>
@@ -80,10 +80,19 @@
                             </li>
                         <?php endif; ?>
 
-                        <?php if ($_SESSION['identidad']->tipo == 'administrador') : ?>
+                        <?php if ($_SESSION['identidad']->tipo == 'administrador' || $_SESSION['identidad']->tipo == 'empleado') : ?>
                             <li><a><i class="fa fa-estadio"><img src="imagen/cancha.png" /></i> Canchas<span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
                                     <li><a href="#">Registros</a></li>
+                                </ul>
+                            </li>
+                        <?php endif; ?>
+
+                        <?php if ($_SESSION['identidad']->tipo == 'administrador') : ?>
+                            <li><a><i class="fa fa-estadio"><img class="fa fa-estadio" src="imagen/representante.png" /></i>
+                                    Empleados<span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                    <li><a href="vis_empleado.php">Registros</a></li>
                                 </ul>
                             </li>
                         <?php endif; ?>
@@ -94,7 +103,7 @@
 
             <?php if (isset($_SESSION['identidad']) && isset($_SESSION['usuario'])) : ?>
 
-                <?php if ($_SESSION['identidad']->tipo == 'administrador') : ?>
+                <?php if ($_SESSION['identidad']->tipo == 'administrador' || $_SESSION['identidad']->tipo == 'empleado') : ?>
                     <div class="menu_section">
                         <h3>Acceso</h3>
                         <ul class="nav side-menu">

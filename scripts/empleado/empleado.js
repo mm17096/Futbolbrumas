@@ -27,29 +27,29 @@ function cargartabla() {
   xmlhttp.onreadystatechange = function () {
     if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
 
-      document.getElementById("tablarepresentante").innerHTML = xmlhttp.responseText;
-      $('#tbrepresentante').DataTable();
+      document.getElementById("tablaempleado").innerHTML = xmlhttp.responseText;
+      $('#tbempleado').DataTable();
     }
   }
-  xmlhttp.open("GET", "../views/tablas/tab_representantes.php", true);
+  xmlhttp.open("GET", "../views/tablas/tab_empleado.php", true);
   xmlhttp.send();
 };
 
 //--------------- Cargar tabla --------------------//
 
 
-//-------------------- Guardar Representante --------------------//
-function agregarRepresentante() {
-  var datos = $("#addRepresentante").serialize();
+//-------------------- Guardar Empleado --------------------//
+function agregarEmpleado() {
+  var datos = $("#addEmpleado").serialize();
 
   $.ajax({
     dataType: "json",
     method: "POST",
-    url: '../controller/representante_controller.php?action=guardar',
+    url: '../controller/empleado_controller.php?action=guardar',
     data: datos,
   }).done(function (json) {
     if (json[0] == "Exito") {
-      $('#modalguardarR').modal('hide');
+      $('#modalguardarE').modal('hide');
       cargartabla();
     }
   }).fail(function (json) {
@@ -59,21 +59,21 @@ function agregarRepresentante() {
   });
 
 };
-//-------------------- Guardar Representante --------------------//
+//-------------------- Guardar Empleado --------------------//
 
 
-//-------------------- Modificar Representante -----------------//
-function modificarRepresentante() {
-var datos = $("#updateRepresentante").serialize();
+//-------------------- Modificar Empleado -----------------//
+function modificarEmpleado() {
+var datos = $("#updateEmpleado").serialize();
 
   $.ajax({
     dataType: "json",
     method: "POST",
-    url: '../controller/representante_controller.php?action=actualizar',
+    url: '../controller/empleado_controller.php?action=actualizar',
     data: datos,
   }).done(function (json) {
     if (json[0] == "Exito") {
-      $('#modalmodificarR').modal('hide');
+      $('#modalmodificarE').modal('hide');
       cargartabla();
     }
   }).fail(function (json) {
@@ -83,12 +83,12 @@ var datos = $("#updateRepresentante").serialize();
   });
 
 };
-//-------------------- Modificar Representante -----------------//
+//-------------------- Modificar Empleado -----------------//
 
 
-//-------------------- Abrir Modal Editar Reresentante ---------//
+//-------------------- Abrir Modal Editar Empleado ---------//
 function abrirmodalEditar() {
-  $('#modalmodificarR').on('show.bs.modal', function (event) {
+  $('#modalmodificarE').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget)
 
     var nombre = button.data('nombre')
@@ -122,32 +122,32 @@ function abrirmodalEditar() {
     verificarbotonEdit();
   });
 };
-//-------------------- Abrir Modal Editar Reresentante ---------//
+//-------------------- Abrir Modal Editar Empleado ---------//
 
 
-//---------------- Abrir Modal Dar de Baja Reresentante --------//
+//---------------- Abrir Modal Dar de Baja Empleado --------//
 function abrirmodaldeBaja() {
-  $('#DeBajaRepresentante').on('show.bs.modal', function (event) {
+  $('#DeBajaEmpleado').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget) // Button that triggered the modal
     var id = button.data('id')
     $('#dui_baja').val(id)
   })
 };
-//---------------- Abrir Modal Dar de Baja Reresentante --------//
+//---------------- Abrir Modal Dar de Baja Empleado --------//
 
 
-//----------------- Dar de baja Representante ------------------//
-function debajaRepresentante() {
-  var datos = $("#bajaRepresentante").serialize();
+//----------------- Dar de baja Empleado ------------------//
+function debajaEmpleado() {
+  var datos = $("#bajaEmpleado").serialize();
 
   $.ajax({
     dataType: "json",
     method: "POST",
-    url: '../controller/representante_controller.php?action=debaja',
+    url: '../controller/empleado_controller.php?action=debaja',
     data: datos,
   }).done(function (json) {
     if (json[0] == "Exito") {
-      $('#DeBajaRepresentante').modal('hide');
+      $('#DeBajaEmpleado').modal('hide');
       cargartabla();
     }
   }).fail(function (json) {
@@ -156,12 +156,12 @@ function debajaRepresentante() {
 
   });
 };
-//----------------- Dar de baja Representante ------------------//
+//----------------- Dar de baja Empleado ------------------//
 
 
 //---------------- Abrir Modal Dar de Baja Reresentante --------//
 function abrirmodaldeAlta() {
-  $('#DeAltaRepresentante').on('show.bs.modal', function (event) {
+  $('#DeAltaEmpleado').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget) // Button that triggered the modal
     var id = button.data('id')
     $('#dui_alta').val(id)
@@ -170,18 +170,18 @@ function abrirmodaldeAlta() {
 //---------------- Abrir Modal Dar de Baja Reresentante --------//
 
 
-//---------------- Dar de alta representante -------------------//
-function dealtaRepresentante() {
-  var datos = $("#altaRepresentante").serialize();
+//---------------- Dar de alta Empleado -------------------//
+function dealtaEmpleado() {
+  var datos = $("#altaEmpleado").serialize();
 
   $.ajax({
     dataType: "json",
     method: "POST",
-    url: '../controller/representante_controller.php?action=dealta',
+    url: '../controller/empleado_controller.php?action=dealta',
     data: datos,
   }).done(function (json) {
     if (json[0] == "Exito") {
-      $("#DeAltaRepresentante").modal('hide');
+      $("#DeAltaEmpleado").modal('hide');
       cargartabla();
     }
   }).fail(function (json) {
@@ -191,40 +191,7 @@ function dealtaRepresentante() {
   });
 
 };
-//---------------- Dar de alta representante -------------------//
-
-
-//---------------- MODAL DE MOSTRAR EQUIPOS -------------------//
-function mostrarEquipos() {
-  $('#modalEquipos').on('show.bs.modal', function (event) {
-    var button = $(event.relatedTarget)
-
-    var dui = button.data('dui')
-
-    if (window.XMLHttpRequest) {
-      xmlhttp = new XMLHttpRequest();
-    } else {
-      xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-    }
-
-    xmlhttp.onreadystatechange = function () {
-      if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-
-        document.getElementById("tablaEquipos").innerHTML = xmlhttp.responseText;
-        cargarpaginacion();
-      }
-    }
-    xmlhttp.open("GET", "../views/tablas/tab_tablaEquipos.php?id=" + dui, true);
-    xmlhttp.send();
-
-  });
-};
-
-function cargarpaginacion() {
-  $('#tablaequipo').DataTable();
-};
-//---------------- MODAL DE MOSTRAR EQUIPOS -------------------//
-
+//---------------- Dar de alta Empleado -------------------//
 
 // ---- Validacion de Telefono con respecto al '-'---- //
 function validacionTelefono() {
@@ -317,7 +284,7 @@ function validarduibase() {
   $respuesta = $.ajax({
     dataType: "json",
     method: "POST",
-    url: '../controller/representante_controller.php',
+    url: '../controller/empleado_controller.php',
     data: datos,
   }).done(function (json) {
     //console.log("EL consultar especifico", json);
@@ -378,7 +345,7 @@ function validarcorreobase() {
   $respuesta = $.ajax({
     dataType: "json",
     method: "POST",
-    url: '../controller/representante_controller.php',
+    url: '../controller/empleado_controller.php',
     data: datos,
   }).done(function (json) {
     //console.log("EL consultar especifico", json);
@@ -635,7 +602,7 @@ function validarduibaseEdit() {
   $respuesta = $.ajax({
     dataType: "json",
     method: "POST",
-    url: '../controller/representante_controller.php',
+    url: '../controller/empleado_controller.php',
     data: datos,
   }).done(function (json) {
     //console.log("EL consultar especifico", json);
@@ -829,78 +796,3 @@ function soloNumeros(e) {
 };
 // ---- Validacion de Campos de tipo numericos ---- //
 
-
-///// --------------- Parte Funciones Campos Editables ---------------- /////
-
-
-/*
-// ---- Validacion de Datos finales ---- //
-function validaciondatosupdate() {
-
-  $today = new Date();
-  $fecha = document.getElementById("date_update").value;
-
-  $year0 = $fecha[0];
-  $year1 = $fecha[1];
-  $year2 = $fecha[2];
-  $year3 = $fecha[3];
-
-  $year = $year0 + $year1 + $year2 + $year3;
-
-  $edad = $today.getFullYear() - $year;
-
-  if ($edad >= 18) {
-    modificarRepresentante();
-  } else {
-    document.getElementById("date_update").value = "";
-    alert('No se permite la modificacion, la edad debe ser mayor o igual a 18');
-  }
-};
-*/
-
-//--------------- Validaciones y Otros-----------------//
-
-/*function mensaje(){
-  $mensaje = document.getElementById("mensaje").value;
-  console.log($mensaje);
-  if($mensaje == 'exito'){
-    Swal.fire({
-      position: 'top-end',
-      icon: 'success',
-      title: 'Registro Exitoso!',
-      showConfirmButton: false,
-      timer: 1500
-  })
-  }else if($mensaje == 'error'){
-    Swal.fire({
-      position: 'top-end',
-      icon: 'error',
-      title: 'Registro no completado...',
-      showConfirmButton: false,
-      timer: 1500
-  })
-  }
-}
-*/
-
-/*
-function validaciondatos() {
-
-  $today = new Date();
-  $fecha = document.getElementById("date").value;
-
-  $year0 = $fecha[0];
-  $year1 = $fecha[1];
-  $year2 = $fecha[2];
-  $year3 = $fecha[3];
-
-  $year = $year0 + $year1 + $year2 + $year3;
-
-  $edad = $today.getFullYear() - $year;
-  if ($edad >= 18) {
-    agregarRepresentante();
-  } else {
-    document.getElementById("date").value = "";
-  }
-};
-*/

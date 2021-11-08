@@ -1,10 +1,9 @@
 <?php
 session_start();
-require_once "../clases/Representante.php";
-require_once "../dao/DaoRepresentante.php";
+require_once "../clases/Empleado.php";
+require_once "../dao/DaoEmpleado.php";
 require_once "../clases/Usuarios.php";
 require_once "../dao/DaoUsuario.php";
-require_once "../clases/Equipo.php";
 require_once "../helpers/utils.php";
 
 
@@ -30,7 +29,7 @@ $dui_baja = (isset($_REQUEST["dui_baja"])) ? $_REQUEST["dui_baja"] : "";
 //Variables de Alta
 $dui_alta = (isset($_REQUEST["dui_alta"])) ? $_REQUEST["dui_alta"] : "";
 //Dao Equipo
-$daoR = new DaoRepresentante();
+$daoE = new DaoEmpleado();
 $daoU = new DaoUsuario();
 
 if ($action != "") {
@@ -39,11 +38,11 @@ if ($action != "") {
 
             if ($nombre != "" && $apellido != "" && $dui != "" && $sexo != "" && $date != "" && $telefono != "" && $correo != "") {
 
-                if ($daoR->enviarcorreo($correo, $nombre, $apellido, $dui) == true) {
+                if ($daoE->enviarcorreo($correo, $nombre, $apellido, $dui) == true) {
 
-                    if ($daoR->registroRepresentante(new Representante($dui, $nombre, $apellido, $sexo, $date, $telefono, true)) == 1) {
+                    if ($daoE->registroEmpleado(new Empleado($dui, $nombre, $apellido, $sexo, $date, $telefono, true)) == 1) {
 
-                        if ($daoU->registroUsuarioRe(new Usuario(null, null, $dui, 'usuario', $correo, $correo, Utils::encriptacion($dui))) == 1) {
+                        if ($daoU->registroUsuarioEn(new Usuario(null, $dui, null, 'empleado', $correo, $correo, Utils::encriptacion($dui))) == 1) {
 
                             $_SESSION['action_success'] = "completo";
                             print json_encode(array("Exito", $_POST));
@@ -77,7 +76,7 @@ if ($action != "") {
         case 'actualizar':
             if ($nombre_update != "" && $apellido_update != "" && $dui_update != "" && $sexo_update != "" && $date_update != "" && $telefono_update != "" && $estado != "") {
 
-                if ($daoR->modificarRepresentante(new Representante($dui_update, $nombre_update, $apellido_update, $sexo_update, $date_update, $telefono_update, $estado)) == 1) {
+                if ($daoE->modificarEmpleado(new Empleado($dui_update, $nombre_update, $apellido_update, $sexo_update, $date_update, $telefono_update, $estado)) == 1) {
 
                     $_SESSION['action_success'] = "modificado";
                     print json_encode(array("Exito", $_POST));
@@ -94,7 +93,7 @@ if ($action != "") {
         case 'debaja':
             if ($dui_baja != "") {
 
-                if ($daoR->dardebajaRepresentante($dui_baja) == 1) {
+                if ($daoE->dardebajaEmpleado($dui_baja) == 1) {
 
                     $_SESSION['action_success'] = "modificadobaja";
                     print json_encode(array("Exito", $_POST));
@@ -116,7 +115,7 @@ if ($action != "") {
         case 'dealta':
             if ($dui_alta != "") {
 
-                if ($daoR->dardealtaRepresentante($dui_alta) == 1) {
+                if ($daoE->dardealtaEmpleado($dui_alta) == 1) {
 
                     $_SESSION['action_success'] = "modificadoalta";
                     print json_encode(array("Exito", $_POST));
@@ -152,7 +151,7 @@ if ($action != "") {
         case 'verificardui':
 
             if (isset($_POST['dui'])) {
-                if ($daoR->BuscarduiRepresentante($_POST['dui']) == 1) {
+                if ($daoE->BuscarduiEmpleado($_POST['dui']) == 1) {
                     print json_encode(array("Error", $_POST));
                     exit();
                 } else {

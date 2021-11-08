@@ -1,4 +1,4 @@
-<table class="table" id="example1">
+<table class="table table-striped table-bordered" style="width:100% " id="tablaequipo">
     <thead class="thead-dark">
         <tr>
             <th scope="col">Nombre</th>

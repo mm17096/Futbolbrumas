@@ -41,10 +41,12 @@ function validarcorreo() {
     } else {
         $("#fullcorreo").val("");
         setTimeout(function () {
+            document.getElementById('correo').classList.add("color_campos_incompletos");
             $(".mensajecorreo").fadeIn(1500);
         }, 100);
 
         setTimeout(function () {
+            document.getElementById('correo').classList.remove("color_campos_incompletos");
             $(".mensajecorreo").fadeOut(1500);
         }, 3500);
         verificarboton();
@@ -74,10 +76,12 @@ function validarcorreobase() {
                 document.getElementById("correo").value = "";
                 verificarboton();
                 setTimeout(function () {
+                    document.getElementById('correo').classList.add("color_campos_ocupados");
                     $(".mensajecorreoexiste").fadeIn(1500);
                 }, 100);
 
                 setTimeout(function () {
+                    document.getElementById('correo').classList.remove("color_campos_ocupados");
                     $(".mensajecorreoexiste").fadeOut(1500);
                 }, 3500);
             }
@@ -101,10 +105,12 @@ function validarusuario() {
     } else {
         $("#fullusuario").val("");
         setTimeout(function () {
+            document.getElementById('usuario').classList.add("color_campos_incompletos");
             $(".mensajeusuario").fadeIn(1500);
         }, 100);
 
         setTimeout(function () {
+            document.getElementById('usuario').classList.remove("color_campos_incompletos");
             $(".mensajeusuario").fadeOut(1500);
         }, 3500);
         verificarboton();
@@ -133,10 +139,12 @@ function validarusuariobase() {
                 document.getElementById("usuario").value = "";
                 verificarboton();
                 setTimeout(function () {
+                    document.getElementById('usuario').classList.add("color_campos_ocupados");
                     $(".mensajeusuarioexiste").fadeIn(1500);
                 }, 100);
 
                 setTimeout(function () {
+                    document.getElementById('usuario').classList.remove("color_campos_ocupados");
                     $(".mensajeusuarioexiste").fadeOut(1500);
                 }, 3500);
             }
@@ -184,6 +192,24 @@ function valcontrasenia() {
     }
 }
 
+
+function verificarvaciopass(){
+    var clave = document.getElementById("clave").value;
+
+    if (clave == "") {
+      
+        setTimeout(function () {
+            document.getElementById('clave').classList.add("color_campos_incompletos");
+            $(".mensajeclave").fadeIn(1500);
+        }, 100);
+
+        setTimeout(function () {
+            document.getElementById('clave').classList.remove("color_campos_incompletos");
+            $(".mensajeclave").fadeOut(1500);
+        }, 3500);
+    }
+}
+
 function valcontraseniaconfir() {
     var mayus = new RegExp("^(?=.*[A-Z])");
     var special = new RegExp("^(?=.*[!@#$%&*-])");
@@ -216,6 +242,23 @@ function valcontraseniaconfir() {
         }
     }
     verificarpass();
+}
+
+function verificarvaciopassconfir(){
+    var clave = document.getElementById("clave2").value;
+
+    if (clave == "") {
+      
+        setTimeout(function () {
+            document.getElementById('clave2').classList.add("color_campos_incompletos");
+            $(".mensajeclave2").fadeIn(1500);
+        }, 100);
+
+        setTimeout(function () {
+            document.getElementById('clave2').classList.remove("color_campos_incompletos");
+            $(".mensajeclave2").fadeOut(1500);
+        }, 3500);
+    }
 }
 
 function verificarpass() {

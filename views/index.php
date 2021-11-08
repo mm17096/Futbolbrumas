@@ -168,12 +168,13 @@
                                                 <input type="email" class="form-control" id="correo" name="correo"
                                                     onblur="validarcorreo()"
                                                     value="<?= isset($_SESSION['usuario']) && $_SESSION['usuario']->correo != "" ? $_SESSION['usuario']->correo : ''; ?>"
-                                                    autocomplete="off" minlength="15" maxlength="30"  placeholder="Ingrese Correo Electrónico" required>
+                                                    autocomplete="off" minlength="15" maxlength="30"
+                                                    placeholder="Ingrese Correo Electrónico" required>
                                                 <span class="mensajecorreo" style="display: none; color: orange;"><i
                                                         class="fa fa-exclamation-triangle">
                                                     </i> Digite correctamente el Correo</span>
                                                 <span class="mensajecorreoexiste" style="display: none; color: red;">
-                                                El Correo ya está en uso</span>
+                                                    El Correo ya está en uso</span>
 
                                                 <input type="hidden" id="correoact" name="correoact"
                                                     value="<?= isset($_SESSION['usuario']) && $_SESSION['usuario']->correo != "" ? $_SESSION['usuario']->correo : ''; ?>">
@@ -190,12 +191,13 @@
                                                 <input type="text" class="form-control" id="usuario" name="usuario"
                                                     onblur="validarusuario()"
                                                     value="<?= isset($_SESSION['usuario']) && $_SESSION['usuario']->nombre != "" ? $_SESSION['usuario']->nombre : ''; ?>"
-                                                    autocomplete="off" minlength="7" maxlength="30" placeholder="Ingrese Usuario" required>
+                                                    autocomplete="off" minlength="7" maxlength="30"
+                                                    placeholder="Ingrese Usuario" required>
                                                 <span class="mensajeusuario" style="display: none; color: orange;"><i
                                                         class="fa fa-exclamation-triangle">
                                                     </i> Debe completar este campo</span>
-                                                <span class="mensajeusuarioexiste"
-                                                    style="display: none; color: red;">
+
+                                                <span class="mensajeusuarioexiste" style="display: none; color: red;">
                                                     Este Usuario ya está en uso</span>
 
                                                 <input type="hidden" id="usuarioact" name="usuarioact"
@@ -213,9 +215,13 @@
                                                     <span id="mensajepass"></span>
                                                 </div>
                                                 <input type="password" class="form-control" id="clave" name="clave"
-                                                    oninput="valcontrasenia()"
+                                                    oninput="valcontrasenia()" onblur="verificarvaciopass()"
                                                     value="<?= isset($_SESSION['usuario']) && $_SESSION['usuario']->clave != "" ? Utils::desencriptacion($_SESSION['usuario']->clave) : ''; ?>"
-                                                    autocomplete="off" minlength="8" maxlength="25" placeholder="Ingrese Contraseña" required>
+                                                    autocomplete="off" minlength="8" maxlength="25"
+                                                    placeholder="Ingrese Contraseña" required>
+                                                <span class="mensajeclave" style="display: none; color: orange;"><i
+                                                        class="fa fa-exclamation-triangle">
+                                                    </i> Debe ingresar contraseña</span>
 
                                                 <input type="hidden" id="fullclave" name="fullclave"
                                                     value="<?= isset($_SESSION['usuario']) && $_SESSION['usuario']->clave != "" ? 'validado' : ''; ?>"
@@ -233,7 +239,12 @@
                                                     <span id="mensajepassconfir"></span>
                                                 </div>
                                                 <input type="password" class="form-control" id="clave2" name="clave2"
-                                                    oninput="valcontraseniaconfir()" minlength="8" maxlength="25" autocomplete="off" placeholder="Confirme Contraseña" required>
+                                                    oninput="valcontraseniaconfir()" onblur="verificarvaciopassconfir()"
+                                                    minlength="8" maxlength="25" autocomplete="off"
+                                                    placeholder="Confirme Contraseña" required>
+                                                <span class="mensajeclave2" style="display: none; color: orange;"><i
+                                                        class="fa fa-exclamation-triangle">
+                                                    </i> Debe confirmar contraseña</span>
 
                                                 <input type="hidden" id="fullclave2" name="fullclave2" required>
                                             </div>

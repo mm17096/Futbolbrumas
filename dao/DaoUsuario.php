@@ -41,6 +41,23 @@ class DaoUsuario
 		}
 	}
 
+	function registroUsuarioEn(Usuario $usu)
+	{
+		if (!($usu instanceof Usuario)) {
+			$this->Error = "Error de instanciado,\n el objeto no es de tipo Clase Usuario";
+			return 0;
+		}
+		//(`idusuario`, `idempleado`, `idrepresentante`, `tipo`, `correo`, `nombre`, `clave`)
+		$result = $this->Conexion_ID->query("INSERT INTO `usuario` (`idempleado`, `tipo`, `correo`, `nombre`,`clave`,`nuevo`) 
+        VALUES('" . $usu->getIdempleado() . "','" . $usu->getTipo() . "','" . $usu->getCorreo() . "','" . $usu->getNombre() . "','" . $usu->getClave() . "',1)");
+
+		if (!$result) {
+			return 0;
+		} else {
+			return 1;
+		}
+	}
+
 	public function loging($user, $pass)
 	{
 		//SELECT * FROM `usuario` WHERE nombre = 'variable' or correo = 'variable' and clave = 'variable';
@@ -58,6 +75,26 @@ class DaoUsuario
 		}
 
 		return $result;
+	}
+
+	public function verificardebaja($tipo, $empleado, $representante)
+	{
+		if ($tipo == 'empleado') {
+			$consulta = $this->Conexion_ID->query("SELECT * FROM empleado WHERE dui = '$empleado' AND estado = 0");
+
+			if ($consulta && $consulta->num_rows == 1) {
+				return 1;
+			}
+			return 0;
+		} else {
+			$consulta = $this->Conexion_ID->query("SELECT * FROM representante WHERE dui = '$empleado' AND estado = 0");
+
+			if ($consulta && $consulta->num_rows == 1) {
+				return 1;
+			}
+			return 0;
+		}
+		return 0;
 	}
 
 	public function BuscarUser($id)
@@ -562,7 +599,7 @@ class DaoUsuario
 		$mail->Host = 'smtp.gmail.com';
 		$mail->Port = '587';
 		$mail->Username = 'torneofutsalbrumas@gmail.com';
-        $mail->Password = 'futsalbrumas';
+		$mail->Password = 'futsalbrumas';
 
 		$mail->setFrom('torneofutsalbrumas@gmail.com', 'Torneo Futbol Sala las Brumas');
 		$mail->addAddress($correo);
