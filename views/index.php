@@ -36,7 +36,7 @@
     <link href="../build/css/diseño2.css" rel="stylesheet">
 </head>
 
-<body class="nav-md">
+<body class="nav-md" onload="msj()">
 
     <?php
     session_start();
@@ -135,7 +135,7 @@
                     <div class="x_panel tile fixed_height_320 overflow_hidden">
                         <div class="x_title">
                             <h2>Partidos de Ronda</h2>
-                           
+
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
@@ -171,7 +171,7 @@
                                                 </td>
                                                 <td>10%</td>
                                             </tr>
-                                           
+
                                         </table>
                                     </td>
                                 </tr>
@@ -190,7 +190,6 @@
                 $_SESSION['Attempts'] = 5;
                 $messages[] = "Bienvenido " . $_SESSION['identidad']->nombre;
             ?>
-<<<<<<< HEAD
                 <div id="msjsuccess" class="alert alert-success" role="alert" style=" position: absolute;
                                                    right: 30px;
                                                       top: 75px;">
@@ -205,20 +204,6 @@
                 </div>
 
 
-=======
-                <div class="alert alert-success" role="alert" style=" position: absolute;
-                                                             right: 30px;
-                                                             top: 75px;">
-                    <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    <strong>¡Hola!</strong>
-                    <i class="fa fa-user"></i>
-                    <?php
-                    foreach ($messages as $message) {
-                        echo $message;
-                    }
-                    ?>
-                </div>
->>>>>>> 25402d3774f90247d85a7ed8b5fe53398f2f487e
 
             <?php
             } else if (isset($_SESSION['perfil_success']) && $_SESSION['perfil_success'] == 'completo') {
@@ -227,7 +212,6 @@
                 unset($_SESSION['perfil_success']);
                 $errors[] = "El usuario se ha modificado con éxito";
             ?>
-<<<<<<< HEAD
                 <div id="msjsuccess" class="alert alert-info" role="alert" style=" position: absolute;
                                    right: 30px;
                                       top: 75px;">
@@ -240,20 +224,6 @@
                         }
 
                         ?>
-=======
-                <div class="alert alert-info" role="alert" style=" position: absolute;
-                                                             right: 30px;
-                                                             top: 75px;">
-                    <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    <i class="fa fa-info-circle"></i>
-                    <strong>Registro Modificado!</strong>
-                    <?php
-                    foreach ($errors as $error) {
-                        echo $error;
-                    }
-
-                    ?>
->>>>>>> 25402d3774f90247d85a7ed8b5fe53398f2f487e
                 </div>
             <?php
             } else if (isset($_SESSION['perfil_success']) && $_SESSION['perfil_success'] == 'Incompleto') {
@@ -262,21 +232,12 @@
                 unset($_SESSION['perfil_success']);
                 $errors[] = "El registro no se ha modificado";
             ?>
-<<<<<<< HEAD
                 <div id="msjsuccess" class="alert alert-danger" role="alert" style=" position: absolute;
                                    right: 30px;
                                       top: 75px;">
                     <i class="fa fa-close"></i>
                     <strong>Error en Modificación</strong>
                     <p>
-=======
-                <div class="alert alert-danger" role="alert" style=" position: absolute;
-                                                         right: 30px;
-                                                         top: 75px;">
-                    <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    <i class="fa fa-close"></i>
-                    <strong>Error en Modificación</strong>
->>>>>>> 25402d3774f90247d85a7ed8b5fe53398f2f487e
                     <?php
                     foreach ($errors as $error) {
                         echo $error;
@@ -284,7 +245,6 @@
                 }
                     ?>
                 </div>
-<<<<<<< HEAD
 
                 <!-- MENSAJE DE ACCIONES -->
 
@@ -303,25 +263,6 @@
                                         <div class="row">
                                             <div class="col-lg-6">
 
-=======
-                <!-- MENSAJE DE ACCIONES -->
-
-                <!-- MODAL MODIFICAR PERFIL-->
-                <div class="modal fade bs-example-modal-lg" tabindex="-1" id="modalperfil" role="dialog" aria-hidden="true">
-                    <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                            <form action="../controller/usuario_controller.php?action=modificar" method="POST" enctype="multipart/form-data">
-                                <div class="modal-header">
-                                    <h4 class="modal-title" id="myModalLabel">Modificar Perfil</h4>
-                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="panel-body">
-                                        <div class="row">
-                                            <div class="col-lg-6">
-
->>>>>>> 25402d3774f90247d85a7ed8b5fe53398f2f487e
                                                 <div class="form-group">
                                                     <label class="col-form-label col-md-6 col-sm-6">Correo
                                                         <span class="required">*</span></label>
@@ -391,34 +332,22 @@
 
                                             <div class="col-lg-6">
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 25402d3774f90247d85a7ed8b5fe53398f2f487e
                                                 <div class="form-group">
                                                     <label class="col-form-label col-md-6 col-sm-6">Imagen de Perfil (PNG &
                                                         JPG)</label>
                                                     <input type="file" accept="imagen/*" class="form-control" id="imagen" name="imagen" autocomplete="off">
                                                 </div>
-<<<<<<< HEAD
                                                 <span class="mensajeimg" style="display: none; color: orange;"><i class="fa fa-exclamation-triangle">
                                                     </i> La imagen no es permitida</span>
-=======
->>>>>>> 25402d3774f90247d85a7ed8b5fe53398f2f487e
 
                                                 <?php if ($_SESSION['usuario']->imagen != null) : ?>
 
                                                     <center>
-<<<<<<< HEAD
                                                         <div class="form-group" id="imagepreview">
-=======
-                                                        <div class="form-group">
->>>>>>> 25402d3774f90247d85a7ed8b5fe53398f2f487e
                                                             <img height="170px" width="150px" src="data:image/jpg;base64,<?php echo base64_encode($_SESSION['usuario']->imagen) ?>" class="img-circle profile_img">
                                                         </div>
                                                     </center>
 
-<<<<<<< HEAD
                                                 <?php else : ?>
 
                                                     <center>
@@ -432,12 +361,6 @@
 
                                             </div>
 
-=======
-                                                <?php endif; ?>
-
-                                                <input type="hidden" id="nuevo" name="nuevo" value="<?= isset($_SESSION['usuario']) && $_SESSION['usuario']->nuevo != "" ? $_SESSION['usuario']->nuevo : ''; ?>">
-                                            </div>
->>>>>>> 25402d3774f90247d85a7ed8b5fe53398f2f487e
                                         </div>
                                     </div>
                                 </div>
@@ -457,10 +380,7 @@
                 </div>
                 <!-- MODAL AGREGAR-->
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 25402d3774f90247d85a7ed8b5fe53398f2f487e
                 <!-- Pied de  Pagina -->
                 <?php
                 require_once('pie.php');

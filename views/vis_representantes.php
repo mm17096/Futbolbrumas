@@ -97,21 +97,14 @@
                                     unset($_SESSION['action_success']);
                                     $messages[] = "El registro se ha almacenado con éxito";
                                 ?>
-<<<<<<< HEAD
+
                                 <div id="msjsuccess" class="alert alert-success" role="alert" style=" position: absolute;
                                                       right: 50px;
                                                       top: 0px;">
                                     <i class="fa fa-check"></i>
                                     <strong>Registro Almacenado</strong>
                                     <?php
-=======
-                                    <div class="alert alert-success" role="alert"  style="top: 0px;
-                                                                                  margin-right: 64%;">
-                                        <button type="button" class="close" data-dismiss="alert">&times;</button>
-                                        <i class="fa fa-check"></i>
-                                        <strong>Registro Almacenado!</strong>
-                                        <?php
->>>>>>> 25402d3774f90247d85a7ed8b5fe53398f2f487e
+
                                         foreach ($messages as $message) {
                                             echo $message;
                                         }
@@ -124,7 +117,7 @@
                                     unset($_SESSION['action_success']);
                                     $errors[] = "El registro se ha modificado con éxito";
                                 ?>
-<<<<<<< HEAD
+
                                 <div id="msjerror" class="alert alert-info" role="alert" style=" position: absolute;
                                                        right: 50px;
                                                           top: 0px;">
@@ -132,15 +125,7 @@
                                     <strong>Registro Modificado</strong>
 
                                     <?php
-=======
-                                    <div class="alert alert-info" role="alert"  style="top: 0px;
-                                                                                  margin-right: 66%;">
-                                        <button type="button" class="close" data-dismiss="alert">&times;</button>
-                                        <i class="fa fa-info-circle"></i>
-                                        <strong>Registro Modificado!</strong>
 
-                                        <?php
->>>>>>> 25402d3774f90247d85a7ed8b5fe53398f2f487e
                                         foreach ($errors as $error) {
                                             echo $error;
                                         }
@@ -153,21 +138,14 @@
                                     unset($_SESSION['action_success']);
                                     $errors[] = "El registro se ha dado de baja con éxito";
                                 ?>
-<<<<<<< HEAD
+
                                 <div id="msjerror" class="alert alert-ba" role="alert" style=" position: absolute;
                                                        right: 50px;
                                                           top: 0px;">
                                     <i class="fa fa-thumbs-o-down"></i>
                                     <strong>Registro Dado de Baja</strong>
                                     <?php
-=======
-                                    <div class="alert alert-info" role="alert" style="top: 0px;
-                                                                                  margin-right: 60%;">
-                                        <button type="button" class="close" data-dismiss="alert">&times;</button>
-                                        <i class="fa fa-exclamation-circle"></i>
-                                        <strong>Registro Dado de Baja!</strong>
-                                        <?php
->>>>>>> 25402d3774f90247d85a7ed8b5fe53398f2f487e
+
                                         foreach ($errors as $error) {
                                             echo $error;
                                         }
@@ -180,22 +158,14 @@
                                     unset($_SESSION['action_success']);
                                     $errors[] = "El registro se ha dado de alta con éxito";
                                 ?>
-<<<<<<< HEAD
+
                                 <div id="msjerror" class="alert alert-ba" role="alert" style=" position: absolute;
                                                        right: 50px;
                                                           top: 0px;">
                                     <i class="fa fa-thumbs-o-up"></i>
                                     <strong>Registro Dado de Alta</strong>
                                     <?php
-=======
-                                    <div class="alert alert-info" role="alert" style="top: 0px;
-                                                                                  margin-right: 65%;">
-                                        <button type="button" class="close" data-dismiss="alert">&times;</button>
-                                        <i class="fa fa-exclamation-circle"></i>
-                                        <strong>Registro Dado de Alta!</strong>
 
-                                        <?php
->>>>>>> 25402d3774f90247d85a7ed8b5fe53398f2f487e
                                         foreach ($errors as $error) {
                                             echo $error;
                                         }
@@ -208,21 +178,14 @@
                                     unset($_SESSION['action_success']);
                                     $errors[] = "Error en algún proceso, no se completó la acción";
                                 ?>
-<<<<<<< HEAD
+
                                 <div id="msjerror" class="alert alert-danger" role="alert" style=" position: absolute;
                                                        right: 50px;
                                                           top: 0px;">
                                     <i class="fa fa-close"></i>
                                     <strong>Error en el proceso</strong>
                                     <?php
-=======
-                                    <div class="alert alert-danger" role="alert"  style="top: 0px;
-                                                                                  margin-right: 60%;">
-                                        <button type="button" class="close" data-dismiss="alert">&times;</button>
-                                        <i class="fa fa-close"></i>
-                                        <strong>Error en el proceso!</strong>
-                                        <?php
->>>>>>> 25402d3774f90247d85a7ed8b5fe53398f2f487e
+
                                         foreach ($errors as $error) {
                                             echo $error;
                                         }
