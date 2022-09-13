@@ -25,18 +25,9 @@
     <link href="../build/css/diseño.css" rel="stylesheet">
     <link href="../resources/bootstrap/css/diseño.css" rel="stylesheet" type="text/css" />
 
-    <script type="text/javascript">
-        function msj() {
-
-            setTimeout(function() {
-                document.getElementById("msjcodigo").style.display = 'none';
-            }, 3000);
-        };
-    </script>
-
 </head>
 
-<body class="login" onload="msj()">
+<body class="login">
 
     <div class="col-md-3 left_col" style="
     max-width: 7%;
@@ -76,18 +67,18 @@
         $mensaje[] = "Código de verificación incorrecto";
     ?>
 
-        <div id="msjcodigo" class="alert alert-danger" role="alert" style=" position: absolute;
+        <div class="alert alert-danger" role="alert" style=" position: absolute;
                                                         right: 30px;
                                                             top: 5px;
                                                             size: 5px;">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
             <i class="fa fa-search"></i>
-            <strong>Validación</strong>
-            <p>
-                <?php
-                foreach ($mensaje as $error) {
-                    echo $error;
-                }
-                ?>
+            <strong>Validación!</strong>
+            <?php
+            foreach ($mensaje as $error) {
+                echo $error;
+            }
+            ?>
         </div>
 
     <?php
@@ -98,40 +89,39 @@
         $mensaje[] = "Código de verificación reenviado";
     ?>
 
-        <div id="msjcodigo" class="alert alert-info" role="alert" style=" position: absolute;
+        <div class="alert alert-info" role="alert" style=" position: absolute;
                                                         right: 30px;
                                                             top: 5px;
                                                             size: 5px;">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
             <i class="fa fa-mail-forward"></i>
-            <strong>Procedimiento</strong>
-            <p>
-                <?php
-                foreach ($mensaje as $codigo) {
-                    echo $codigo;
-                }
-                ?>
+            <strong>Procedimiento!</strong>
+            <?php
+            foreach ($mensaje as $codigo) {
+                echo $codigo;
+            }
+            ?>
         </div>
 
     <?php
     } else if (isset($_SESSION['resetcodigo']) && $_SESSION['resetcodigo'] = 'error') {
         $_SESSION['resetcodigo'] = null;
         unset($_SESSION['resetcodigo']);
-
         $mensaje[] = "Error al reenviar el código de verificación";
     ?>
 
-        <div id="msjcodigo" class="alert alert-danger" role="alert" style=" position: absolute;
+        <div class="alert alert-danger" role="alert" style=" position: absolute;
                                                         right: 30px;
                                                             top: 5px;
                                                             size: 5px;">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
             <i class="fa fa-close"></i>
-            <strong>Procedimiento</strong>
-            <p>
-                <?php
-                foreach ($mensaje as $codigo) {
-                    echo $codigo;
-                }
-                ?>
+            <strong>Procedimiento!</strong>
+            <?php
+            foreach ($mensaje as $codigo) {
+                echo $codigo;
+            }
+            ?>
         </div>
 
     <?php
@@ -185,6 +175,47 @@
 
         </div>
     </div>
+
+     <!-- jQuery -->
+     <script src="../vendors/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="../vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- FastClick -->
+    <script src="../vendors/fastclick/lib/fastclick.js"></script>
+    <!-- NProgress -->
+    <script src="../vendors/nprogress/nprogress.js"></script>
+    <!-- Chart.js -->
+    <script src="../vendors/Chart.js/dist/Chart.min.js"></script>
+    <!-- gauge.js -->
+    <script src="../vendors/gauge.js/dist/gauge.min.js"></script>
+    <!-- bootstrap-progressbar -->
+    <script src="../vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+    <!-- iCheck -->
+    <script src="../vendors/iCheck/icheck.min.js"></script>
+    <!-- Skycons -->
+    <script src="../vendors/skycons/skycons.js"></script>
+    <!-- Flot -->
+    <script src="../vendors/Flot/jquery.flot.js"></script>
+    <script src="../vendors/Flot/jquery.flot.pie.js"></script>
+    <script src="../vendors/Flot/jquery.flot.time.js"></script>
+    <script src="../vendors/Flot/jquery.flot.stack.js"></script>
+    <script src="../vendors/Flot/jquery.flot.resize.js"></script>
+    <!-- Flot plugins -->
+    <script src="../vendors/flot.orderbars/js/jquery.flot.orderBars.js"></script>
+    <script src="../vendors/flot-spline/js/jquery.flot.spline.min.js"></script>
+    <script src="../vendors/flot.curvedlines/curvedLines.js"></script>
+    <!-- DateJS -->
+    <script src="../vendors/DateJS/build/date.js"></script>
+    <!-- JQVMap -->
+    <script src="../vendors/jqvmap/dist/jquery.vmap.js"></script>
+    <script src="../vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
+    <script src="../vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
+    <!-- bootstrap-daterangepicker -->
+    <script src="../vendors/moment/min/moment.min.js"></script>
+    <script src="../vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+
+    <!-- Custom Theme Scripts -->
+    <script src="../build/js/custom.min.js"></script>
 </body>
 
 </html>

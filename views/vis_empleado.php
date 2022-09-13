@@ -42,7 +42,7 @@
 
 </head>
 
-<body class="nav-md" onload="msj()">
+<body class="nav-md">
 
 
     <div class="container body">
@@ -61,15 +61,15 @@
 
             ?>
             <style type="text/css">
-            .required {
-                color: red;
-            }
+                .required {
+                    color: red;
+                }
 
-            .form-group {
-                width: 70%;
-                margin-left: auto;
-                margin-right: auto;
-            }
+                .form-group {
+                    width: 70%;
+                    margin-left: auto;
+                    margin-right: auto;
+                }
             </style>
             <!-- Contenido -->
             <div class="right_col" role="main">
@@ -85,8 +85,7 @@
 
                             <div class="x_content">
 
-                                <button type="button" class="btn btn-round btn-guardar" data-toggle="modal"
-                                    data-target=".bs-example-modal-lg"> Agregar Empleados</button>
+                                <button type="button" class="btn btn-round btn-guardar" data-toggle="modal" data-target=".bs-example-modal-lg"> Agregar Empleados</button>
 
 
                                 <!-- MENSAJE DE ACCIONES -->
@@ -99,17 +98,26 @@
                                     unset($_SESSION['action_success']);
                                     $messages[] = "El registro se ha almacenado con éxito";
                                 ?>
+<<<<<<< HEAD
                                 <div id="msjsuccess" class="alert alert-success" role="alert" style=" position: absolute;
                                                       right: 50px;
                                                       top: 0px;">
                                     <i class="fa fa-check"></i>
                                     <strong>Registro Almacenado</strong>
                                     <?php
+=======
+                                    <div class="alert alert-success" role="alert"  style="top: 0px;
+                                                                                  margin-right: 64%;">
+                                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                        <i class="fa fa-check"></i>
+                                        <strong>Registro Almacenado!</strong>
+                                        <?php
+>>>>>>> 25402d3774f90247d85a7ed8b5fe53398f2f487e
                                         foreach ($messages as $message) {
                                             echo $message;
                                         }
                                         ?>
-                                </div>
+                                    </div>
                                 <?php
                                 } else if (isset($_SESSION['action_success']) && $_SESSION['action_success'] == 'modificado') {
 
@@ -117,6 +125,7 @@
                                     unset($_SESSION['action_success']);
                                     $errors[] = "El registro se ha modificado con éxito";
                                 ?>
+<<<<<<< HEAD
                                 <div id="msjerror" class="alert alert-info" role="alert" style=" position: absolute;
                                                        right: 50px;
                                                           top: 0px;">
@@ -124,80 +133,119 @@
                                     <strong>Registro Modificado</strong>
 
                                     <?php
+=======
+                                    <div class="alert alert-info" role="alert"  style="top: 0px;
+                                                                                  margin-right: 66%;">
+                                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                        <i class="fa fa-info-circle"></i>
+                                        <strong>Registro Modificado!</strong>
+
+                                        <?php
+>>>>>>> 25402d3774f90247d85a7ed8b5fe53398f2f487e
                                         foreach ($errors as $error) {
                                             echo $error;
                                         }
                                         ?>
-                                </div>
+                                    </div>
                                 <?php
-                                }else if (isset($_SESSION['action_success']) && $_SESSION['action_success'] == 'modificadobaja') {
+                                } else if (isset($_SESSION['action_success']) && $_SESSION['action_success'] == 'modificadobaja') {
 
                                     $_SESSION['action_success'] = null;
                                     unset($_SESSION['action_success']);
                                     $errors[] = "El registro se ha dado de baja con éxito";
                                 ?>
+<<<<<<< HEAD
                                 <div id="msjerror" class="alert alert-ba" role="alert" style=" position: absolute;
                                                        right: 50px;
                                                           top: 0px;">
                                     <i class="fa fa-thumbs-o-down"></i>
                                     <strong>Registro Dado de Baja</strong>
                                     <?php
+=======
+                                    <div class="alert alert-info" role="alert" style="top: 0px;
+                                                                                  margin-right: 60%;">
+                                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                        <i class="fa fa-exclamation-circle"></i>
+                                        <strong>Registro Dado de Baja!</strong>
+                                        <?php
+>>>>>>> 25402d3774f90247d85a7ed8b5fe53398f2f487e
                                         foreach ($errors as $error) {
                                             echo $error;
                                         }
                                         ?>
-                                </div>
+                                    </div>
                                 <?php
-                                }else if (isset($_SESSION['action_success']) && $_SESSION['action_success'] == 'modificadoalta') {
+                                } else if (isset($_SESSION['action_success']) && $_SESSION['action_success'] == 'modificadoalta') {
 
                                     $_SESSION['action_success'] = null;
                                     unset($_SESSION['action_success']);
                                     $errors[] = "El registro se ha dado de alta con éxito";
                                 ?>
+<<<<<<< HEAD
                                 <div id="msjerror" class="alert alert-ba" role="alert" style=" position: absolute;
                                                        right: 50px;
                                                           top: 0px;">
                                     <i class="fa fa-thumbs-o-up"></i>
                                     <strong>Registro Dado de Alta</strong>
                                     <?php
+=======
+                                    <div class="alert alert-info" role="alert" style="top: 0px;
+                                                                                  margin-right: 65%;">
+                                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                        <i class="fa fa-exclamation-circle"></i>
+                                        <strong>Registro Dado de Alta!</strong>
+
+                                        <?php
+>>>>>>> 25402d3774f90247d85a7ed8b5fe53398f2f487e
                                         foreach ($errors as $error) {
                                             echo $error;
                                         }
                                         ?>
-                                </div>
+                                    </div>
                                 <?php
+<<<<<<< HEAD
                                 }  else if (isset($_SESSION['action_success']) && $_SESSION['action_success'] == 'error') {
+=======
+                                } else if (isset($_SESSION['action_success']) && $_SESSION['action_success'] == 'error') {
+>>>>>>> 25402d3774f90247d85a7ed8b5fe53398f2f487e
 
                                     $_SESSION['action_success'] = null;
                                     unset($_SESSION['action_success']);
                                     $errors[] = "Error en algún proceso, no se completó la acción";
                                 ?>
+<<<<<<< HEAD
                                 <div id="msjerror" class="alert alert-danger" role="alert" style=" position: absolute;
                                                        right: 50px;
                                                           top: 0px;">
                                     <i class="fa fa-close"></i>
                                     <strong>Error en el proceso</strong>
                                     <?php
+=======
+                                    <div class="alert alert-danger" role="alert"  style="top: 0px;
+                                                                                  margin-right: 60%;">
+                                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                        <i class="fa fa-close"></i>
+                                        <strong>Error en el proceso!</strong>
+                                        <?php
+>>>>>>> 25402d3774f90247d85a7ed8b5fe53398f2f487e
                                         foreach ($errors as $error) {
                                             echo $error;
                                         }
                                         ?>
-                                </div>
+                                    </div>
                                 <?php
                                 }
                                 ?>
                                 <!-- MENSAJE DE ACCIONES -->
 
                                 <!-- MODAL AGREGAR-->
-                                <div class="modal fade bs-example-modal-lg" tabindex="-1" id="modalguardarE"
-                                    role="dialog" aria-hidden="true">
+                                <div class="modal fade bs-example-modal-lg" tabindex="-1" id="modalguardarE" role="dialog" aria-hidden="true">
                                     <div class="modal-dialog modal-lg">
                                         <div class="modal-content">
                                             <form method="POST" id="addEmpleado" name="addEmpleado">
                                                 <div class="modal-header">
                                                     <h4 class="modal-title" id="myModalLabel">Agregar Empleado</h4>
-                                                    <button type="button" class="close" data-dismiss="modal"><span
-                                                            aria-hidden="true">×</span>
+                                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
@@ -205,94 +253,53 @@
                                                         <div class="row">
                                                             <div class="col-lg-6">
                                                                 <div class="form-group">
-                                                                    <label
-                                                                        class="col-form-label col-md-6 col-sm-6">Nombre
+                                                                    <label class="col-form-label col-md-6 col-sm-6">Nombre
                                                                         <span class="required">*</span></label>
-                                                                    <input type="text" minlength="5" maxlength="20"
-                                                                        onblur="validarnombre()"
-                                                                        onkeypress="return soloLetras(event)"
-                                                                        pattern="[A-Z a-z]{1,20}"
-                                                                        title="Formato solicitado: Letras Mayúsculas o Minúsculas"
-                                                                        name="nombre" id="nombre" class="form-control"
-                                                                        placeholder="Ingrese Nombres" autocomplete="off"
-                                                                        required>
-                                                                    <span class="mensajenombre"
-                                                                        style="display: none; color: orange;"><i
-                                                                            class="fa fa-exclamation-triangle"></i>
+                                                                    <input type="text" minlength="5" maxlength="20" onblur="validarnombre()" onkeypress="return soloLetras(event)" pattern="[A-Z a-z]{1,20}" title="Formato solicitado: Letras Mayúsculas o Minúsculas" name="nombre" id="nombre" class="form-control" placeholder="Ingrese Nombres" autocomplete="off" required>
+                                                                    <span class="mensajenombre" style="display: none; color: orange;"><i class="fa fa-exclamation-triangle"></i>
                                                                         Debe completar los campos obligatorios</span>
 
-                                                                    <input type="hidden" name="fullnombre"
-                                                                        id="fullnombre">
+                                                                    <input type="hidden" name="fullnombre" id="fullnombre">
                                                                 </div>
 
                                                                 <div class="form-group">
-                                                                    <label
-                                                                        class="col-form-label col-md-6 col-sm-6">Apellido
+                                                                    <label class="col-form-label col-md-6 col-sm-6">Apellido
                                                                         <span class="required">*</span></label>
-                                                                    <input type="text" onblur="validarapellido()"
-                                                                        onkeypress="return soloLetras(event)"
-                                                                        minlength="5" maxlength="20"
-                                                                        pattern="[A-Z a-z]{1,20}"
-                                                                        title="Formato solicitado: Letras Mayúsculas o Minúsculas"
-                                                                        name="apellido" id="apellido"
-                                                                        class="form-control"
-                                                                        placeholder="Ingrese Apellidos"
-                                                                        autocomplete="off" required>
-                                                                    <span class="mensajeapellido"
-                                                                        style="display: none; color: orange;">
+                                                                    <input type="text" onblur="validarapellido()" onkeypress="return soloLetras(event)" minlength="5" maxlength="20" pattern="[A-Z a-z]{1,20}" title="Formato solicitado: Letras Mayúsculas o Minúsculas" name="apellido" id="apellido" class="form-control" placeholder="Ingrese Apellidos" autocomplete="off" required>
+                                                                    <span class="mensajeapellido" style="display: none; color: orange;">
                                                                         <i class="fa fa-exclamation-triangle"> </i>
                                                                         Debe completar los campos obligatorios</span>
 
-                                                                    <input type="hidden" name="fullapellido"
-                                                                        id="fullapellido">
+                                                                    <input type="hidden" name="fullapellido" id="fullapellido">
                                                                 </div>
 
                                                                 <div class="form-group">
                                                                     <label class="col-form-label col-md-6 col-sm-6">DUI
                                                                         <span class="required">*</span></label>
-                                                                    <input type="text" oninput="validacionDui()"
-                                                                        onblur="validarDuifinal()"
-                                                                        onkeypress="return soloNumeros(event)"
-                                                                        minlength="10" maxlength="10" name="dui"
-                                                                        id="dui" pattern="[0-9]{8}[_-][0-9]{1}"
-                                                                        title="Formato solicitado: 00000000-0"
-                                                                        class="form-control" placeholder="0000000-0"
-                                                                        autocomplete="off" required>
-                                                                    <span class="mensajedui"
-                                                                        style="display: none; color: orange;">
+                                                                    <input type="text" oninput="validacionDui()" onblur="validarDuifinal()" onkeypress="return soloNumeros(event)" minlength="10" maxlength="10" name="dui" id="dui" pattern="[0-9]{8}[_-][0-9]{1}" title="Formato solicitado: 00000000-0" class="form-control" placeholder="0000000-0" autocomplete="off" required>
+                                                                    <span class="mensajedui" style="display: none; color: orange;">
                                                                         <i class="fa fa-exclamation-triangle"> </i>
                                                                         Digite correctamente el DUI</span>
-                                                                    <span class="mensajeduiexiste"
-                                                                        style="display: none; color: red;">
+                                                                    <span class="mensajeduiexiste" style="display: none; color: red;">
                                                                         El DUI ya está en uso</span>
 
-                                                                    <input type="hidden" name="duivalidado"
-                                                                        id="duivalidado">
+                                                                    <input type="hidden" name="duivalidado" id="duivalidado">
 
                                                                     <input type="hidden" name="fulldui" id="fulldui">
                                                                 </div>
 
 
                                                                 <div class="form-group">
-                                                                    <label
-                                                                        class="col-form-label col-md-6 col-sm-6">Correo
+                                                                    <label class="col-form-label col-md-6 col-sm-6">Correo
                                                                         <span class="required">*</span></label>
-                                                                    <input type="email" onblur="validarcorreo()"
-                                                                        minlength="15" maxlength="30"
-                                                                        title="Formato solicitado: Debe ser un correo valido"
-                                                                        name="correo" id="correo" class="form-control"
-                                                                        placeholder="Ingrese Correo Electrónico"
-                                                                        autocomplete="off" required>
-                                                                    <span class="mensajecorreo"
-                                                                        style="display: none; color: orange;">
+                                                                    <input type="email" onblur="validarcorreo()" minlength="15" maxlength="30" title="Formato solicitado: Debe ser un correo valido" name="correo" id="correo" class="form-control" placeholder="Ingrese Correo Electrónico" autocomplete="off" required>
+                                                                    <span class="mensajecorreo" style="display: none; color: orange;">
                                                                         <i class="fa fa-exclamation-triangle">
                                                                         </i> Digite correctamente el Correo</span>
-                                                                    <span class="mensajecorreoexiste"
-                                                                        style="display: none; color: red;">
+                                                                    <span class="mensajecorreoexiste" style="display: none; color: red;">
                                                                         El Correo ya está en uso</span>
 
-                                                                    <input type="hidden" name="fullcorreo"
-                                                                        id="fullcorreo">
+                                                                    <input type="hidden" name="fullcorreo" id="fullcorreo">
                                                                 </div>
 
 
@@ -301,18 +308,13 @@
                                                             <div class="col-lg-6">
 
                                                                 <div class="form-group">
-                                                                    <label form="sexo"
-                                                                        class="col-form-label col-md-3 col-sm-3">Sexo<span
-                                                                            class="required">*</span></label>
-                                                                    <select name="sexo" id="sexo" class="form-control"
-                                                                        onblur="validarsexo()" required>
+                                                                    <label form="sexo" class="col-form-label col-md-3 col-sm-3">Sexo<span class="required">*</span></label>
+                                                                    <select name="sexo" id="sexo" class="form-control" onblur="validarsexo()" required>
                                                                         <option value="">~Seleccione~</option>
                                                                         <option value="Masculino">Masculino</option>
                                                                         <option value="Femenino">Femenino</option>
                                                                     </select>
-                                                                    <span class="mensajesexo"
-                                                                        style="display: none; color: orange;"><i
-                                                                            class="fa fa-exclamation-triangle"> </i>
+                                                                    <span class="mensajesexo" style="display: none; color: orange;"><i class="fa fa-exclamation-triangle"> </i>
                                                                         Debe seleccionar sexo</span>
 
                                                                     <input type="hidden" name="fullsexo" id="fullsexo">
@@ -323,21 +325,15 @@
                                                                     <label class="col-form-label col-md-6 col-sm-6">
                                                                         Fecha de Nacimiento
                                                                         <span class="required">*</span></label>
-                                                                    <input type="date" name="date" id="date"
-                                                                        onblur="validarfecha()"
-                                                                        title="Mayoría de edad requerida"
-                                                                        class="form-control"
-                                                                        placeholder="Ingrese Fecha de Nacimiento"
-                                                                        autocomplete="off" required>
-                                                                    <span class="mensajefecha"
-                                                                        style="display: none; color: orange;"><i
-                                                                            class="fa fa-exclamation-triangle"> </i>
+                                                                    <input type="date" name="date" id="date" onblur="validarfecha()" title="Mayoría de edad requerida" class="form-control" placeholder="Ingrese Fecha de Nacimiento" autocomplete="off" required>
+                                                                    <span class="mensajefecha" style="display: none; color: orange;"><i class="fa fa-exclamation-triangle"> </i>
                                                                         Debe ser mayor de edad</span>
 
                                                                     <input type="hidden" name="fulldate" id="fulldate">
                                                                 </div>
 
                                                                 <div class="form-group">
+<<<<<<< HEAD
                                                                     <label form="tipo"
                                                                         class="col-form-label col-md-3 col-sm-3">Tipo<span
                                                                             class="required">*</span></label>
@@ -358,23 +354,15 @@
                                                                 <div class="form-group">
                                                                     <label
                                                                         class="col-form-label col-md-6 col-sm-6">Teléfono
+=======
+                                                                    <label class="col-form-label col-md-6 col-sm-6">Teléfono
+>>>>>>> 25402d3774f90247d85a7ed8b5fe53398f2f487e
                                                                         <span class="required">*</span></label>
-                                                                    <input type="text" oninput="validacionTelefono()"
-                                                                        onblur="validarTelfinal()"
-                                                                        onkeypress="return soloNumeros(event)"
-                                                                        name="telefono" id="telefono"
-                                                                        pattern="[0-9]{4}[_-][0-9]{4}"
-                                                                        title="Formato solicitado: 0000-0000"
-                                                                        maxlength="9" minlength="9" class="form-control"
-                                                                        placeholder="0000-0000" autocomplete="off"
-                                                                        required>
-                                                                    <span class="mensajetel"
-                                                                        style="display: none; color: orange;"> <i
-                                                                            class="fa fa-exclamation-triangle">
+                                                                    <input type="text" oninput="validacionTelefono()" onblur="validarTelfinal()" onkeypress="return soloNumeros(event)" name="telefono" id="telefono" pattern="[0-9]{4}[_-][0-9]{4}" title="Formato solicitado: 0000-0000" maxlength="9" minlength="9" class="form-control" placeholder="0000-0000" autocomplete="off" required>
+                                                                    <span class="mensajetel" style="display: none; color: orange;"> <i class="fa fa-exclamation-triangle">
                                                                         </i> Digite correctamente el Teléfono</span>
 
-                                                                    <input type="hidden" name="telefonovalidado"
-                                                                        id="telefonovalidado">
+                                                                    <input type="hidden" name="telefonovalidado" id="telefonovalidado">
 
                                                                     <input type="hidden" name="fulltel" id="fulltel">
                                                                 </div>
@@ -385,12 +373,10 @@
                                                 </div>
 
                                                 <div class="modal-footer">
-                                                    <button type="reset" class="btn btn btn-round  btn-cancelar"
-                                                        data-dismiss="modal">
+                                                    <button type="reset" class="btn btn btn-round  btn-cancelar" data-dismiss="modal">
                                                         <li class="fa fa-close cancelar"></li> Cancelar
                                                     </button>
-                                                    <button type="submit" disabled onclick="agregarEmpleado()"
-                                                        class="btn btn-round btn-guardar" id="btng" name="btng">
+                                                    <button type="submit" disabled onclick="agregarEmpleado()" class="btn btn-round btn-guardar" id="btng" name="btng">
                                                         <li onclick="agregarEmpleado()" class="fa fa-save"></li>
                                                         Guardar
                                                     </button>
@@ -410,8 +396,7 @@
                                                 <div class="modal-header">
                                                     <h4 class="modal-title" id="myModalLabel">Modificar Empleado
                                                     </h4>
-                                                    <button type="button" class="close" data-dismiss="modal"><span
-                                                            aria-hidden="true">×</span>
+                                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
                                                     </button>
                                                 </div>
 
@@ -420,77 +405,43 @@
                                                         <div class="row">
                                                             <div class="col-lg-6">
                                                                 <div class="form-group">
-                                                                    <label
-                                                                        class="col-form-label col-md-6 col-sm-6">Nombre
+                                                                    <label class="col-form-label col-md-6 col-sm-6">Nombre
                                                                         <span class="required">*</span></label>
-                                                                    <input type="text" onblur="validarnombreEdit()"
-                                                                        onkeypress="return soloLetras(event)"
-                                                                        minlength="5" maxlength="20"
-                                                                        title="Formato solicitado: Letras Mayúsculas o Minúsculas"
-                                                                        name="nombre_update" id="nombre_update"
-                                                                        class="form-control"
-                                                                        placeholder="Ingrese Nombres" autocomplete="off"
-                                                                        required>
-                                                                    <span class="mensajenombreedit"
-                                                                        style="display: none; color: orange;"><i class="fa
+                                                                    <input type="text" onblur="validarnombreEdit()" onkeypress="return soloLetras(event)" minlength="5" maxlength="20" title="Formato solicitado: Letras Mayúsculas o Minúsculas" name="nombre_update" id="nombre_update" class="form-control" placeholder="Ingrese Nombres" autocomplete="off" required>
+                                                                    <span class="mensajenombreedit" style="display: none; color: orange;"><i class="fa
                                                                         fa-exclamation-triangle">
                                                                         </i> Debe completar los campos
                                                                         obligatorios</span>
 
-                                                                    <input type="hidden" name="fullnombreedit"
-                                                                        id="fullnombreedit">
+                                                                    <input type="hidden" name="fullnombreedit" id="fullnombreedit">
                                                                 </div>
 
                                                                 <div class="form-group">
-                                                                    <label
-                                                                        class="col-form-label col-md-6 col-sm-6">Apellido
+                                                                    <label class="col-form-label col-md-6 col-sm-6">Apellido
                                                                         <span class="required">*</span></label>
-                                                                    <input type="text" onblur="validarapellidoEdit()"
-                                                                        onkeypress="return soloLetras(event)"
-                                                                        minlength="5" maxlength="20"
-                                                                        title="Formato solicitado: Letras Mayúsculas o Minúsculas"
-                                                                        name="apellido_update" id="apellido_update"
-                                                                        class="form-control"
-                                                                        placeholder="Ingrese Apellidos"
-                                                                        autocomplete="off" required>
-                                                                    <span class="mensajeapellidoedit"
-                                                                        style="display: none; color: orange;">
+                                                                    <input type="text" onblur="validarapellidoEdit()" onkeypress="return soloLetras(event)" minlength="5" maxlength="20" title="Formato solicitado: Letras Mayúsculas o Minúsculas" name="apellido_update" id="apellido_update" class="form-control" placeholder="Ingrese Apellidos" autocomplete="off" required>
+                                                                    <span class="mensajeapellidoedit" style="display: none; color: orange;">
                                                                         <i class="fa fa-exclamation-triangle">
                                                                         </i> Debe completar los campos
                                                                         obligatorios</span>
 
-                                                                    <input type="hidden" name="fullapellidoedit"
-                                                                        id="fullapellidoedit">
+                                                                    <input type="hidden" name="fullapellidoedit" id="fullapellidoedit">
                                                                 </div>
 
                                                                 <div class="form-group">
                                                                     <label class="col-form-label col-md-6 col-sm-6">DUI
                                                                         <span class="required">*</span></label>
-                                                                    <input type="text" oninput="validacionDuiEdit()"
-                                                                        onblur="validarDuifinalEdit()"
-                                                                        onkeypress="return soloNumeros(event)"
-                                                                        name="dui_update" id="dui_update"
-                                                                        pattern="[0-9]{8}[_-][0-9]{1}"
-                                                                        title="Formato solicitado: 00000000-0"
-                                                                        maxlength="10" minlength="10"
-                                                                        class="form-control" placeholder="0000000-0"
-                                                                        autocomplete="off" required>
-                                                                    <span class="mensajeduiedit"
-                                                                        style="display: none; color: orange;"><i
-                                                                            class="fa fa-exclamation-triangle">
+                                                                    <input type="text" oninput="validacionDuiEdit()" onblur="validarDuifinalEdit()" onkeypress="return soloNumeros(event)" name="dui_update" id="dui_update" pattern="[0-9]{8}[_-][0-9]{1}" title="Formato solicitado: 00000000-0" maxlength="10" minlength="10" class="form-control" placeholder="0000000-0" autocomplete="off" required>
+                                                                    <span class="mensajeduiedit" style="display: none; color: orange;"><i class="fa fa-exclamation-triangle">
                                                                         </i> Digite correctamente el DUI</span>
-                                                                    <span class="mensajeduiexisteedit"
-                                                                        style="display: none; color: red;">
+                                                                    <span class="mensajeduiexisteedit" style="display: none; color: red;">
                                                                         El DUI ya esta en uso</span>
 
-                                                                    <input type="hidden" name="duivalidado_update"
-                                                                        id="duivalidado_update">
+                                                                    <input type="hidden" name="duivalidado_update" id="duivalidado_update">
 
-                                                                    <input type="hidden" name="duiactedit"
-                                                                        id="duiactedit">
+                                                                    <input type="hidden" name="duiactedit" id="duiactedit">
 
-                                                                    <input type="hidden" name="fullduiedit"
-                                                                        id="fullduiedit">
+                                                                    <input type="hidden" name="fullduiedit" id="fullduiedit">
                                                                 </div>
 
                                                                 <div class="form-group">
@@ -517,23 +468,16 @@
                                                             <div class="col-lg-6">
 
                                                                 <div class="form-group">
-                                                                    <label form="sexo"
-                                                                        class="col-form-label col-md-3 col-sm-3">Sexo<span
-                                                                            class="required">*</span></label>
-                                                                    <select name="sexo_update" id="sexo_update"
-                                                                        onblur="validarsexoEdit()" class="form-control"
-                                                                        required>
+                                                                    <label form="sexo" class="col-form-label col-md-3 col-sm-3">Sexo<span class="required">*</span></label>
+                                                                    <select name="sexo_update" id="sexo_update" onblur="validarsexoEdit()" class="form-control" required>
                                                                         <option value="">~Seleccione~</option>
                                                                         <option value="Masculino">Masculino</option>
                                                                         <option value="Femenino">Femenino</option>
                                                                     </select>
-                                                                    <span class="mensajesexoedit"
-                                                                        style="display: none; color: orange;"><i
-                                                                            class="fa fa-exclamation-triangle">
+                                                                    <span class="mensajesexoedit" style="display: none; color: orange;"><i class="fa fa-exclamation-triangle">
                                                                         </i> Debe seleccionar sexo</span>
 
-                                                                    <input type="hidden" name="fullsexoedit"
-                                                                        id="fullsexoedit">
+                                                                    <input type="hidden" name="fullsexoedit" id="fullsexoedit">
                                                                 </div>
 
 
@@ -541,45 +485,24 @@
                                                                     <label class="col-form-label col-md-6 col-sm-6">
                                                                         Fecha de Nacimiento
                                                                         <span class="required">*</span></label>
-                                                                    <input type="date" name="date_update"
-                                                                        onblur="validarfechaEdit()" id="date_update"
-                                                                        class="form-control"
-                                                                        placeholder="Ingrese Fecha de Nacimiento"
-                                                                        autocomplete="off" required>
-                                                                    <span class="mensajefechaedit"
-                                                                        style="display: none; color: orange;"><i
-                                                                            class="fa fa-exclamation-triangle">
+                                                                    <input type="date" name="date_update" onblur="validarfechaEdit()" id="date_update" class="form-control" placeholder="Ingrese Fecha de Nacimiento" autocomplete="off" required>
+                                                                    <span class="mensajefechaedit" style="display: none; color: orange;"><i class="fa fa-exclamation-triangle">
                                                                         </i> Debe ser mayor de edad</span>
 
-                                                                    <input type="hidden" name="fulldateedit"
-                                                                        id="fulldateedit">
+                                                                    <input type="hidden" name="fulldateedit" id="fulldateedit">
                                                                 </div>
 
 
                                                                 <div class="form-group">
-                                                                    <label
-                                                                        class="col-form-label col-md-6 col-sm-6">Teléfono
+                                                                    <label class="col-form-label col-md-6 col-sm-6">Teléfono
                                                                         <span class="required">*</span></label>
-                                                                    <input type="text"
-                                                                        oninput="validacionTelefonoEdit()"
-                                                                        onblur="validarTelfinalEdit()"
-                                                                        onkeypress="return soloNumeros(event)"
-                                                                        name="telefono_update" id="telefono_update"
-                                                                        pattern="[0-9]{4}[_-][0-9]{4}"
-                                                                        title="Formato solicitado: 0000-0000"
-                                                                        maxlength="9" minlength="9" class="form-control"
-                                                                        placeholder="0000-0000" autocomplete="off"
-                                                                        required>
-                                                                    <span class="mensajeteledit"
-                                                                        style="display: none; color: orange;"><i
-                                                                            class="fa fa-exclamation-triangle">
+                                                                    <input type="text" oninput="validacionTelefonoEdit()" onblur="validarTelfinalEdit()" onkeypress="return soloNumeros(event)" name="telefono_update" id="telefono_update" pattern="[0-9]{4}[_-][0-9]{4}" title="Formato solicitado: 0000-0000" maxlength="9" minlength="9" class="form-control" placeholder="0000-0000" autocomplete="off" required>
+                                                                    <span class="mensajeteledit" style="display: none; color: orange;"><i class="fa fa-exclamation-triangle">
                                                                         </i> Digite correctamente el Teléfono</span>
 
-                                                                    <input type="hidden" name="telefonovalidado_update"
-                                                                        id="telefonovalidado_update">
+                                                                    <input type="hidden" name="telefonovalidado_update" id="telefonovalidado_update">
 
-                                                                    <input type="hidden" name="fullteledit"
-                                                                        id="fullteledit">
+                                                                    <input type="hidden" name="fullteledit" id="fullteledit">
                                                                 </div>
 
                                                                 <input type="hidden" name="estado" id="estado">
@@ -589,12 +512,10 @@
                                                 </div>
 
                                                 <div class="modal-footer">
-                                                    <button type="reset" class="btn btn btn-round  btn-cancelar"
-                                                        data-dismiss="modal">
+                                                    <button type="reset" class="btn btn btn-round  btn-cancelar" data-dismiss="modal">
                                                         <li class="fa fa-close cancelar"></li> Cancelar
                                                     </button>
-                                                    <button type="submit" disabled onclick="modificarEmpleado()"
-                                                        class="btn btn-round btn-guardar" id="btngedit" name="btngedit">
+                                                    <button type="submit" disabled onclick="modificarEmpleado()" class="btn btn-round btn-guardar" id="btngedit" name="btngedit">
                                                         <li onclick="modificarEmpleado()" class="fa fa-edit"></li>
                                                         Actualizar Datos
                                                     </button>
@@ -615,11 +536,11 @@
                                                 <div class="modal-header">
                                                     <h4 class="modal-title">Dar de Baja a Empleado</h4>
 
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                        aria-hidden="true">&times;</button>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                                                 </div>
 
                                                 <div class="modal-body">
+<<<<<<< HEAD
                                                     <div class="panel-body">
                                                         <div class="row">
                                                             <input type="hidden" name="desactivar_idequipo"
@@ -627,6 +548,22 @@
                                                             <h2 for="">¿Seguro que quieres dar de baja a este registro?
                                                             </h2>
                                                             <div>Esta acción se puede deshacer</div>
+=======
+                                                    <p>¿Seguro que desea dar de baja a este registro?</p>
+                                                    <p><small>Esta acción se puede deshacer.</small></p>
+                                                    <!--Variable a donde se guardara id a eliminar-->
+                                                    <input type="hidden" name="dui_baja" id="dui_baja">
+                                                </div>
+                                                <div class="modal-footer text-center">
+                                                    <div class="form-group">
+                                                        <div class="col-sm-6">
+                                                            <button id="cancelar" name="cancelar" type="button" data-dismiss="modal" class="btn btn btn-round  btn-cancelar"><span class="fa fa-close"></span>
+                                                                Cancelar</button>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <button type="submit" onclick="debajaEmpleado()" class="btn btn-round btn-guardar"><span class="fa fa-thumbs-o-down"></span>
+                                                                Dar de Baja</button>
+>>>>>>> 25402d3774f90247d85a7ed8b5fe53398f2f487e
                                                         </div>
 
                                                     </div>
@@ -665,11 +602,11 @@
                                                 <div class="modal-header">
                                                     <h4 class="modal-title">Dar de Alta a Empleado</h4>
 
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                        aria-hidden="true">&times;</button>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                                                 </div>
 
                                                 <div class="modal-body">
+<<<<<<< HEAD
                                                     <div class="panel-body">
                                                         <div class="row">
                                                             <input type="hidden" name="desactivar_idequipo"
@@ -677,6 +614,22 @@
                                                             <h2 for="">¿Seguro que quieres dar de baja a este registro?
                                                             </h2>
                                                             <div>Esta acción se puede deshacer</div>
+=======
+                                                    <p>¿Seguro que desea dar de alta a este registro?</p>
+                                                    <p><small>Esta acción se puede deshacer.</small></p>
+                                                    <!--Variable a donde se guardara id a eliminar-->
+                                                    <input type="hidden" name="dui_alta" id="dui_alta">
+                                                </div>
+                                                <div class="modal-footer text-center">
+                                                    <div class="form-group">
+                                                        <div class="col-sm-6">
+                                                            <button id="cancelar" name="cancelar" type="button" data-dismiss="modal" class="btn btn btn-round  btn-cancelar"><span class="fa fa-close"></span>
+                                                                Cancelar</button>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <button type="submit" onclick="dealtaEmpleado()" class="btn btn-round btn-guardar"><span class="fa fa-thumbs-o-up"></span>
+                                                                Dar de Alta</button>
+>>>>>>> 25402d3774f90247d85a7ed8b5fe53398f2f487e
                                                         </div>
 
                                                     </div>

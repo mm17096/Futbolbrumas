@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 $("#imagen").change(function () {
     filePreview(this);
 });
@@ -37,6 +38,8 @@ function msj() {
     }
 }
 
+=======
+>>>>>>> 25402d3774f90247d85a7ed8b5fe53398f2f487e
 function abrirmodal() {
     $id = document.getElementById("id").value;
 
