@@ -81,17 +81,17 @@ if ($result) {
 
                     </button>
 
-                    <button type="button" onclick="abrirmodaldeBaja()" data-target="#DeBajaRepresentante"
-                        data-toggle="modal" data-id="<?php echo $value->getDui(); ?>" class="btn btn-round btn-baja">
-                        <li class="fa fa-thumbs-o-down"></li>
+                    </button><button type="button" onclick="abrirmodaldeBaja()" data-target="#DeBajaRepresentante"
+                        data-toggle="modal" data-id="<?php echo $value->getDui(); ?>" class="btn btn-round btn-alta">
+                        <li class="fa fa-thumbs-o-up"></li>
                         <!--fa fa-thumbs-o-up -->
                     </button>
 
                     <?php else : ?>
 
-                    </button><button type="button" onclick="abrirmodaldeAlta()" data-target="#DeAltaRepresentante"
-                        data-toggle="modal" data-id="<?php echo $value->getDui(); ?>" class="btn btn-round btn-alta">
-                        <li class="fa fa-thumbs-o-up"></li>
+                        <button type="button" onclick="abrirmodaldeAlta()" data-target="#DeAltaRepresentante"
+                        data-toggle="modal" data-id="<?php echo $value->getDui(); ?>" class="btn btn-round btn-baja">
+                        <li class="fa fa-thumbs-o-down"></li>
                         <!--fa fa-thumbs-o-up -->
                     </button>
 

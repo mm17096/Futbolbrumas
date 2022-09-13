@@ -1,6 +1,7 @@
 ActualizarJugador();
 //Guardar jugador
-/*$("#addJugador").submit(function (event) {
+// verificarboton
+$("#addJugador").submit(function (event) {
   var parametros = $(this).serialize();
   $.ajax({
     type: "POST",
@@ -22,7 +23,8 @@ ActualizarJugador();
   });
 
   event.preventDefault();
-});*/
+});
+
 
 /////////////////////////PARA EL FORMULARIO EDITAR/////////VALIDACIONES///////
 
@@ -74,10 +76,12 @@ function validarnumeroEdit() {
         document.getElementById("numerocamisaedit").value = "";
         verificarbotonEdit();
         setTimeout(function () {
+          document.getElementById('numerocamisaedit').classList.add("color_campos_ocupados");
           $(".mensajenumerocamisaedit").fadeIn(1500);
         }, 100);
 
         setTimeout(function () {
+          document.getElementById('numerocamisaedit').classList.remove("color_campos_ocupados");
           $(".mensajenumerocamisaedit").fadeOut(1500);
         }, 3500);
       }
@@ -86,26 +90,7 @@ function validarnumeroEdit() {
     .always(function (json) {});
 }
 //------ termina Validacion de habilitar y validacion camisa edit ------//
-//------ inicia Validacion de posicion edit ------//
-function validarposicionEdit() {
-  $posicionedit = document.getElementById("posicionedit").value;
 
-  if ($posicionedit != '') {
-    $("#fullposicionedit").val("validado");
-    verificarbotonEdit();
-  } else {
-    $("#fullposicionedit").val("");
-    setTimeout(function () {
-      $(".mensajeposicionedit").fadeIn(1500);
-    }, 100);
-
-    setTimeout(function () {
-      $(".mensajeposicionedit").fadeOut(1500);
-    }, 3500);
-    verificarbotonEdit();
-  }
-};
-//------ termina Validacion de posicion edit ------//
 //------ inicia Validacion equipo edit ------//
 function validarequipoEdit() {
   $equipoedit = document.getElementById("equipoedit").value;
@@ -116,10 +101,12 @@ function validarequipoEdit() {
   } else {
     $("#fullequipoedit").val("");
     setTimeout(function () {
+      document.getElementById('equipoedit').classList.add("color_campos_incompletos");
       $(".mensajeequipoedit").fadeIn(1500);
     }, 100);
 
     setTimeout(function () {
+      document.getElementById('equipoedit').classList.remove("color_campos_incompletos");
       $(".mensajeequipoedit").fadeOut(1500);
     }, 3500);
     verificarbotonEdit();
@@ -147,10 +134,12 @@ function validarfechaEdit() {
     document.getElementById("fechanacimientoedit").value = "";
     $("#fullfechaedit").val("");
     setTimeout(function () {
+      document.getElementById('fechanacimientoedit').classList.add("color_campos_incompletos");
       $(".mensajefechaEdit").fadeIn(1500);
     }, 100);
 
     setTimeout(function () {
+      document.getElementById('fechanacimientoedit').classList.remove("color_campos_incompletos");
       $(".mensajefechaEdit").fadeOut(1500);
     }, 3500);
     verificarbotonEdit();
@@ -167,10 +156,12 @@ function validarapellidoEdit() {
   } else {
     $("#fullapellidoedit").val("");
     setTimeout(function () {
+      document.getElementById('apellidoedit').classList.add("color_campos_incompletos");
       $(".mensajeapellidoedit").fadeIn(1500);
     }, 100);
 
     setTimeout(function () {
+      document.getElementById('apellidoedit').classList.remove("color_campos_incompletos");
       $(".mensajeapellidoedit").fadeOut(1500);
     }, 3500);
     verificarbotonEdit();
@@ -186,10 +177,12 @@ function validarnombreEdit() {
   } else {
     $("#fullnombreedit").val("");
     setTimeout(function () {
+      document.getElementById('nombreedit').classList.add("color_campos_incompletos");
       $(".mensajenombreedit").fadeIn(1500);
     }, 100);
 
     setTimeout(function () {
+      document.getElementById('nombreedit').classList.remove("color_campos_incompletos");
       $(".mensajenombreedit").fadeOut(1500);
     }, 3500);
     verificarbotonEdit();
@@ -198,20 +191,21 @@ function validarnombreEdit() {
 //------  Validacion del Nombre edit------//
 
 /////////////////////////PARA EL FORMULARIO GUARDAR/////////VALIDACIONES///////
-function agregarJugador() {
+/*function agregarJugador() {
   var parametros = $("#addJugador").serialize();
   $.ajax({
     type: "POST",
     url: "../controller/jugador_controller.php?action=guardar",
     data: parametros,
     success: function (datos) {
-      //$("#resultados").html(datos);
+      $("#resultados").html(datos);
       $('#modalJ').modal('hide');
+      ActualizarJugador();
     }
   });
-
-};
-function verificarboton() {
+  event.preventDefault();
+};*/
+/*function verificarboton() {
   $nombre = document.getElementById("fullnombre").value;
   $apellido = document.getElementById("fullapellido").value;
   $fecha = document.getElementById("fullfechanacimiento").value;
@@ -227,26 +221,8 @@ function verificarboton() {
     $("#btnn").attr("disabled", "disabled");
   }
 
-};
-//validar campo posicion
-function validarposicion() {
-  $posicion = document.getElementById("posicion").value;
+};*/
 
-  if ($posicion!="") {
-    $("#fullposicion").val("validado");
-    verificarboton();
-  } else {
-    $("#fullposicion").val("");
-    setTimeout(function () {
-      $(".mensajeposicion").fadeIn(1500);
-    }, 100);
-
-    setTimeout(function () {
-      $(".mensajeposicion").fadeOut(1500);
-    }, 3500);
-    verificarboton();
-  }
-};
 //validar campo equipo
 function validarequipo() {
   $equipo = document.getElementById("idequipo").value;
@@ -257,10 +233,12 @@ function validarequipo() {
   } else {
     $("#fullequipo").val("");
     setTimeout(function () {
+      document.getElementById('idequipo').classList.add("color_campos_incompletos");
       $(".mensajequipo").fadeIn(1500);
     }, 100);
 
     setTimeout(function () {
+      document.getElementById('idequipo').classList.remove("color_campos_incompletos");
       $(".mensajequipo").fadeOut(1500);
     }, 3500);
     verificarboton();
@@ -276,10 +254,12 @@ function validarapellido() {
   } else {
     $("#fullapellido").val("");
     setTimeout(function () {
+      document.getElementById('apellido').classList.add("color_campos_incompletos");
       $(".mensajeapellido").fadeIn(1500);
     }, 100);
 
     setTimeout(function () {
+      document.getElementById('apellido').classList.remove("color_campos_incompletos");
       $(".mensajeapellido").fadeOut(1500);
     }, 3500);
     verificarboton();
@@ -314,10 +294,12 @@ function validarnombre() {
   } else {
     $("#fullnombre").val("");
     setTimeout(function () {
+      document.getElementById('nombre').classList.add("color_campos_incompletos");
       $(".mensajenombre").fadeIn(1500);
     }, 100);
 
     setTimeout(function () {
+      document.getElementById('nombre').classList.remove("color_campos_incompletos");
       $(".mensajenombre").fadeOut(1500);
     }, 3500);
     verificarboton();
@@ -345,10 +327,12 @@ function validarfecha() {
     document.getElementById("fechanacimiento").value = "";
     $("#fullfechanacimiento").val("");
     setTimeout(function () {
+      document.getElementById('fechanacimiento').classList.add("color_campos_incompletos");
       $(".mensajefecha").fadeIn(1500);
     }, 100);
 
     setTimeout(function () {
+      document.getElementById('fechanacimiento').classList.remove("color_campos_incompletos");
       $(".mensajefecha").fadeOut(1500);
     }, 3500);
     verificarboton();
@@ -383,20 +367,136 @@ function validarnumero() {
       } else if (json[0] == "Error") {
         $("#fullnumerocamisa").val("");
         document.getElementById("numero_camisa").value = "";
-        verificarboton();
         setTimeout(function () {
+          document.getElementById('numero_camisa').classList.add("color_campos_ocupados");
           $(".mensajenuemro").fadeIn(1500);
         }, 100);
 
         setTimeout(function () {
+          document.getElementById('numero_camisa').classList.remove("color_campos_ocupados");
           $(".mensajenuemro").fadeOut(1500);
         }, 3500);
+        verificarboton();
       }
     })
     .fail(function (json) {})
     .always(function (json) {});
 }
 
+//validar campo posicion
+function validarposicion() {
+  $posicion = document.getElementById("posicion").value;
+
+  if ($posicion!="") {
+    $("#fullposicion").val("validado");
+    validarposicionbase();
+  } else {
+    $("#fullposicion").val("");
+    setTimeout(function () {
+      document.getElementById('posicion').classList.add("color_campos_incompletos");
+      $(".mensajeposicion").fadeIn(1500);
+    }, 100);
+
+    setTimeout(function () {
+      document.getElementById('posicion').classList.remove("color_campos_incompletos");
+      $(".mensajeposicion").fadeOut(1500);
+    }, 3500);
+    verificarboton();
+  }
+};
+
+function validarposicionbase() {
+  $equipo = document.getElementById("idequipo").value;
+  $posicion = document.getElementById("posicion").value;
+
+  if($posicion=="Portero"){
+
+  
+  var datos = { action: "verificarposicion", posicion: $posicion, idequipo: $equipo };
+  $respuesta = $.ajax({
+    dataType: "json",
+    method: "POST",
+    url: "../controller/jugador_controller.php",
+    data: datos,
+  })
+    .done(function (json) {
+      console.log("EL consultar especifico", json);
+      if (json[0] == "Exito") {
+        //alert("exito");
+      } else if (json[0] == "Error") {
+        document.getElementById("posicion").value = "";
+        setTimeout(function () {
+          document.getElementById('posicion').classList.add("color_campos_ocupados");
+          $(".mensajeposicionbase").fadeIn(1500);
+        }, 100);
+
+        setTimeout(function () {
+          document.getElementById('posicion').classList.remove("color_campos_ocupados");
+          $(".mensajeposicionbase").fadeOut(1500);
+        }, 3500);
+      }
+    })
+    .fail(function (json) {})
+    .always(function (json) {});
+  }
+}
+//------ inicia Validacion de posicion edit ------//
+function validarposicionEdit() {
+  $posicionedit = document.getElementById("posicionedit").value;
+
+  if ($posicionedit != "") {
+    $("#fullposicionedit").val("validado");
+    validarposicionbaseedit()
+  } else {
+    $("#fullposicionedit").val("");
+    setTimeout(function () {
+      document.getElementById('posicionedit').classList.add("color_campos_incompletos");
+      $(".mensajeposicionedit").fadeIn(1500);
+    }, 100);
+
+    setTimeout(function () {
+      document.getElementById('posicionedit').classList.remove("color_campos_incompletos");
+      $(".mensajeposicionedit").fadeOut(1500);
+    }, 3500);
+   
+  }
+};
+function validarposicionbaseedit() {
+  $equipo = document.getElementById("equipoedit").value;
+  $posicion = document.getElementById("posicionedit").value;
+
+  if($posicion=="Portero"){
+
+  
+  var datos = { action: "verificarposicionedit", posicion: $posicion, idequipo: $equipo };
+  $respuesta = $.ajax({
+    dataType: "json",
+    method: "POST",
+    url: "../controller/jugador_controller.php",
+    data: datos,
+  })
+    .done(function (json) {
+      console.log("EL consultar especifico", json);
+      if (json[0] == "Exito") {
+        //alert("exito");
+      } else if (json[0] == "Error") {
+        document.getElementById("posicionedit").value = "";
+        setTimeout(function () {
+          document.getElementById('posicionedit').classList.add("color_campos_ocupados");
+          $(".mensajeposicionbaseedit").fadeIn(1500);
+        }, 100);
+
+        setTimeout(function () {
+          document.getElementById('posicionedit').classList.remove("color_campos_ocupados");
+          $(".mensajeposicionbaseedit").fadeOut(1500);
+        }, 3500);
+      }
+    })
+    .fail(function (json) {})
+    .always(function (json) {});
+  }
+}
+//------ termina Validacion de posicion edit ------//
 
 //Abrir Modal Editar Jugador
 $("#editJugadorModal").on("show.bs.modal", function (event) {
@@ -419,8 +519,8 @@ $("#editJugadorModal").on("show.bs.modal", function (event) {
   $('input[id="' + estado + '"]').prop("checked", true);
   $("#equipoedit").val(equipo);
 });
-//Modificar Jugador
 
+//Modificar Jugador
 $("#editJugador").submit(function (event) {
   var parametros = $(this).serialize();
   $.ajax({
@@ -489,6 +589,63 @@ function abrirmodalEdi() {
     verificarbotonEdit();
   });
 };*/
+
+//Abrir Modal hacer cambio
+$("#cambio").on("show.bs.modal", function (event) {
+  var button = $(event.relatedTarget); // Button that triggered the modal
+  var id = button.data("idjugador");
+  var posicion = button.data("posicion");
+  var equipo = button.data("equipo");
+
+  $("#idjugador_cambio").val(id);
+  $("#posicion_cambio").val(posicion);
+  $("#equipo_cambio").val(equipo);
+});
+
+//Hacer cambio en controlador
+$("#action_cambio").submit(function (event) {
+  var parametros = $(this).serialize();
+  $.ajax({
+    type: "POST",
+    url: "../controller/jugador_controller.php?action=cambio",
+    data: parametros,
+    success: function (datos) {
+      $("#resultados").html(datos);
+      $("#cambio").modal("hide");
+      ActualizarJugador();
+    },
+  });
+  event.preventDefault();
+});
+
+//Abrir Modal hacender a titular
+$("#titular").on("show.bs.modal", function (event) {
+  var button = $(event.relatedTarget); // Button that triggered the modal
+  var id = button.data("idjugador");
+  var posicion = button.data("posicion");
+  var equipo = button.data("equipo");
+
+  $("#idjugador_titular").val(id);
+  $("#posicion_titular").val(posicion);
+  $("#equipo_titular").val(equipo);
+});
+
+//Hacer titular con controlador
+$("#action_titular").submit(function (event) {
+  var parametros = $(this).serialize();
+  $.ajax({
+    type: "POST",
+    url: "../controller/jugador_controller.php?action=titular",
+    data: parametros,
+    success: function (datos) {
+      $("#resultados").html(datos);
+      $("#titular").modal("hide");
+      ActualizarJugador();
+    },
+  });
+  event.preventDefault();
+});
+
 //Abrir Modal dar de baja al  jugador
 $("#dar_baja").on("show.bs.modal", function (event) {
   var button = $(event.relatedTarget); // Button that triggered the modal
@@ -510,6 +667,7 @@ $("#dar_baja").on("show.bs.modal", function (event) {
   $('input[id="' + estado + '"]').prop("checked", true);
   $("#des_equipo").val(equipo);
 });
+
 //Dar de baja al  Jugador
 $("#baja").submit(function (event) {
   var parametros = $(this).serialize();

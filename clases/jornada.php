@@ -5,13 +5,17 @@
     private $Idjornada;
     private $Fechainicio;
     private $Fechafin;
+    private $Clasificacion;
+    private $Torneo;
 
 
-        function __construct($Idjornada,$Fechainicio,$Fechafin)
+        function __construct($Idjornada,$Fechainicio,$Fechafin,$Clasificacion,$Torneo)
         {
             $this->Idjornada=$Idjornada;
             $this->Fechainicio=$Fechainicio;
             $this->Fechafin=$Fechafin;
+            $this->Clasificacion=$Clasificacion;
+            $this->Torneo=$Torneo;
         }
 
         function getIdjornada(){
@@ -22,6 +26,12 @@
         }
         function getFechafin(){
             return $this->Fechafin;
+        }
+        function getClasificacion(){
+            return $this->Clasificacion;
+        }
+        function getTorneo(){
+            return $this->Torneo;
         }
     }
 ?>

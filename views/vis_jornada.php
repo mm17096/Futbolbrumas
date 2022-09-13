@@ -43,11 +43,11 @@
   <link href="../vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
   <!--Diseño css Sistema FutSal las Brumas-->
   <link href="../build/css/diseño.css" rel="stylesheet">
-    
+
 
 </head>
 
-<body class="nav-md" >
+<body class="nav-md">
   <div class="container body">
     <div class="main_container">
       <!-- top navigation -->
@@ -83,19 +83,33 @@
           <div class="col-md-12 col-sm-6  ">
             <div class="x_panel">
               <div class="x_title">
-                <h2><i class="fa fa-group"></i>Jornadas</h2>
+                <h2><i class="fa fa-group"></i>Jornadas y Partidos</h2>
 
                 <div class="clearfix"></div>
               </div>
               <div class="x_content">
 
 
+                <?php
 
+                include_once("../dao/DaoPartido.php");
+                $daoPartido = new DaoPartido();
+                if (count($daoPartido->listaPartidos()) == 0) {
+                ?>
+                  <div class="col-sm-6">
+                    <button type="button" class="btn btn-round btn-guardar" id="btn-generar" data-toggle="modal" data-target=".bs-example-modal-lg">Generar Jornadas</button>
+                  </div>
+                <?php
+                }
+                ?>
 
-                <button type="button" class="btn btn-round btn-guardar" data-toggle="modal" data-target=".bs-example-modal-lg">Generar Jornadas</button>
-
-                <div   id="resultado" >
-
+                <div class="col-sm-6">
+                  <div class="col-xs-70">
+                    <div class="col-xs-1"></div>
+                    <div class="col-xs-10">
+                      <div id="resultados"></div>
+                    </div>
+                  </div>
                 </div>
                 <!-- modal -->
                 <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true" id="modal_jornada">
@@ -187,15 +201,23 @@
                                     <div class="checkbox">
                                       <label class="">
                                         <div class="icheckbox_flat-green checked" style="position: relative;">
-                                          <input type="checkbox" value="primera" id="primera" name="primera" class="flat" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
+                                          <input type="checkbox" value="8:00:00" id="ocho" name="ocho" class="flat" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
                                         </div>
                                         <font _mstmutation="1" _msthash="4926896" _msttexthash="155376">8:00 am</font>
                                       </label>
                                     </div>
                                     <div class="checkbox">
                                       <label class="">
+                                        <div class="icheckbox_flat-green checked" style="position: relative;">
+                                          <input type="checkbox" value="9:00:00" id="nueve" name="nueve" class="flat" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
+                                        </div>
+                                        <font _mstmutation="1" _msthash="4926896" _msttexthash="155376">9:00 am</font>
+                                      </label>
+                                    </div>
+                                    <div class="checkbox">
+                                      <label class="">
                                         <div class="icheckbox_flat-green" style="position: relative;">
-                                          <input type="checkbox" value="segunda" id="segunda" name="segunda" class="flat" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
+                                          <input type="checkbox" value="10:00:00" id="diez" name="diez" class="flat" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
                                         </div>
                                         <font _mstmutation="1" _msthash="4927143" _msttexthash="202267">10:00 am</font>
                                       </label>
@@ -203,7 +225,15 @@
                                     <div class="checkbox">
                                       <label class="">
                                         <div class="icheckbox_flat-green" style="position: relative;">
-                                          <input type="checkbox" value="tercera" id="tercera" name="tercera" class="flat" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
+                                          <input type="checkbox" value="11:00:00" id="once" name="once" class="flat" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
+                                        </div>
+                                        <font _mstmutation="1" _msthash="4927143" _msttexthash="202267">11:00 am</font>
+                                      </label>
+                                    </div>
+                                    <div class="checkbox">
+                                      <label class="">
+                                        <div class="icheckbox_flat-green" style="position: relative;">
+                                          <input type="checkbox" value="1:00:00" id="una" name="una" class="flat" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
                                         </div>
                                         <font _mstmutation="1" _msthash="4927143" _msttexthash="202267">1:00 pm</font>
                                       </label>
@@ -211,7 +241,15 @@
                                     <div class="checkbox">
                                       <label class="">
                                         <div class="icheckbox_flat-green" style="position: relative;">
-                                          <input type="checkbox" value="cuarta" id="cuarta" name="cuarta" class="flat" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
+                                          <input type="checkbox" value="2:00:00" id="dos" name="dos" class="flat" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
+                                        </div>
+                                        <font _mstmutation="1" _msthash="4927143" _msttexthash="202267">2:00 pm</font>
+                                      </label>
+                                    </div>
+                                    <div class="checkbox">
+                                      <label class="">
+                                        <div class="icheckbox_flat-green" style="position: relative;">
+                                          <input type="checkbox" value="3:00:00" id="tres" name="tres" class="flat" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
                                         </div>
                                         <font _mstmutation="1" _msthash="4927143" _msttexthash="202267"> 3:00 pm</font>
                                       </label>
@@ -219,20 +257,40 @@
                                     <div class="checkbox">
                                       <label class="">
                                         <div class="icheckbox_flat-green" style="position: relative;">
-                                          <input type="checkbox" value="quinta" id="quinta" name="quinta" class="flat" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
+                                          <input type="checkbox" value="4:00:00" id="cuatro" name="cuatro" class="flat" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
+                                        </div>
+                                        <font _mstmutation="1" _msthash="4927143" _msttexthash="202267"> 4:00 pm</font>
+                                      </label>
+                                    </div>
+                                    <div class="checkbox">
+                                      <label class="">
+                                        <div class="icheckbox_flat-green" style="position: relative;">
+                                          <input type="checkbox" value="5:00:00" id="cinco" name="cinco" class="flat" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
+                                        </div>
+                                        <font _mstmutation="1" _msthash="4927143" _msttexthash="202267"> 5:00 pm</font>
+                                      </label>
+                                    </div>
+                                    <div class="checkbox">
+                                      <label class="">
+                                        <div class="icheckbox_flat-green" style="position: relative;">
+                                          <input type="checkbox" value="6:00:00" id="seis" name="seis" class="flat" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
                                         </div>
                                         <font _mstmutation="1" _msthash="4927143" _msttexthash="202267"> 6:00 pm</font>
                                       </label>
                                     </div>
-
-
+                                    <div class="checkbox">
+                                      <label class="">
+                                        <div class="icheckbox_flat-green" style="position: relative;">
+                                          <input type="checkbox" value="7:00:00" id="siete" name="siete" class="flat" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
+                                        </div>
+                                        <font _mstmutation="1" _msthash="4927143" _msttexthash="202267"> 7:00 pm</font>
+                                      </label>
+                                    </div>
                                   </div>
 
                                 </div>
 
                               </div>
-
-
                               <div class="col-lg-6">
                                 <div class="form-group">
                                   <label class="col-form-label col-md-6 col-sm-6">Fecha Inicio<span class="required">*</span></label>
@@ -248,9 +306,15 @@
                           <button type="button" class="btn btn btn-round  btn-cancelar" data-dismiss="modal">
                             <li class="fa fa-close cancelar"></li> Cancelar
                           </button>
-                          <button type="submit" class="btn btn-round btn-guardar">
-                            <li class="fa fa-save"></li> Guardar
-                          </button>
+
+                         
+                         
+                            <button type="submit" class="btn btn-round btn-guardar">
+                              <li class="fa fa-save"></li> Guardar
+                            </button>
+                        
+                         
+
                         </div>
                       </form>
                     </div>
@@ -258,27 +322,20 @@
                 </div>
 
                 <!--Tabla Jornada-->
-                <div class="row">
-                  <div class="col-sm-12">
-                    <div class="card-box table-responsive">
-                      <div id="jornadatabla"></div>
-                    </div>
+                <div class="col-sm-12">
+                  <div class="card-box table-responsive">
+                    <div id="equipotabla"></div>
                   </div>
                 </div>
 
-                <div class="col-xs-12">
-                  <div class="col-xs-1"></div>
-                  <div class="col-xs-10">
-                    <div id="resultados"></div>
-                  </div>
-                  <div class="col-xs-1"></div>
-                </div>
+
                 <!--Vista/js/Controlador/-js/-vista-->
 
               </div>
             </div>
           </div>
         </div>
+
       </div>
     </div>
 

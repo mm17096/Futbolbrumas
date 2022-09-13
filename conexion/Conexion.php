@@ -13,8 +13,8 @@
         function __construct(){
             $this->BaseDatos="bdfutbol";
             $this->Servidor="localhost";
-            $this->Usuario="mm17096";
-            $this->Clave="rootmm17096";
+            $this->Usuario="rootmm17096";
+            $this->Clave= "rootmm17096";
 
             $this->conectar($this->Servidor,$this->Usuario,$this->Clave,$this->BaseDatos);
         }

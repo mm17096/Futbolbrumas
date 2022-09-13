@@ -16,11 +16,13 @@ $correo = (isset($_REQUEST["correo"])) ? $_REQUEST["correo"] : "";
 $sexo = (isset($_REQUEST["sexo"])) ? $_REQUEST["sexo"] : "";
 $date = (isset($_REQUEST["date"])) ? $_REQUEST["date"] : "";
 $telefono = (isset($_REQUEST["telefono"])) ? $_REQUEST["telefono"] : "";
+$tipo = (isset($_REQUEST["tipo"])) ? $_REQUEST["tipo"] : "";
 //variables de Actualizar
 $nombre_update = (isset($_REQUEST["nombre_update"])) ? $_REQUEST["nombre_update"] : "";
 $apellido_update = (isset($_REQUEST["apellido_update"])) ? $_REQUEST["apellido_update"] : "";
 $dui_update = (isset($_REQUEST["dui_update"])) ? $_REQUEST["dui_update"] : "";
 $sexo_update = (isset($_REQUEST["sexo_update"])) ? $_REQUEST["sexo_update"] : "";
+$tipo_update = (isset($_REQUEST["tipo_update"])) ? $_REQUEST["tipo_update"] : "";
 $date_update = (isset($_REQUEST["date_update"])) ? $_REQUEST["date_update"] : "";
 $telefono_update = (isset($_REQUEST["telefono_update"])) ? $_REQUEST["telefono_update"] : "";
 $estado = (isset($_REQUEST["estado"])) ? $_REQUEST["estado"] : "";
@@ -36,13 +38,13 @@ if ($action != "") {
     switch ($action) {
         case 'guardar':
 
-            if ($nombre != "" && $apellido != "" && $dui != "" && $sexo != "" && $date != "" && $telefono != "" && $correo != "") {
+            if ($nombre != "" && $apellido != "" && $dui != "" && $sexo != "" && $tipo != "" && $date != "" && $telefono != "" && $correo != "") {
 
                 if ($daoE->enviarcorreo($correo, $nombre, $apellido, $dui) == true) {
 
                     if ($daoE->registroEmpleado(new Empleado($dui, $nombre, $apellido, $sexo, $date, $telefono, true)) == 1) {
 
-                        if ($daoU->registroUsuarioEn(new Usuario(null, $dui, null, 'empleado', $correo, $correo, Utils::encriptacion($dui))) == 1) {
+                        if ($daoU->registroUsuarioEn(new Usuario(null, $dui, null, $tipo, $correo, $correo, Utils::encriptacion($dui))) == 1) {
 
                             $_SESSION['action_success'] = "completo";
                             print json_encode(array("Exito", $_POST));
@@ -74,13 +76,14 @@ if ($action != "") {
             break;
 
         case 'actualizar':
-            if ($nombre_update != "" && $apellido_update != "" && $dui_update != "" && $sexo_update != "" && $date_update != "" && $telefono_update != "" && $estado != "") {
+            if ($nombre_update != "" && $apellido_update != "" && $dui_update != "" && $sexo_update != "" && $tipo_update != "" && $date_update != "" && $telefono_update != "" && $estado != "") {
 
                 if ($daoE->modificarEmpleado(new Empleado($dui_update, $nombre_update, $apellido_update, $sexo_update, $date_update, $telefono_update, $estado)) == 1) {
-
+                    if ($daoU->modificarUsuarioEn($dui_update, $tipo_update) == 1) {
                     $_SESSION['action_success'] = "modificado";
                     print json_encode(array("Exito", $_POST));
                     exit();
+                    }
                 } else {
 
                     $_SESSION['action_success'] = "error";

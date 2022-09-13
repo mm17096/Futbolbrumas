@@ -1,4 +1,4 @@
-Jornada();
+Equipos();
 
 
 //--------------- Metodos de mensaje ---------------//
@@ -23,8 +23,9 @@ $("#Addjornada").submit(function (event) {
         data: parametros,
         success: function (datos) {
             $('#modal_jornada').modal('hide');
-            $("#resultados").html(datos);
-            Jornada();
+            $("#resultados").html(datos);   
+            
+            Equipos();
         }
     });
 
@@ -33,7 +34,7 @@ $("#Addjornada").submit(function (event) {
 
 
 //ACTUALIZAR TABLA DE PARTIDOS POR JORNADAS
-function Jornada() {
+function Equipos() {
     if (window.XMLHttpRequest) {
         xmlhttp = new XMLHttpRequest();
     } else {
@@ -43,23 +44,14 @@ function Jornada() {
     xmlhttp.onreadystatechange = function () {
         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
 
-            document.getElementById("jornadatabla").innerHTML = xmlhttp.responseText;
-            cargarpaginacion();
+            document.getElementById("equipotabla").innerHTML = xmlhttp.responseText;
+            $('#tablaequipos').DataTable();
+            $('#tablapartidos').DataTable();
         }
     }
-    xmlhttp.open("GET", "../views/tab_jornada.php", true);
+    xmlhttp.open("GET", "../views/tab_equipos.php", true);
     xmlhttp.send();
 }
-function cargarpaginacion() {
-    $('#datatable-buttons').DataTable();
-    $('#example2').DataTable({
-        'paging': true,
-        'lengthChange': false,
-        'searching': false,
-        'ordering': true,
-        'info': true,
-        'autoWidth': false
-    });
-}
+
 
 

@@ -27,8 +27,11 @@
 
                     <li><a><i class="fa fa-bar-chart"></i> Estadisticas<span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
-                            <li><a href="#">Tabla de posiciones</a></li>
-                            <li><a href="#">Partidos por jugar</a></li>
+                            <li><a href="vis_tbposiciones.php">Tabla de Posiciones</a></li>
+                            <li><a href="vis_tbpartidosfaltantes.php">Partidos por Jugar</a></li>
+                            <li><a href="vis_tbpartidosjugados.php">Partidos Jugados</a></li>
+                            <li><a href="vis_mayorgoleador.php">Mayor Goleadores</a></li>
+                            <li><a href="vis_pmenosvencido.php">Portero Menos Vencido</a></li>
                         </ul>
                     </li>
 
@@ -38,14 +41,14 @@
                             <li><a><i class="fa fa-estadio"><img class="fa fa-estadio" src="imagen/partido.png" /></i>
                                     Partidos<span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
-                                    <li><a href="registro_resultados.php"> Registro de resultados</a></li>
-                                    <li><a href="#">Finalizados</a></li>
+                                    <li><a href="vis_jornadadatos.php"> Registro de resultados</a></li>
+
                                 </ul>
                             </li>
 
                             <li><a><i class="fa fa-calendar"></i> Jornadas<span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
-                                    <li><a href="vis_jornada.php">Tabla de jornadas</a></li>
+                                    <li><a href="vis_jornada.php">Generador de Jornadas</a></li>
                                 </ul>
                             </li>
                         <?php endif; ?>
@@ -75,7 +78,7 @@
                         <?php if ($_SESSION['identidad']->tipo == 'administrador' || $_SESSION['identidad']->tipo == 'empleado') : ?>
                             <li><a><i class="fa fa-estadio"><img src="imagen/arbitro.png" /></i> Árbitros<span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
-                                    <li><a href="#">Registros</a></li>
+                                    <li><a href="vis_arbitros.php">Registros</a></li>
                                 </ul>
                             </li>
                         <?php endif; ?>
@@ -83,7 +86,7 @@
                         <?php if ($_SESSION['identidad']->tipo == 'administrador' || $_SESSION['identidad']->tipo == 'empleado') : ?>
                             <li><a><i class="fa fa-estadio"><img src="imagen/cancha.png" /></i> Canchas<span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
-                                    <li><a href="#">Registros</a></li>
+                                    <li><a href="vis_canchas.php">Registros</a></li>
                                 </ul>
                             </li>
                         <?php endif; ?>
@@ -96,9 +99,17 @@
                                 </ul>
                             </li>
                         <?php endif; ?>
+                        <?php if ($_SESSION['identidad']->tipo == 'administrador') : ?>
+                            <li><a><i class="fa fa-database"></i>
+                                    Base de Datos<span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                    <li><a href="hacer_Backup.php">Backup</a></li>
+                                </ul>
+                            </li>
+                        <?php endif; ?>
                     <?php endif; ?>
 
-                    <li><a href="#"><i class="fa fa-book"></i><span> Base de competencia </span></a></li>
+                    <li><a href="basecompe.php"><i class="fa fa-book"></i><span> Base de competencia </span></a></li>
             </div>
 
             <?php if (isset($_SESSION['identidad']) && isset($_SESSION['usuario'])) : ?>
@@ -111,14 +122,14 @@
                         </ul>
                     </div>
                     <div class="menu_section">
-                        <h3>Reportes y Consultas</h3>
+                        <h3>Reportes</h3>
                         <ul class="nav side-menu">
-                            <li><a><i class="fa fa-file-text"></i> Listado reporte/consulta<span class="fa fa-chevron-down"></span></a>
+                            <li><a><i class="fa fa-file-text"></i> Listado reporte.<span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
-                                    <li><a href="#"> Jugadores por equipo</a></li>
-                                    <li><a href="#"> Amonestados por equipo</a></li>
-                                    <li><a href="#"> Máximos goleadores </a></li>
-                                    <li><a href="#"> Porteros menos vencidos</a></li>
+                                    <li><a href="jugador_porequipo.php"> Jugadores por equipo</a></li>
+                                    <li><a href="partidos_jornada.php">Partidos por Jornada</a></li>
+                                    <li><a href="maximos_goleadores.php"> Máximos goleadores </a></li>
+                                    <li><a href="porteros_menosVencido.php"> Porteros menos vencidos</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -143,15 +154,18 @@
 
                     <?php if (isset($_SESSION['identidad']) && isset($_SESSION['usuario'])) : ?>
                         <a href="vis_sesion.php" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
-                            <?php if (isset($_SESSION['usuario']) && $_SESSION['usuario']->imagen != null) : ?>
+
+                        <?php echo $_SESSION['identidad']->tipo;
+                        if (isset($_SESSION['usuario']) && $_SESSION['usuario']->imagen != null) : ?>
                                 <img height="60px" src="data:image/jpg;base64,<?php echo base64_encode($_SESSION['usuario']->imagen) ?>">
                             <?php else : ?>
                                 <img src="imagen/usuario.png" alt="">
                             <?php endif; ?>
-                           
-                           <?php echo $_SESSION['identidad']->nombre .' '. $_SESSION['identidad']->apellido ?>
-                        
+
+                           <?php echo $_SESSION['identidad']->nombre .' '. $_SESSION['identidad']->apellido?>
+
                         </a>
+
                         <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
                             <?php if (isset($_SESSION['index'])) : ?>
                                 <a class="dropdown-item" data-target="#modalperfil" data-toggle="modal" data-toggle="tooltip"><i class="fa fa-user pull-right"></i>Perfil</a>

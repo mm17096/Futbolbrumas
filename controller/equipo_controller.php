@@ -2,11 +2,13 @@
 session_start();
  require_once "../clases/Equipo.php";
  require_once "../dao/DaoEquipo.php";
+ require_once "../dao/DaoJugador.php";
  require_once "../dao/DaoRepresentante.php";
- require_once ("../conexion/Conexion.php");
  require_once "../helpers/utils.php";
 
+
 //VARIABLES PARA AGREGAR UN NUEVO EQUIPO
+$idequipo = isset($_POST['idequipo']) ? $_POST['idequipo'] : "";
 $nombre = isset($_POST['nombre']) ? $_POST['nombre'] : "";
 $representante = isset($_POST['idrepresentante']) ? $_POST['idrepresentante'] : "";
 
@@ -18,7 +20,7 @@ if (isset($_FILES['camisa']) != null) {
 }
 
  $action = (isset($_REQUEST["action"])) ? $_REQUEST["action"] : "";
- 
+
 //variables de Actualizar
 $nombre_edit = (isset($_POST["nombre_edit"])) ? $_POST["nombre_edit"] : "";
 
@@ -54,138 +56,96 @@ $act_idrepresentante= (isset($_REQUEST["act_idrepresentante"])) ? $_REQUEST["act
 
 //Dao Equipo
  $daoE= new DaoEquipo();
+ $daoJJ= new DaoJugador();
  $daoR= new DaoRepresentante();
  $conexion=new Conexion();
 
- 
+
     if($action!=""){
         switch($action){
             case 'guardar':
-                    
-                   if($nombre!=""  && $representante!="" && $imagen != ""){
-                    if($daoE->registroEquipo(new Equipo(null,$nombre,$imagen,$representante,1))==1){
-                        $messages[] = "El registro se ha almacenado con éxito";
-                        ?>
-                            <div id="msjsuccess" class="alert alert-success" role="alert" style=" position:relative ; left : 350% ;top:-300px">
-                                <i class="fa fa-check"></i>
-                                <strong>Registro Almacenado</strong>
-                                <p>
-                                    <?php
-                                    foreach ($messages as $message) {
-                                        echo $message;
-                                    }
-                                    ?>
-                            </div>
-                            
-                        <?php
-                       
+
+                if($nombre!=""  && $representante!="" && $imagen != ""){
+                    if($daoE->registroEquipo(new Equipo(null,$nombre,$imagen,$representante,0))==1){
+                        $_SESSION['action_success'] = "completo";
                         echo '<script>window.location="' . base_url . 'views/vis_equipos.php"</script>';
-                    
-                }else{
-                    $errors[] = "Error en algún proceso, no se completó la acción";
-                    ?>
-                    <div id="msjerror" class="alert alert-danger" role="alert" style=" position:relative ; left : 275% ;top:-300px">
-                        <i class="fa fa-close"></i>
-                        <strong>Error en el proceso</strong>
-                        <p>
-                            <?php
-                            foreach ($errors as $error) {
-                                echo $error;
-                            }
-                            ?>
-                    </div>
-                    <?php
-                   
-            } 
-        }
-                
-            break;
+                    }
+
+
+                }
+                else{
+
+                        $_SESSION['action_success'] = "error";
+                        echo '<script>window.location="' . base_url . 'views/vis_equipos.php"</script>';
+
+                }
+
+
+                break;
             case 'actualizar':
                 if($nombre_edit!="" && $representante_edit!=""){
                     if($camisa_edit!=""){
                         if($daoE->actualizarEquipo(new Equipo($id_edit,$nombre_edit,$camisa_edit,$representante_edit,$estadoedit))==1){
+                            $_SESSION['action_success'] = "modificado";
                             echo '<script>window.location="' . base_url . 'views/vis_equipos.php"</script>';
+
                          }
+
                     }else{
                         if($daoE->actualizarEquiposinIMG(new Equipo($id_edit,$nombre_edit," ",$representante_edit,$estadoedit))==1){
+                            $_SESSION['action_success'] = "modificado";
                             echo '<script>window.location="' . base_url . 'views/vis_equipos.php"</script>';
-                         }
+
+
+
+                        }
+
                     }
-                    
-                }else{ 
-                    $errors[] = "Error al momento de actualizar, algun proceso mal hecho";
-                     ?>
-                     
-                            <div class="alert alert-danger" role="alert">
-                                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                                    <strong>Error!</strong> 
-                                    <?php
-                                        foreach ($errors as $error) {
-                                                echo $error;
-                                            }
-                                        ?>
-                            </div>
-                        
-                     <?php
-                   
+
+                }else{
+                    $_SESSION['action_success'] = "error";
+                    echo '<script>window.location="' . base_url . 'views/vis_equipos.php"</script>';
+
                 }
             break;
             case 'dar_baja':
-               if($desactivar_idequipo!="" ){
-                    if($daoE->DesactivarEquipo(new Equipo($desactivar_idequipo,$des_nombre,$des_camisa,$des_idrepresentante,0))==1){
-                        $messages[] = "El Equipo se ha dado de baja exitosamente.";
-                        ?>
-                            <div class="alert alert-success" role="alert">
-                                    <button type="button" class="close" data-dismiss="alert">&times;</button>
-                                    <strong>¡Bien hecho!</strong>
-                                    <?php
-                                                            foreach ($messages as $message) {
-                                                                    echo $message;
-                                                                }
-                                                            ?>
-                            </div>
-                        
-                        <?php
-                        
-                    }else{
-                        $messages[] = "No ha sido posible dar de baja al Equipo seleccionado.";
-                        ?>
-                            <div class="alert alert-danger" role="alert">
-                                    <button type="button" class="close" data-dismiss="alert">&times;</button>
-                                    <strong>¡Error!</strong>
-                                    <?php
-                                                            foreach ($messages as $message) {
-                                                                    echo $message;
-                                                                }
-                                                            ?>
-                            </div>
-                        
-                        <?php
-                    }
-                }
+            if($desactivar_idequipo!="" ){
+             if ($daoJJ->partidoactivo($desactivar_idequipo) == 1) {
+                 if($daoE->DesactivarEquipo(new Equipo($desactivar_idequipo,$des_nombre,$des_camisa,$des_idrepresentante,0))==1){
 
+                     $_SESSION['action_success'] = "modificadobaja";
+                     echo '<script>window.location="' . base_url . 'views/vis_equipos.php"</script>';
+                 }
+                 }else{
+
+                     $messages[] = "El equipo ya esta compitiendo en el torneo.";
+                      ?>
+                          <div id="msjerror" class="alert alert-danger" role="alert">
+                                  <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                  <strong>¡Error!</strong>
+                                  <?php
+                                                          foreach ($messages as $message) {
+                                                                  echo $message;
+                                                              }
+                                                          ?>
+                          </div>
+
+                      <?php
+                 }
+
+             }
             break;
             case 'dar_alta':
                 if($activar_idequipo!="" ){
-                     if($daoE->DesactivarEquipo(new Equipo($activar_idequipo,$act_nombre,$act_camisa,$act_idrepresentante,1))==1){
-                         $messages[] = "El Equipo se ha dado de Alta nuevamente.";
-                         ?>
-                             <div class="alert alert-success" role="alert">
-                                     <button type="button" class="close" data-dismiss="alert" id="dat_eliminado">&times;</button>
-                                     <strong>¡Bien hecho!</strong>
-                                     <?php
-                                                             foreach ($messages as $message) {
-                                                                     echo $message;
-                                                                 }
-                                                             ?>
-                             </div>
-                         
-                         <?php
-                         
+                    if ($daoJJ->listaDejugadoresEquipo($activar_idequipo) == 1) {
+                     if($daoE->ActivarEquipo(new Equipo($activar_idequipo,$act_nombre,$act_camisa,$act_idrepresentante,1))==1){
+                        $_SESSION['action_success'] = "modificadoalta";
+                        echo '<script>window.location="' . base_url . 'views/vis_equipos.php"</script>';
+                     }
                      }else{
-                         $messages[] = "no se ha podido dar de Alta al equipo, buelva a intentarlo.";
+                         $messages[] = "El equipo debe de tener 3 o mas jugadores para dar de Alta.";
                          ?>
-                             <div class="alert alert-danger" role="alert">
+                             <div id="msjerror" class="alert alert-danger" role="alert">
                                      <button type="button" class="close" data-dismiss="alert">&times;</button>
                                      <strong>¡Error!</strong>
                                      <?php
@@ -194,15 +154,16 @@ $act_idrepresentante= (isset($_REQUEST["act_idrepresentante"])) ? $_REQUEST["act
                                                                  }
                                                              ?>
                              </div>
-                         
+
                          <?php
                      }
+
                  }
- 
+
              break;
              case 'verificarEquipo':
-             
-               
+
+
                     if($daoE->verificarNombreEquipo($_POST['nombre']) == 1){
                         print json_encode(array("Error", $_POST));
                         exit();
@@ -210,19 +171,28 @@ $act_idrepresentante= (isset($_REQUEST["act_idrepresentante"])) ? $_REQUEST["act
                         print json_encode(array("Exito", $_POST));
                         exit();
                     }
-                
-    
+
+
             break;
+            case 'verificarequipoEdit':
+
+
+                if($daoE->verificarNombreEquipoEdit($_POST['nombre']) == 1){
+                    print json_encode(array("Error", $_POST));
+                    exit();
+                } else {
+                    print json_encode(array("Exito", $_POST));
+                    exit();
+                }
+
+
+        break;
 
         }
 
     }
-
-    
-    
-
 ?>
-<script type="text/javascript">
+<!--<script type="text/javascript">
     msj();
 
     function msj() {
@@ -236,4 +206,4 @@ $act_idrepresentante= (isset($_REQUEST["act_idrepresentante"])) ? $_REQUEST["act
         }, 3500);
 
     };
-</script>
+</script>-->

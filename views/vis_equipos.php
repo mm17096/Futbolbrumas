@@ -42,35 +42,35 @@
     <link href="../alerta/build/toastr.css" rel="stylesheet" type="text/css" />
 </head>
 
-<body class="nav-md" id="msjsuccess">
+<body class="nav-md" onload="msj()">
     <main class="page-content">
         <div class="container body">
             <div class="main_container">
                 <!-- top navigation -->
 
                 <?php
-        session_start();
-        $_SESSION['index'] = null;
-        unset($_SESSION['index']);
-        if (isset($_SESSION['identidad']) && isset($_SESSION['usuario'])) {
-          require_once('menu.php');
-        } else {
-          header("Location: ../views/index.php");
-        }
-        include_once("../dao/DaoEquipo.php");
-        include_once("../dao/DaoRepresentante.php");
-        ?>
+                session_start();
+                $_SESSION['index'] = null;
+                unset($_SESSION['index']);
+                if (isset($_SESSION['identidad']) && isset($_SESSION['usuario'])) {
+                    require_once('menu.php');
+                } else {
+                    header("Location: ../views/index.php");
+                }
+                include_once("../dao/DaoEquipo.php");
+                include_once("../dao/DaoRepresentante.php");
+                ?>
 
                 <style type="text/css">
-                .required {
-                    color: red;
-                }
+                    .required {
+                        color: red;
+                    }
 
-                .form-group {
-                    width: 70%;
-                    margin-left: auto;
-                    margin-right: auto;
-                }
+                    .form-group {
+                        width: 70%;
+                        margin-left: auto;
+                        margin-right: auto;
+                    }
                 </style>
 
                 <!-- Contenido -->
@@ -82,21 +82,129 @@
                                     <h2><i class="fa fa-group"></i> Datos Equipos</h2>
                                     <div class="clearfix"></div>
                                 </div>
-                                <div class="x_content" >
-                                    <button type="button" class="btn btn-round btn-guardar" data-toggle="modal"
-                                    data-target=".bs-example-modal-lg"> Agregar Equipo</button>
-                                </div>
-                                
-                                          
-                                <!--Respuesta JS-->
-                               <div class="col-xs-70">
-                                    <div class="col-xs-1"></div>
-                                    <div class="col-xs-10">
-                                        <div id="resultados"></div>
+                                <div class="col-sm-6">
+                                    <div class="x_content">
+                                        <button type="button" class="btn btn-round btn-guardar" data-toggle="modal" data-target=".bs-example-modal-lg"> Agregar Equipo</button>
                                     </div>
-                                    <div class="col-xs-1"></div>
                                 </div>
+                                <!--Respuesta JS-->
+                                <div class="col-sm-6">
+                                    <div class="col-xs-70">
+                                        <div class="col-xs-1"></div>
+                                        <div class="col-xs-10">
+                                            <div id="resultados"></div>
+                                        </div>
+                                        <div class="col-xs-1"></div>
+                                    </div>
+                                </div>
+                                <!-- MENSAJE DE ACCIONES -->
+                                <?php
+                                //$action = (isset($_REQUEST["action"])) ? $_REQUEST["action"] : "";
+
+                                if (isset($_SESSION['action_success']) && $_SESSION['action_success'] == 'completo') {
+
+                                    $_SESSION['action_success'] = null;
+                                    unset($_SESSION['action_success']);
+                                    $messages[] = "El registro se ha almacenado con éxito.";
+                                ?>
+                                    <div id="msjerror" class="alert alert-success" role="alert" style=" position: absolute;
+                                                       right: 15%;
+                                                          top: 0px;">
+                                        <button type="button" class="close" data-dismiss="alert"></button>
+                                        <i class="fa fa-check"></i>
+                                        <strong>Registro Almacenado</strong>
+                                        <?php
+                                        foreach ($messages as $message) {
+                                            echo $message;
+                                        }
+                                        ?>
+                                    </div>
+
+                                <?php
+                                } else if (isset($_SESSION['action_success']) && $_SESSION['action_success'] == 'modificado') {
+
+                                    $_SESSION['action_success'] = null;
+                                    unset($_SESSION['action_success']);
+                                    $errors[] = "El registro se ha modificado con éxito";
+                                ?>
+                                    <div id="msjerror" class="alert alert-info" role="alert" style=" position: absolute;
+                                                       right: 15%;
+                                                          top: 0px;">
+                                        <i class="fa fa-exclamation-circle"></i>
+                                        <strong>Registro modificado</strong>
+
+                                        <?php
+                                        foreach ($errors as $error) {
+                                            echo $error;
+                                        }
+                                        ?>
+                                    </div>
+                                <?php
+                                } else if (isset($_SESSION['action_success']) && $_SESSION['action_success'] == 'modificadobaja') {
+
+                                    $_SESSION['action_success'] = null;
+                                    unset($_SESSION['action_success']);
+                                    $messages[] = "El registro se ha dado de baja con éxito.";
+                                ?>
+                                    <div id="msjerror" class="alert alert-ba" role="alert" style=" position: absolute;
+                                                       right: 15%;
+                                                          top: 0px;">
+                                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                        <i class="fa fa-thumbs-o-down"></i>
+                                        <strong>Registro Dado Baja</strong>
+                                        <?php
+                                        foreach ($messages as $message) {
+                                            echo $message;
+                                        }
+                                        ?>
+                                    </div>
+
+                                <?php
+                                } else if (isset($_SESSION['action_success']) && $_SESSION['action_success'] == 'modificadoalta') {
+
+                                    $_SESSION['action_success'] = null;
+                                    unset($_SESSION['action_success']);
+                                    $messages[] = "El registro se ha dado de alta con éxito.";
+                                ?>
+                                    <div id="msjerror" class="alert alert-ba" role="alert" style=" position: absolute;
+                                                       right: 15%;
+                                                          top: 0px;">
+                                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                        <i class="fa fa-thumbs-o-up"></i>
+                                        <strong>Registro Dado Alta</strong>
+                                        <?php
+                                        foreach ($messages as $message) {
+                                            echo $message;
+                                        }
+                                        ?>
+                                    </div>
+
+                                <?php
+                                } else if (isset($_SESSION['action_success']) && $_SESSION['action_success'] == 'error') {
+
+                                    $_SESSION['action_success'] = null;
+                                    unset($_SESSION['action_success']);
+                                    $errors[] = "Ocurrió  un error al actualizar el registro.";
+                                ?>
+
+                                    <div id="msjerror" class="alert alert-danger" role="alert" style=" position: absolute;
+                                                       right: 15%;
+                                                          top: 0px;">
+                                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                        <strong>Error de Registro</strong>
+                                        <?php
+                                        foreach ($errors as $error) {
+                                            echo $error;
+                                        }
+                                        ?>
+                                    </div>
+
+                                <?php
+                                }
+                                ?>
+                                <!-- MENSAJE DE ACCIONES -->
                                 <!--termina Respuesta JS-->
+
                                 <!--INICIO DE TABLA-->
                                 <div class="x_content">
                                     <div class="row">
@@ -109,81 +217,95 @@
                                     </div>
                                 </div>
                                 <!--INICIO DE TABLA-->
+
                                 <!-- INICIA MODAL PORA INGRESAR UN NUEVO EQUIPO-->
-                                <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" id="modalE"
-                                    aria-hidden="true">
+                                <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" id="modalE" aria-hidden="true">
                                     <div class="modal-dialog modal-lg">
                                         <div class="modal-content">
-                                            <form action="../controller/equipo_controller.php?action=guardar"
-                                                method="POST" enctype="multipart/form-data">
+                                            <form action="../controller/equipo_controller.php?action=guardar" method="POST" enctype="multipart/form-data">
                                                 <div class="modal-header">
-                                                    <h4 class="modal-title" id="myModalLabel">Equipo</h4>
-                                                    <button type="button" class="close" data-dismiss="modal"><span
-                                                            aria-hidden="true">×</span></button>
+                                                    <h6 class="modal-title" id="myModalLabel">Equipo</h6>
+                                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span></button>
                                                 </div>
                                                 <div class="modal-body">
                                                     <div class="panel-body">
                                                         <div class="row">
 
                                                             <div class="col-lg-6">
+
                                                                 <div class="form-group">
-                                                                    <label for="nombre"
-                                                                        class="col-form-label col-md-6 col-sm-6">Nombre
+                                                                    <label for="nombre" class="col-form-label col-md-6 col-sm-6">Nombre
                                                                         <span class="required">*</span></label>
-                                                                    <input type="text" id="nombre" name="nombre"
-                                                                        class="form-control" onblur="validarEquipo()"
-                                                                        placeholder="Ingrese nombre de equipo"
-                                                                        autocomplete="off" required>
-                                                                    <div class="mensajeEquipo"
-                                                                        style="display: none; color: orange;">
+                                                                    <input type="text" id="nombre" name="nombre" class="form-control" onblur="validarEquipo()" placeholder="Ingrese nombre de equipo" autocomplete="off" required="required" minlength="5" maxlength="25" onkeypress="return soloLetras(event)">
+                                                                    <span class="mensajeEquipo" style="display: none; color: red;">
                                                                         <i class="fa fa-exclamation-triangle">El nombre
-                                                                            del equipo ya existe!</i>
-                                                                    </div>
+                                                                            del equipo ya existe</i>
+                                                                    </span>
+                                                                    <span class="mensajeEquipovacio" style="display: none; color: orange;">
+                                                                        <i class="fa fa-exclamation-triangle">Debe
+                                                                            completar los campos obligatorios
+                                                                        </i>
+                                                                    </span>
+
                                                                 </div>
+
                                                                 <div class="form-group ">
-                                                                    <label for="camisa"
-                                                                        class="col-form-label col-md-6 col-sm-6"
-                                                                        mame="noSS">Camiseta <span
-                                                                            class="required">*</span></label>
-                                                                    <input type="file" id="camisa" accept="imagen/*"
-                                                                        name="camisa" class="form-control-file"
-                                                                        required>
+                                                                    <label for="camisa" class="col-form-label col-md-6 col-sm-6" mame="noSS">Camiseta <span class="required">*</span></label>
+                                                                    <input type="file" id="camisa" accept="imagen/*" name="camisa" class="form-control-file" required onblur="validarcamisag()">
+                                                                    <span class="mensajecamisa" style="display: none; color: orange;">
+                                                                        <i class="fa fa-exclamation-triangle">Selecciona
+                                                                            una imagen</i>
+                                                                    </span>
+                                                                    <input type="hidden" name="fullcamisa" id="fullcamisa">
                                                                 </div>
                                                             </div>
+
+
                                                             <div class="col-lg-6">
-                                                                <div class="form-group">
-                                                                    <label for="idrepresentante"
-                                                                        class="col-form-label col-md-3 col-sm-3">Representante<span
-                                                                            class="required">*</span></label>
-                                                                    <select id="idrepresentante" name="idrepresentante"
-                                                                        class="form-control" required>
-                                                                        <option value="">seleccione representante
-                                                                        </option>
-                                                                        <?php
-                                    $daoRR = new DaoRepresentante();
-                                    $fila = $daoRR->listaRepresentanteR();
-                                    foreach ($fila as $key => $value) {
-                                    ?>
-                                                                        <option value="<?php echo $value->getDui(); ?>">
-                                                                            <?php echo $value->getNombre(); ?>
-                                                                            <?php echo $value->getApellido(); ?>
-                                                                        </option>
-                                                                        <?php
-                                    }
-                                    ?>
-                                                                    </select>
-                                                                </div>
+                                                                <?php if ($_SESSION['identidad']->tipo == 'administrador') : ?>
+                                                                    <div class="form-group">
+                                                                        <label for="idrepresentante" class="col-form-label col-md-3 col-sm-3">Representante<span class="required">*</span></label>
+                                                                        <select id="idrepresentante" name="idrepresentante" class="form-control" required onblur="validarepresentante()">
+                                                                            <option value="">seleccione representante
+                                                                            </option>
+                                                                            <?php
+                                                                            $daoRR = new DaoRepresentante();
+                                                                            $fila = $daoRR->listaRepresentanteR();
+                                                                            foreach ($fila as $key => $value) {
+                                                                            ?>
+                                                                                <option value="<?php echo $value->getDui(); ?>">
+                                                                                    <?php echo $value->getNombre(); ?>
+                                                                                    <?php echo $value->getApellido(); ?>
+                                                                                </option>
+                                                                            <?php
+                                                                            }
+                                                                            ?>
+                                                                        </select>
+                                                                        <span class="mensajerepresentante" style="display: none; color: orange;">
+                                                                            <i class="fa fa-exclamation-triangle">Selecciona
+                                                                                un representante</i>
+                                                                        </span>
+                                                                        <input type="hidden" name="fullrepresentante" id="fullrepresentante">
+                                                                    </div>
+                                                                <?php else : ?>
+                                                                    <input type="hidden" id="idrepresentante" name="idrepresentante" value="<?php echo $_SESSION['identidad']->dui ?>">
+
+                                                                    <div class="form-group" id="imagepreview">
+                                                                        <img height="170px" width="150px" class="img-circle profile_img">
+                                                                    </div>
+
+                                                                    <span class="mensajeimg" style="display: none; color: orange;"><i class="fa fa-exclamation-triangle">
+                                                                        </i> La imagen no es permitida</span>
+                                                                <?php endif; ?>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn btn-round  btn-cancelar"
-                                                        data-dismiss="modal">
+                                                    <button type="button" class="btn btn btn-round  btn-cancelar" data-dismiss="modal">
                                                         <li class="fa fa-close cancelar"></li> Cancelar
                                                     </button>
-                                                    <button type="submit" class="btn btn-round btn-guardar"
-                                                        value="guardar">
+                                                    <button type="submit" class="btn btn-round btn-guardar" value="guardar" id="">
                                                         <li class="fa fa-save"></li> Guardar
                                                     </button>
                                                 </div>
@@ -192,18 +314,15 @@
                                     </div>
                                 </div>
                                 <!-- TERMINA MODAL AGREGAR EQUIPO/modal -->
+
                                 <!-- INICIA MODAL PARA MODIFICAR EQUIPO-->
-                                <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog"
-                                    id="editEquipoModal" aria-hidden="true">
+                                <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" id="editEquipoModal" aria-hidden="true">
                                     <div class="modal-dialog modal-lg">
                                         <div class="modal-content">
-                                            <form class=""
-                                                action="../controller/equipo_controller.php?action=actualizar"
-                                                method="post" enctype="multipart/form-data">
+                                            <form class="" action="../controller/equipo_controller.php?action=actualizar" method="post" enctype="multipart/form-data">
                                                 <div class="modal-header">
-                                                    <h4 class="modal-title" id="myModalLabel">Modificar Equipo</h4>
-                                                    <button type="button" class="close" data-dismiss="modal"><span
-                                                            aria-hidden="true">×</span></button>
+                                                    <h6 class="modal-title" id="myModalLabel">Modificar Equipo</h6>
+                                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span></button>
                                                 </div>
                                                 <!--Imput de ID-->
                                                 <input type="hidden" name="id_edit" id="id_edit">
@@ -213,56 +332,67 @@
 
                                                             <div class="col-lg-6">
                                                                 <div class="form-group">
-                                                                    <label for="nombre"
-                                                                        class="col-form-label col-md-6 col-sm-6">Nombre
+                                                                    <label for="nombre" class="col-form-label col-md-6 col-sm-6">Nombre
                                                                         <span class="required">*</span></label>
-                                                                    <input type="text" id="nombre_edit"
-                                                                        name="nombre_edit" class="form-control"
-                                                                        required="required" onblur="validarEquipo()">
+                                                                    <input type="text" id="nombre_edit" name="nombre_edit" class="form-control" required="required" onblur="validarequipoEdit()" minlength="5" maxlength="25" onkeypress="return soloLetras(event)">
+                                                                    <span class="mensajeequipoedit" style="display: none; color: orange;">
+                                                                        <i class="fa fa-exclamation-triangle">El nombre
+                                                                            del equipo ya existe</i>
+                                                                    </span>
                                                                 </div>
                                                                 <div class="form-group ">
 
-                                                                    <label for="camisa"
-                                                                        class="col-form-label col-md-6 col-sm-6"
-                                                                        name="camisa">Camiseta <span
-                                                                            class="required">*</span></label>
-                                                                    <input type="file" id="camisa_edit"
-                                                                        name="camisa_edit" class="form-control-file"
-                                                                        accept="imagen/*">
-
+                                                                    <label for="camisa" class="col-form-label col-md-6 col-sm-6" name="camisa">Camiseta <span class="required">*</span></label>
+                                                                    <input type="file" id="camisa_edit" name="camisa_edit" class="form-control-file" accept="imagen/*" onblur="validarcamisaEdit()">
+                                                                    <span class="mensajecamisaedit" style="display: none; color: orange;">
+                                                                        <i class="fa fa-exclamation-triangle">Selecciona
+                                                                            una imagen</i>
+                                                                    </span>
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-6">
+                                                            <?php if ($_SESSION['identidad']->tipo == 'administrador') : ?>
                                                                 <div class="form-group">
-                                                                    <label for="idrepresentante"
-                                                                        class="col-form-label col-md-3 col-sm-3">Representante<span
-                                                                            class="required">*</span></label>
-                                                                    <select id="idrepresentante_edit"
-                                                                        name="idrepresentante_edit" class="form-control"
-                                                                        required="required">
-                                                                        <option value="">seleccione representante
-                                                                        </option>
-                                                                        <?php
-                                    $daoRR = new DaoRepresentante();
-                                    $fila = $daoRR->listaRepresentanteR();
-                                    foreach ($fila as $key => $value) {
-                                    ?>
-                                                                        <option value="<?php echo $value->getDui(); ?>">
-                                                                            <?php echo $value->getNombre(); ?>
-                                                                            <?php echo $value->getApellido(); ?>
-                                                                        </option>
-                                                                        <?php
-                                    }
-                                    ?>
-                                                                    </select>
+                                                                        <label for="idrepresentante" class="col-form-label col-md-3 col-sm-3">Representante<span class="required">*</span></label>
+                                                                        <select id="idrepresentante_edit" name="idrepresentante_edit" class="form-control" required="required" onblur="validarepresentanteEdit()">
+                                                                            <option value="">seleccione representante
+                                                                            </option>
+                                                                            <?php
+                                                                            $daoRR = new DaoRepresentante();
+                                                                            $fila = $daoRR->listaRepresentanteR();
+                                                                            foreach ($fila as $key => $value) {
+                                                                            ?>
+                                                                                <option value="<?php echo $value->getDui(); ?>">
+                                                                                    <?php echo $value->getNombre(); ?>
+                                                                                    <?php echo $value->getApellido(); ?>
+                                                                                </option>
+                                                                            <?php
+                                                                            }
+                                                                            ?>
+
+                                                                            <input type="hidden" id="estadoedit" name="estadoedit">
+                                                                        </select>
+                                                                        <span class="mensajerepresentanteedit" style="display: none; color: orange;">
+                                                                            <i class="fa fa-exclamation-triangle">selecciona
+                                                                                un representante</i>
+                                                                        </span>
                                                                 </div>
+                                                            <?php else : ?>
+                                                                <input type="hidden" id="idrepresentante_edit" name="idrepresentante_edit" value="<?php echo $_SESSION['identidad']->dui ?>">
+
+                                                                <div class="form-group" id="imagepreview_edit">
+                                                                    <img height="170px" width="150px" class="img-circle profile_img">
+                                                                </div>
+
+                                                                <span class="mensajeimg_edit" style="display: none; color: orange;"><i class="fa fa-exclamation-triangle">
+                                                                    </i> La imagen no es permitida</span>
+                                                            <?php endif; ?>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn btn-round  btn-cancelar"
-                                                        data-dismiss="modal">
+                                                    <button type="button" class="btn btn btn-round  btn-cancelar" data-dismiss="modal">
                                                         <li class="fa fa-close cancelar"></li> Cancelar
                                                     </button>
                                                     <button type="submit" class="btn btn-round btn-guardar">
@@ -281,15 +411,13 @@
                                             <form id="baja" name="baja" action="baja" method="POST">
                                                 <div class="modal-header">
                                                     <h2 class="modal-title" id="myModalLabel">Dar de Baja al Equipo</h2>
-                                                    <button type="button" class="close" data-dismiss="modal"><span
-                                                            aria-hidden="true">×</span>
+                                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
                                                     <div class="panel-body">
                                                         <div class="row">
-                                                            <input type="hidden" name="desactivar_idequipo"
-                                                                id="desactivar_idequipo">
+                                                            <input type="hidden" name="desactivar_idequipo" id="desactivar_idequipo">
                                                             <h2 for="">¿Seguro que quieres dar de baja a este registro?
                                                             </h2>
                                                             <div>Esta acción se puede deshacer</div>
@@ -298,9 +426,8 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn btn-round  btn-cancelar"
-                                                        data-dismiss="modal">
+                                                <div class="modal-footer ">
+                                                    <button type="button" class="btn btn btn-round  btn-cancelar" data-dismiss="modal">
                                                         <li class="fa fa-close cancelar"></li> Cancelar
                                                     </button>
                                                     <button type="submit" class="btn btn-round btn-guardar">
@@ -318,15 +445,13 @@
                                             <form id="alta" name="alta" method="POST">
                                                 <div class="modal-header">
                                                     <h4 class="modal-title" id="myModalLabel">Dar de Alta al Equipo</h4>
-                                                    <button type="button" class="close" data-dismiss="modal"><span
-                                                            aria-hidden="true">×</span>
+                                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
                                                     <div class="panel-body">
                                                         <div class="row">
-                                                            <input type="hidden" name="activar_idequipo"
-                                                                id="activar_idequipo">
+                                                            <input type="hidden" name="activar_idequipo" id="activar_idequipo">
                                                             <h2 for="">¿Seguro que quieres dar de alta a este registro?
                                                             </h2>
                                                             <div>Esta acción se puede deshacer</div>
@@ -334,10 +459,8 @@
 
                                                     </div>
                                                 </div>
-
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn btn-round  btn-cancelar"
-                                                        data-dismiss="modal">
+                                                    <button type="button" class="btn btn btn-round  btn-cancelar" data-dismiss="modal">
                                                         <li class="fa fa-close cancelar"></li> Cancelar
                                                     </button>
                                                     <button type="submit" class="btn btn-round btn-guardar">
@@ -357,8 +480,8 @@
             <!-- /Contenido -->
             <!-- Pied de  Pagina -->
             <?php
-      require_once('pie.php');
-      ?>
+            require_once('pie.php');
+            ?>
             <!-- /Pie de Pagina -->
         </div>
     </main>
@@ -416,8 +539,8 @@
     <script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
     <script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
 
-    <script src="../scripts/equipo/equipo.js"  type="text/javascript" charset="utf-8"></script>
-    
+    <script src="../scripts/equipo/equipo.js" type="text/javascript" charset="utf-8"></script>
+
 </body>
 
 </html>

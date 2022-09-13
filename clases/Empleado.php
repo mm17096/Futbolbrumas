@@ -38,6 +38,10 @@ class Empleado{
         return $this->FechaNacimiento;
     }
 
+    function setFechaNacimiento($idequipo){
+       $this->Idequipo = $idequipo;
+    }
+
     function getTelefono(){
         return $this->Telefono;
     }
@@ -45,5 +49,6 @@ class Empleado{
     function getEstado(){
         return $this->Estado;
     }
+
+
 }
-?>

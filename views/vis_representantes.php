@@ -99,12 +99,11 @@
                                     $messages[] = "El registro se ha almacenado con éxito";
                                 ?>
                                 <div id="msjsuccess" class="alert alert-success" role="alert" style=" position: absolute;
-                                                   right: 25%;
+                                                      right: 50px;
                                                       top: 0px;">
                                     <i class="fa fa-check"></i>
                                     <strong>Registro Almacenado</strong>
-                                    <p>
-                                        <?php
+                                    <?php
                                         foreach ($messages as $message) {
                                             echo $message;
                                         }
@@ -118,12 +117,12 @@
                                     $errors[] = "El registro se ha modificado con éxito";
                                 ?>
                                 <div id="msjerror" class="alert alert-info" role="alert" style=" position: absolute;
-                                                       right: 25%;
+                                                       right: 50px;
                                                           top: 0px;">
                                     <i class="fa fa-info-circle"></i>
                                     <strong>Registro Modificado</strong>
-                                    <p>
-                                        <?php
+
+                                    <?php
                                         foreach ($errors as $error) {
                                             echo $error;
                                         }
@@ -136,13 +135,12 @@
                                     unset($_SESSION['action_success']);
                                     $errors[] = "El registro se ha dado de baja con éxito";
                                 ?>
-                                <div id="msjerror" class="alert alert-info" role="alert" style=" position: absolute;
-                                                       right: 25%;
+                                <div id="msjerror" class="alert alert-ba" role="alert" style=" position: absolute;
+                                                       right: 50px;
                                                           top: 0px;">
-                                    <i class="fa fa-exclamation-circle"></i>
+                                    <i class="fa fa-thumbs-o-down"></i>
                                     <strong>Registro Dado de Baja</strong>
-                                    <p>
-                                        <?php
+                                    <?php
                                         foreach ($errors as $error) {
                                             echo $error;
                                         }
@@ -155,13 +153,12 @@
                                     unset($_SESSION['action_success']);
                                     $errors[] = "El registro se ha dado de alta con éxito";
                                 ?>
-                                <div id="msjerror" class="alert alert-info" role="alert" style=" position: absolute;
-                                                       right: 25%;
+                                <div id="msjerror" class="alert alert-ba" role="alert" style=" position: absolute;
+                                                       right: 50px;
                                                           top: 0px;">
-                                    <i class="fa fa-exclamation-circle"></i>
+                                    <i class="fa fa-thumbs-o-up"></i>
                                     <strong>Registro Dado de Alta</strong>
-                                    <p>
-                                        <?php
+                                    <?php
                                         foreach ($errors as $error) {
                                             echo $error;
                                         }
@@ -175,12 +172,11 @@
                                     $errors[] = "Error en algún proceso, no se completó la acción";
                                 ?>
                                 <div id="msjerror" class="alert alert-danger" role="alert" style=" position: absolute;
-                                                       right: 25%;
+                                                       right: 50px;
                                                           top: 0px;">
                                     <i class="fa fa-close"></i>
                                     <strong>Error en el proceso</strong>
-                                    <p>
-                                        <?php
+                                    <?php
                                         foreach ($errors as $error) {
                                             echo $error;
                                         }
@@ -586,27 +582,33 @@
                                                 </div>
 
                                                 <div class="modal-body">
-                                                    <p>¿Seguro que desea dar de baja a este registro?</p>
-                                                    <p><small>Esta acción se puede deshacer.</small></p>
-                                                    <!--Variable a donde se guardara id a eliminar-->
-                                                    <input type="hidden" name="dui_baja" id="dui_baja">
-                                                </div>
-                                                <div class="modal-footer text-center">
-                                                    <div class="form-group">
-                                                        <div class="col-sm-6">
-                                                            <button id="cancelar" name="cancelar" type="button"
-                                                                data-dismiss="modal"
-                                                                class="btn btn btn-round  btn-cancelar"><span
-                                                                    class="fa fa-close"></span>
-                                                                Cancelar</button>
+                                                    <div class="panel-body">
+                                                        <div class="row">
+                                                            <input type="hidden" name="desactivar_idequipo"
+                                                                id="desactivar_idequipo">
+                                                            <h2 for="">¿Seguro que quieres dar de baja a este registro?
+                                                            </h2>
+                                                            <div>Esta acción se puede deshacer</div>
                                                         </div>
-                                                        <div class="col-sm-6">
-                                                            <button type="submit" onclick="debajaRepresentante()"
-                                                                class="btn btn-round btn-guardar"><span
-                                                                    class="fa fa-thumbs-o-down"></span>
-                                                                Dar de Baja</button>
-                                                        </div>
+
                                                     </div>
+                                                </div>
+
+                                                <input type="hidden" name="dui_baja" id="dui_baja">
+
+                                                <div class="modal-footer text-center">
+
+                                                    <button id="cancelar" name="cancelar" type="button"
+                                                        data-dismiss="modal"
+                                                        class="btn btn btn-round  btn-cancelar"><span
+                                                            class="fa fa-close"></span>
+                                                        Cancelar</button>
+
+                                                    <button type="submit" onclick="debajaRepresentante()"
+                                                        class="btn btn-round btn-guardar"><span
+                                                            class="fa fa-thumbs-o-down"></span>
+                                                        Dar de Baja</button>
+
                                                 </div>
                                             </form>
                                         </div>
@@ -629,28 +631,34 @@
                                                 </div>
 
                                                 <div class="modal-body">
-                                                    <p>¿Seguro que desea dar de alta a este registro?</p>
-                                                    <p><small>Esta acción se puede deshacer.</small></p>
-                                                    <!--Variable a donde se guardara id a eliminar-->
-                                                    <input type="hidden" name="dui_alta" id="dui_alta">
-                                                </div>
-                                                <div class="modal-footer text-center">
-                                                    <div class="form-group">
-                                                        <div class="col-sm-6">
-                                                            <button id="cancelar" name="cancelar" type="button"
-                                                                data-dismiss="modal"
-                                                                class="btn btn btn-round  btn-cancelar"><span
-                                                                    class="fa fa-close"></span>
-                                                                Cancelar</button>
+                                                    <div class="panel-body">
+                                                        <div class="row">
+                                                            <input type="hidden" name="desactivar_idequipo"
+                                                                id="desactivar_idequipo">
+                                                            <h2 for="">¿Seguro que quieres dar de baja a este registro?
+                                                            </h2>
+                                                            <div>Esta acción se puede deshacer</div>
                                                         </div>
-                                                        <div class="col-sm-6">
-                                                            <button type="submit" onclick="dealtaRepresentante()"
-                                                                class="btn btn-round btn-guardar"><span
-                                                                    class="fa fa-thumbs-o-up"></span>
-                                                                Dar de Alta</button>
-                                                        </div>
+
                                                     </div>
                                                 </div>
+
+                                                <input type="hidden" name="dui_alta" id="dui_alta">
+
+                                                <div class="modal-footer text-center">
+
+                                                    <button id="cancelar" name="cancelar" type="button"
+                                                        data-dismiss="modal"
+                                                        class="btn btn btn-round  btn-cancelar"><span
+                                                            class="fa fa-close"></span>
+                                                        Cancelar</button>
+
+                                                    <button type="submit" onclick="dealtaRepresentante()"
+                                                        class="btn btn-round btn-guardar"><span
+                                                            class="fa fa-thumbs-o-up"></span>
+                                                        Dar de Alta</button>
+                                                </div>
+                                                
                                             </form>
                                         </div>
                                     </div>

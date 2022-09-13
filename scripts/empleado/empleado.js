@@ -108,6 +108,10 @@ function abrirmodalEditar() {
     $('#sexo_update').val(sexo);
     $('#fullsexoedit').val("validado")
 
+    var tipo = button.data('tipo')
+    $('#tipo_update').val(tipo);
+    $('#fulltipoedit').val("validado")
+
     var fecha = button.data('fecha')
     $('#date_update').val(fecha)
     $('#fulldateedit').val("validado")
@@ -409,6 +413,29 @@ function validarfecha() {
 };
 //-------- Validacion de Fecha ------//
 
+//------  Validacion del Tipo ------//
+function validartipo() {
+  $sexo = document.getElementById("tipo").value;
+
+  if ($sexo == 'administrador' || $sexo == 'empleado') {
+    $("#fulltipo").val("validado");
+    verificarboton();
+  } else {
+    $("#fulltipo").val("");
+    setTimeout(function () {
+      document.getElementById('tipo').classList.add("color_campos_incompletos");
+      $(".mensajetipo").fadeIn(1500);
+    }, 100);
+
+    setTimeout(function () {
+      document.getElementById('tipo').classList.remove("color_campos_incompletos");
+      $(".mensajetipo").fadeOut(1500);
+    }, 3500);
+    verificarboton();
+  }
+};
+//------  Validacion del Tipo ------//
+
 
 //------  Validacion del Sexo ------//
 function validarsexo() {
@@ -489,10 +516,11 @@ function verificarboton() {
   $dui = document.getElementById("fulldui").value;
   $correo = document.getElementById("fullcorreo").value;
   $sexo = document.getElementById("fullsexo").value;
+  $tipo = document.getElementById("fulltipo").value;
   $fecha = document.getElementById("fulldate").value;
   $telefono = document.getElementById("fulltel").value;
 
-  if ($dui == 'validado' && $sexo == 'validado' && $correo == 'validado' && $fecha == 'validado' && 
+  if ($dui == 'validado' && $sexo == 'validado' && $tipo == 'validado'  && $correo == 'validado' && $fecha == 'validado' && 
   $telefono == 'validado' && $nombre == 'validado' && $apellido == 'validado') {
     $("#btng").removeAttr("disabled");
   } else {
@@ -655,6 +683,29 @@ function validarsexoEdit() {
 };
 //------  Validacion del Sexo ------//
 
+//------  Validacion del Tipo ------//
+function validartipoEdit() {
+  $sexo = document.getElementById("tipo_update").value;
+
+  if ($sexo == 'administrador' || $sexo == 'empleado') {
+    $("#fulltipoedit").val("validado");
+    verificarbotonEdit();
+  } else {
+    $("#fulltipoedit").val("");
+    setTimeout(function () {
+      document.getElementById('tipo_update').classList.add("color_campos_incompletos");
+      $(".mensajetipoedit").fadeIn(1500);
+    }, 100);
+
+    setTimeout(function () {
+      document.getElementById('tipo_update').classList.remove("color_campos_incompletos");
+      $(".mensajetipoedit").fadeOut(1500);
+    }, 3500);
+    verificarbotonEdit();
+  }
+};
+//------  Validacion del Tipo ------//
+
 
 //-------- Validacion de Fecha ------//
 function validarfechaEdit() {
@@ -739,10 +790,11 @@ function verificarbotonEdit() {
   $apellido = document.getElementById("fullapellidoedit").value;
   $dui = document.getElementById("fullduiedit").value;
   $sexo = document.getElementById("fullsexoedit").value;
+  $tipo = document.getElementById("fulltipoedit").value;
   $fecha = document.getElementById("fulldateedit").value;
   $telefono = document.getElementById("fullteledit").value;
 
-  if ($dui == 'validado' && $sexo == 'validado' && $fecha == 'validado' && 
+  if ($dui == 'validado' && $sexo == 'validado' && $tipo == 'validado' && $fecha == 'validado' && 
   $telefono == 'validado' && $nombre == 'validado' && $apellido == 'validado') {
     $("#btngedit").removeAttr("disabled");
   } else {

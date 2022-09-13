@@ -58,6 +58,18 @@ class DaoUsuario
 		}
 	}
 
+	function modificarUsuarioEn($id, $tipo)
+	{
+		//(`idusuario`, `idempleado`, `idrepresentante`, `tipo`, `correo`, `nombre`, `clave`)
+		$result = $this->Conexion_ID->query("UPDATE `usuario` SET `tipo`='$tipo' WHERE `idempleado`='$id' OR `idrepresentante`='$id'");
+
+		if (!$result) {
+			return 0;
+		} else {
+			return 1;
+		}
+	}
+
 	public function loging($user, $pass)
 	{
 		//SELECT * FROM `usuario` WHERE nombre = 'variable' or correo = 'variable' and clave = 'variable';

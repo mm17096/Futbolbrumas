@@ -61,3 +61,19 @@
 .color_campos_ocupados{
     border-color: red;
 }
+
+
+.btn-maps{
+    background-color:#2874A6  !important;
+    color: white;
+}
+
+.fa-estadio{
+  margin: 0 auto;
+  text-align:absolute;
+}
+
+.alert-ba{
+    background-color:#67B4BD  !important;
+    color: white;
+}

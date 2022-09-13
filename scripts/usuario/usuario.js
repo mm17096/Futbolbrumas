@@ -1,3 +1,29 @@
+$("#imagen").change(function () {
+    filePreview(this);
+});
+
+function filePreview(input) {
+    var tipo =  input.files[0];
+    if (input.files && input.files[0]) {
+        if (tipo.type == 'image/jpeg' || tipo.type == 'image/jpg' || tipo.type == 'image/png') {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#imagepreview').html("<img height='170px' width='150px' src='" + e.target.result + "' class='img-circle profile_img'/>");
+            }
+            reader.readAsDataURL(input.files[0]);
+        }else{
+            input.value = "";
+            setTimeout(function () {
+                $(".mensajeimg").fadeIn(1500);
+            }, 100);
+    
+            setTimeout(function () {
+                $(".mensajeimg").fadeOut(1500);
+            }, 3500);
+        }
+    }
+}
+
 // ------ Validacion del mensaje -------//
 function msj() {
     $nuevo = document.getElementById("nuevo").value;

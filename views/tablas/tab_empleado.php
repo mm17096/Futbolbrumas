@@ -73,6 +73,15 @@ if ($result) {
                         ?>
             </td>
 
+               <?php
+                    $dui = $value->getDui();
+                    $result = $Conexion_ID->query("SELECT tipo FROM `usuario` WHERE idempleado = '$dui'");
+                    if ($result) {
+                        while ($fila = $result->fetch_object()) {
+                            $tipo = $fila->tipo;
+                        }
+                    }
+                ?>
 
 
             <td style="text-align: center;">
@@ -82,7 +91,8 @@ if ($result) {
                         data-target="#modalmodificarE" data-toggle="modal"
                         data-nombre='<?php echo $value->getNombre(); ?>'
                         data-apellido='<?php echo $value->getApellido(); ?>' data-dui='<?php echo $value->getDui(); ?>'
-                        data-sexo='<?php echo $value->getSexo(); ?>'
+                        data-sexo='<?php echo $value->getSexo(); ?>' 
+                        data-tipo='<?php echo $tipo;?>'
                         data-fecha='<?php echo $value->getFechaNacimiento(); ?>'
                         data-telefono='<?php echo $value->getTelefono(); ?>'
                         data-estado='<?php echo $value->getEstado(); ?>' data-toggle="tooltip">
@@ -92,17 +102,17 @@ if ($result) {
 
                     </button>
 
-                    <button type="button" onclick="abrirmodaldeBaja()" data-target="#DeBajaEmpleado"
-                        data-toggle="modal" data-id="<?php echo $value->getDui(); ?>" class="btn btn-round btn-baja">
-                        <li class="fa fa-thumbs-o-down"></li>
+                    </button><button type="button" onclick="abrirmodaldeBaja()" data-target="#DeBajaEmpleado"
+                        data-toggle="modal" data-id="<?php echo $value->getDui(); ?>" class="btn btn-round btn-alta">
+                        <li class="fa fa-thumbs-o-up"></li>
                         <!--fa fa-thumbs-o-up -->
                     </button>
 
                     <?php else : ?>
 
-                    </button><button type="button" onclick="abrirmodaldeAlta()" data-target="#DeAltaEmpleado"
-                        data-toggle="modal" data-id="<?php echo $value->getDui(); ?>" class="btn btn-round btn-alta">
-                        <li class="fa fa-thumbs-o-up"></li>
+                    <button type="button" onclick="abrirmodaldeAlta()" data-target="#DeAltaEmpleado" data-toggle="modal"
+                        data-id="<?php echo $value->getDui(); ?>" class="btn btn-round btn-baja">
+                        <li class="fa fa-thumbs-o-down"></li>
                         <!--fa fa-thumbs-o-up -->
                     </button>
 
